@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">Al-Aalim</string>
+    
+    <!-- Screen Titles -->
+    <string name="home">Al-Aalim</string>
+    <string name="app_subtitle">العالم</string>
+    
+    <!-- Prayer Times -->
+    <string name="jadwal_solat">Jadwal solat</string>
+    <string name="prayer_date">17 Safar 1443H</string>
+    <string name="subuh">Subuh</string>
+    <string name="dzuhur">Dzuhur</string>
+    <string name="ashar">Ashar</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isya">Isya</string>
+    
+    <!-- Prayer Times Values -->
+    <string name="time_subuh">04:25</string>
+    <string name="time_dzuhur">11:46</string>
+    <string name="time_ashar">14:56</string>
+    <string name="time_maghrib">17:51</string>
+    <string name="time_isya">18:59</string>
+    
+    <!-- Tabs -->
+    <string name="qibla">Qibla</string>
+    <string name="masjid">Masjid</string>
+    <string name="kajian">Kajian</string>
+    
+    <!-- Mosque Section -->
+    <string name="masjid_terdekat">Masjid terdekat</string>
+    <string name="jakarta_indonesia">Jakarta, Indonesia</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_cloud_icon">Cloud icon</string>
+    <string name="cd_notification_icon">Notification icon</string>
+    <string name="cd_profile_icon">Profile icon</string>
+    <string name="cd_home_icon">Home icon</string>
+    <string name="cd_compass_icon">Compass icon</string>
+    <string name="cd_book_icon">Book icon</string>
+    <string name="cd_weather_icon">Weather icon</string>
+    
+    <!-- Chat Interface -->
+    <string name="app_title">Al-Aalim AI</string>
+    <string name="chat_message">Chat</string>
+    <string name="chat_input_hint">Ask Al-Aalim</string>
+    <string name="cd_send_icon">Send message</string>
+    <string name="cd_menu_icon">Menu</string>
+    <string name="cd_more_options">More options</string>
+    
+    <!-- Sample Messages -->
+    <string name="sample_ai_greeting">Assalamu Alaikum! I\'m Al-Aalim, your Islamic knowledge assistant. How can I help you today?</string>
+    <string name="sample_user_question">What are the 5 pillars of Islam?</string>
+    <string name="sample_ai_response">The 5 pillars of Islam are:\n\n1. Shahada (Faith) - Declaration of faith\n2. Salah (Prayer) - Five daily prayers\n3. Zakat (Charity) - Giving to those in need\n4. Sawm (Fasting) - Fasting during Ramadan\n5. Hajj (Pilgrimage) - Pilgrimage to Mecca\n\nThese form the foundation of Muslim life.</string>
+    
+    <!-- Chat UI -->
+    <string name="chat_prompt">Your daily guide to faith and peace</string>
+    <string name="cd_add_icon">Add attachment</string>
+    <string name="cd_mic_icon">Voice input</string>
+    <string name="cd_send_button">Send message</string>
+    
+    <!-- Bottom Navigation Labels -->
+    <string name="nav_home">Home</string>
+    <string name="nav_qibla">Qibla</string>
+    <string name="nav_book">Quran</string>
+    
+    <!-- Qibla Screen -->
+    <string name="cd_back_button">Back button</string>
+    <string name="cd_location_icon">Location icon</string>
+    <string name="default_coordinates">34.0454388, 74.8052044</string>
+    <string name="salah_message">May your Salah be accepted!</string>
+    <string name="qibla_locked_message">Qibla direction locked, you can\nbegin your prayer now.</string>
+    <string name="cd_compass_background">Compass background</string>
+    <string name="cd_compass_middle">Compass middle circle</string>
+    <string name="cd_compass_inner">Compass inner circle</string>
+    <string name="cd_compass_needle">Compass needle</string>
+    <string name="cd_lock_icon">Lock icon</string>
+    
+    <!-- Quran Screen -->
+    <string name="quran_placeholder">Quran content will be displayed here</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcome_title">The best\napp for\nyour faith</string>
+    <string name="welcome_subtitle">Your daily guide to Islamic knowledge and spirituality</string>
+    <string name="get_started">Get Started</string>
+    <string name="skip">Skip</string>
+</resources>

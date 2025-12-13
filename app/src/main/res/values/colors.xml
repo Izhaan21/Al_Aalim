@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <!-- Primary Colors -->
+    <color name="primary_teal">#1B8A8E</color>
+    <color name="secondary_teal">#2A9D9F</color>
+    <color name="light_teal">#4DB8BA</color>
+    <color name="gradient_teal">#86BEC1</color>
+    
+    <!-- Background Colors -->
+    <color name="background_white">#FFFFFF</color>
+    <color name="background_light_gray">#F7FAFC</color>
+    <color name="card_background">#EDF2F7</color>
+    
+    <!-- Text Colors -->
+    <color name="text_dark">#2D3748</color>
+    <color name="text_medium">#4A5568</color>
+    <color name="text_light">#486589</color>
+    <color name="text_very_light">#A0AEC0</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent_red">#E53E3E</color>
+    <color name="accent_white">#FFFFFF</color>
+    
+    <!-- Dark Theme Colors -->
+    <color name="dark_background">#1A1A1A</color>
+    <color name="dark_surface">#2F2F2F</color>
+    <color name="dark_text_primary">#FFFFFF</color>
+    <color name="dark_text_secondary">#B0B0B0</color>
+</resources>

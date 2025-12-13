@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/qibla_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context=".QiblaActivity">
+
+    <!-- Top App Bar -->
+    <RelativeLayout
+        android:id="@+id/qibla_top_bar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/top_bar_height"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:layout_marginEnd="@dimen/spacing_large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Back Button -->
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/icon_medium"
+            android:layout_height="@dimen/icon_medium"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:contentDescription="@string/cd_back_button"
+            android:src="@drawable/ic_back"
+            app:tint="@color/white" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_qibla_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/qibla"
+            android:textColor="@color/primary_teal"
+            android:textSize="@dimen/text_xlarge"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <!-- Location Display -->
+    <LinearLayout
+        android:id="@+id/location_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_xlarge"
+        android:layout_marginTop="@dimen/spacing_xlarge"
+        android:layout_marginEnd="@dimen/spacing_xlarge"
+        android:background="@drawable/location_display_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        android:paddingVertical="@dimen/spacing_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qibla_top_bar">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/cd_location_icon"
+            android:src="@drawable/ic_location"
+            app:tint="@color/secondary_teal" />
+
+        <TextView
+            android:id="@+id/tv_coordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_coordinates"
+            android:textColor="@color/secondary_teal"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <!-- Message Text -->
+    <TextView
+        android:id="@+id/tv_salah_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:text="@string/salah_message"
+        android:textColor="@color/secondary_teal"
+        android:textSize="@dimen/text_medium"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_container" />
+
+    <!-- Compass Container -->
+    <FrameLayout
+        android:id="@+id/compass_container"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_qibla_locked_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_salah_message">
+
+        <!-- Outer Circle Background -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/cd_compass_background"
+            android:src="@drawable/compass_outer_circle" />
+
+        <!-- Middle Circle -->
+        <ImageView
+            android:layout_width="240dp"
+            android:layout_height="240dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/cd_compass_middle"
+            android:src="@drawable/compass_middle_circle" />
+
+        <!-- Inner Circle -->
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/cd_compass_inner"
+            android:src="@drawable/compass_inner_circle" />
+
+        <!-- Compass Needle (Rotatable) -->
+        <ImageView
+            android:id="@+id/iv_compass_needle"
+            android:layout_width="110dp"
+            android:layout_height="152dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/cd_compass_needle"
+            android:src="@drawable/compass_needle" />
+
+        <!-- Lock Icon -->
+    </FrameLayout>
+
+    <!-- Qibla Locked Message -->
+    <TextView
+        android:id="@+id/tv_qibla_locked_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_xlarge"
+        android:gravity="center"
+        android:text="@string/qibla_locked_message"
+        android:textColor="@color/secondary_teal"
+        android:textSize="@dimen/text_normal"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Fixed Bottom Navigation -->
+    <LinearLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_nav_background_flat"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/spacing_small"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Home -->
+        <LinearLayout
+            android:id="@+id/nav_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_nav_home"
+                android:layout_width="@dimen/icon_medium"
+                android:layout_height="@dimen/icon_medium"
+                android:contentDescription="@string/cd_home_icon"
+                android:src="@drawable/nav_home_selector"
+                app:tint="@color/nav_icon_color" />
+
+            <TextView
+                android:id="@+id/tv_nav_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_home"
+                android:textColor="@color/nav_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Qibla -->
+        <LinearLayout
+            android:id="@+id/nav_qibla"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_nav_qibla"
+                android:layout_width="@dimen/icon_medium"
+                android:layout_height="@dimen/icon_medium"
+                android:contentDescription="@string/cd_compass_icon"
+                android:src="@drawable/nav_compass_selector"
+                app:tint="@color/nav_icon_color" />
+
+            <TextView
+                android:id="@+id/tv_nav_qibla"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_qibla"
+                android:textColor="@color/nav_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Book -->
+        <LinearLayout
+            android:id="@+id/nav_book"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_nav_book"
+                android:layout_width="@dimen/icon_medium"
+                android:layout_height="@dimen/icon_medium"
+                android:contentDescription="@string/cd_book_icon"
+                android:src="@drawable/nav_book_selector"
+                app:tint="@color/nav_icon_color" />
+
+            <TextView
+                android:id="@+id/tv_nav_book"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/nav_book"
+                android:textColor="@color/nav_text_color"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_lock_icon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/cd_lock_icon"
+        android:src="@drawable/ic_lock"
+        app:tint="@color/white"
+        tools:layout_editor_absoluteX="189dp"
+        tools:layout_editor_absoluteY="214dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
