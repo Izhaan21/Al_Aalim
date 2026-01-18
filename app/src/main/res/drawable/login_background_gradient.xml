@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Deep teal to emerald green Islamic-inspired gradient -->
+    <gradient
+        android:type="linear"
+        android:angle="160"
+        android:startColor="#0A3D3F"
+        android:centerColor="#0D5C5E"
+        android:endColor="#1A7A7C" />
+</shape>

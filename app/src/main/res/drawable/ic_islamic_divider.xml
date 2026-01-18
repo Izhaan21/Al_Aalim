@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="24dp"
+    android:viewportWidth="200"
+    android:viewportHeight="24">
+    <!-- Elegant Islamic Divider with diamond and lines -->
+    <group>
+        <!-- Left line -->
+        <path
+            android:pathData="M0,12 L75,12"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.4"/>
+        <!-- Left inner line -->
+        <path
+            android:pathData="M20,12 L70,12"
+            android:strokeColor="#FFD700"
+            android:strokeWidth="0.5"
+            android:strokeAlpha="0.6"/>
+        <!-- Center diamond -->
+        <path
+            android:pathData="M100,2 L112,12 L100,22 L88,12 Z"
+            android:strokeColor="#FFD700"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.8"
+            android:fillColor="@android:color/transparent"/>
+        <!-- Inner diamond -->
+        <path
+            android:pathData="M100,6 L108,12 L100,18 L92,12 Z"
+            android:fillColor="#FFD700"
+            android:fillAlpha="0.3"/>
+        <!-- Right line -->
+        <path
+            android:pathData="M125,12 L200,12"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.4"/>
+        <!-- Right inner line -->
+        <path
+            android:pathData="M130,12 L180,12"
+            android:strokeColor="#FFD700"
+            android:strokeWidth="0.5"
+            android:strokeAlpha="0.6"/>
+    </group>
+</vector>

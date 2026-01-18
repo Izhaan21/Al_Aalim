@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="@drawable/login_background_gradient"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    tools:context=".MainActivity">
+
+    <!-- Prayer Times Card (Fixed) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/prayer_card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginBottom="@dimen/spacing_large"
+        app:cardCornerRadius="@dimen/card_corner_radius"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title Floating Box -->
+    <LinearLayout
+        android:id="@+id/title_container"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/input_field_glass"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home"
+            android:textColor="@color/gold"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Menu Icon Floating Box -->
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/input_field_glass"
+        android:contentDescription="@string/cd_menu_icon"
+        android:padding="10dp"
+        android:src="@drawable/ic_menu"
+        app:tint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Account Icon Floating Box -->
+    <ImageView
+        android:id="@+id/iv_account"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/input_field_glass"
+        android:contentDescription="@string/cd_account_icon"
+        android:padding="10dp"
+        android:src="@drawable/ic_account"
+        app:tint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Chat Interface (Scrollable) -->
+    <ScrollView
+        android:id="@+id/chat_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/spacing_small"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:layout_marginEnd="@dimen/spacing_small"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/chat_input_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_container"
+        app:layout_constraintVertical_bias="0.0">
+        
+        <LinearLayout
+            android:id="@+id/chat_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="top">
+            
+            <!-- Welcome Container (Hidden after first message) -->
+            <LinearLayout
+                android:id="@+id/welcome_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="24dp">
+                
+                <TextView
+                    android:id="@+id/tv_welcome_greeting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Assalamu Alaikum"
+                    android:textSize="28sp"
+                    android:textColor="@color/gold"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="16dp" />
+                
+                <TextView
+                    android:id="@+id/tv_welcome_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I am Al-Aalim, your Islamic knowledge companion. Ask me anything about the Quran, Hadith, prayer times, Islamic history, or daily guidance. I'm here to help you on your spiritual journey."
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:alpha="0.8" />
+                
+            </LinearLayout>
+            
+            <!-- Messages Container -->
+            <LinearLayout
+                android:id="@+id/messages_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end"
+                android:padding="8dp" />
+            
+        </LinearLayout>
+        
+    </ScrollView>
+
+    <!-- Add Attachment Floating Box -->
+    <ImageView
+        android:id="@+id/iv_add_attachment"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="@dimen/spacing_large"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/input_field_glass"
+        android:contentDescription="@string/cd_add_icon"
+        android:padding="10dp"
+        android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Chat Input Floating Box -->
+    <LinearLayout
+        android:id="@+id/chat_input_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="@dimen/spacing_large"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/input_field_glass"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/spacing_normal"
+        android:paddingVertical="4dp"
+        android:minHeight="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_add_attachment">
+
+
+
+            <!-- Image Preview Container (Initially Hidden) -->
+            <HorizontalScrollView
+                android:id="@+id/image_preview_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/image_preview_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="8dp">
+                    <!-- Image previews will be added here dynamically -->
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Input Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Input Field -->
+                <EditText
+                    android:id="@+id/et_chat_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/chat_input_hint"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:minHeight="28dp"
+                    android:paddingHorizontal="@dimen/spacing_small"
+                    android:textColor="@color/white"
+                    android:textColorHint="#77FFFFFF"
+                    android:textSize="@dimen/text_normal" />
+
+                <!-- Microphone Icon -->
+                <ImageView
+                    android:id="@+id/iv_voice_input"
+                    android:layout_width="24dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/spacing_small"
+                    android:contentDescription="@string/cd_mic_icon"
+                    android:src="@drawable/ic_mic"
+                    app:tint="@color/white" />
+
+                <!-- Send Button -->
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/send_button_background" />
+
+                    <ImageView
+                        android:id="@+id/iv_send_message"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@string/cd_send_button"
+                        android:src="@drawable/voice_lines"
+                        app:tint="@color/primary_teal" />
+                </FrameLayout>
+            </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

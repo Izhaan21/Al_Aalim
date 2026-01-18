@@ -1,16 +1,37 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="80dp"
-    android:height="80dp"
-    android:viewportWidth="80"
-    android:viewportHeight="80">
+    android:width="100dp"
+    android:height="200dp"
+    android:viewportWidth="100"
+    android:viewportHeight="200">
     
-    <!-- Compass Needle - White/Teal Design -->
-    <path
-        android:fillColor="@color/white"
-        android:pathData="M40,10 L45,40 L40,70 L35,40 Z" />
+    <!-- Compass Needle - Gray/silver top half, Red bottom half -->
+    <!-- Matching reference design: broad diamond shape needle -->
     
-    <!-- Center Circle -->
+    <!-- North half (gray/silver) - pointing up -->
     <path
-        android:fillColor="@color/white"
-        android:pathData="M40,40 m-8,0 a8,8 0,1,1 16,0 a8,8 0,1,1 -16,0" />
+        android:fillColor="#8B9199"
+        android:pathData="M50,10 L62,95 L50,100 L38,95 Z"/>
+    <path
+        android:fillColor="#A8AEB6"
+        android:pathData="M50,10 L50,100 L38,95 Z"/>
+    
+    <!-- South half (red) - pointing down -->
+    <path
+        android:fillColor="#EF4444"
+        android:pathData="M50,190 L38,105 L50,100 L62,105 Z"/>
+    <path
+        android:fillColor="#DC2626"
+        android:pathData="M50,190 L50,100 L62,105 Z"/>
+    
+    <!-- Center pivot circle with gradient highlight -->
+    <path
+        android:fillColor="#E8EAEC"
+        android:pathData="M50,100 m-12,0 a12,12 0 1,1 24,0 a12,12 0 1,1 -24,0"/>
+    <path
+        android:fillColor="#D0D4D8"
+        android:pathData="M50,100 m-8,0 a8,8 0 1,1 16,0 a8,8 0 1,1 -16,0"/>
+    <path
+        android:fillColor="#C0C4C8"
+        android:pathData="M50,100 m-4,0 a4,4 0 1,1 8,0 a4,4 0 1,1 -8,0"/>
+    
 </vector>

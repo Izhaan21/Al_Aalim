@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FF1A1A2E</color>
+    
+    <!-- Primary Colors - slightly brighter for dark mode visibility -->
+    <color name="primary_teal">#2ECECE</color>
+    <color name="secondary_teal">#3DD9D9</color>
+    <color name="light_teal">#5FE5E5</color>
+    <color name="gradient_teal">#7FEFEF</color>
+    
+    <!-- Background Colors - Dark mode versions -->
+    <color name="background_white">#000000</color>
+    <color name="background_light_gray">#0A0A0A</color>
+    <color name="card_background">#33FFFFFF</color>
+    
+    <!-- Text Colors - Inverted for dark mode -->
+    <color name="text_dark">#E8E8E8</color>
+    <color name="text_medium">#C0C0C0</color>
+    <color name="text_light">#A0A0A0</color>
+    <color name="text_very_light">#808080</color>
+    
+    <!-- Accent Colors -->
+    <color name="accent_red">#FF6B6B</color>
+    <color name="accent_white">#E8E8E8</color>
+    
+    <!-- Dark Theme Colors (same as light mode dark_* colors) -->
+    <color name="dark_background">#1A1A2E</color>
+    <color name="dark_surface">#252547</color>
+    <color name="dark_text_primary">#FFFFFF</color>
+    <color name="dark_text_secondary">#B0B0B0</color>
+    
+    <!-- Pro Card Colors -->
+    <color name="pro_gradient_start">#1E3A5F</color>
+    <color name="pro_gradient_end">#2563EB</color>
+    
+</resources>
+
+

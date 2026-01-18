@@ -9,6 +9,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.al_aalim.databinding.ActivityWelcomeBinding
+import com.example.al_aalim.utils.AnimationUtils.setOnClickWithAnimation
 
 class WelcomeActivity : AppCompatActivity() {
     
@@ -60,20 +61,109 @@ class WelcomeActivity : AppCompatActivity() {
     }
     
     private fun setupButtons() {
-        // Get Started button
-        binding.btnGetStarted.setOnClickListener {
+        // Get Started button with animation
+        binding.btnGetStarted.setOnClickWithAnimation {
             navigateToMain()
         }
         
-        // Skip button
-        binding.btnSkip.setOnClickListener {
-            navigateToMain()
+        // Start animations
+        animateViews()
+    }
+    
+    private fun animateViews() {
+        // Animate content
+        binding.contentContainer.apply {
+            alpha = 0f
+            translationY = 40f
+            animate()
+                .alpha(1f)
+                .translationY(0f)
+                .setDuration(600)
+                .setStartDelay(200)
+                .start()
+        }
+        
+        // Animate mosque
+        animateMosque()
+        
+        // Animate sparkles with twinkling effect
+        animateSparkles()
+    }
+    
+    private fun animateMosque() {
+        binding.ivMosqueSilhouette.apply {
+            alpha = 0f
+            translationY = 60f
+            animate()
+                .alpha(0.5f)
+                .translationY(0f)
+                .setDuration(800)
+                .setStartDelay(400)
+                .withEndAction {
+                    startFloatingAnimation()
+                }
+                .start()
         }
     }
     
+    private fun startFloatingAnimation() {
+        binding.ivMosqueSilhouette.animate()
+            .translationY(-10f)
+            .setDuration(3000)
+            .withEndAction {
+                binding.ivMosqueSilhouette.animate()
+                    .translationY(0f)
+                    .setDuration(3000)
+                    .withEndAction {
+                        startFloatingAnimation()
+                    }
+                    .start()
+            }
+            .start()
+    }
+    
+    private fun animateSparkles() {
+        // Left sparkles - gentle pulse
+        binding.ivSparklesLeft.apply {
+            alpha = 0f
+            animate()
+                .alpha(0.6f)
+                .setDuration(1000)
+                .setStartDelay(500)
+                .withEndAction { pulseSparkle(this, 0.6f, 0.3f) }
+                .start()
+        }
+        
+        // Right sparkles - gentle pulse with offset
+        binding.ivSparklesRight.apply {
+            alpha = 0f
+            animate()
+                .alpha(0.5f)
+                .setDuration(1000)
+                .setStartDelay(800)
+                .withEndAction { pulseSparkle(this, 0.5f, 0.2f) }
+                .start()
+        }
+    }
+    
+    private fun pulseSparkle(view: android.view.View, maxAlpha: Float, minAlpha: Float) {
+        view.animate()
+            .alpha(minAlpha)
+            .setDuration(2000)
+            .withEndAction {
+                view.animate()
+                    .alpha(maxAlpha)
+                    .setDuration(2000)
+                    .withEndAction { pulseSparkle(view, maxAlpha, minAlpha) }
+                    .start()
+            }
+            .start()
+    }
+    
     private fun navigateToMain() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish()
     }
     

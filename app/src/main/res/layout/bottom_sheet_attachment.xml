@@ -3,11 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bottom_sheet_background"
+    android:background="@drawable/login_background_gradient"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:paddingTop="12dp"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="32dp">
+
+    <!-- Drag Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bottom_sheet_handle"/>
 
     <!-- Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:text="@string/attachment_title"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <!-- Options Container -->
     <LinearLayout
@@ -24,24 +44,34 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/attachment_option_background"
+            android:background="@drawable/input_field_glass"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp"
             android:clickable="true"
             android:focusable="true">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_camera"
-                app:tint="@color/white" />
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Camera"
+                    android:src="@drawable/ic_camera" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Camera"
+                android:text="@string/attachment_camera"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -53,26 +83,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginHorizontal="8dp"
-            android:background="@drawable/attachment_option_background"
+            android:background="@drawable/input_field_glass"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp"
             android:clickable="true"
             android:focusable="true">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_photos"
-                app:tint="@color/white" />
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <ImageView
+                    android:layout_width="38dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Files"
+                    android:src="@drawable/ic_files" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Photos"
+                android:text="@string/attachment_photos"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
+
         </LinearLayout>
 
         <!-- Files Option -->
@@ -82,26 +122,36 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:background="@drawable/attachment_option_background"
+            android:background="@drawable/input_field_glass"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp"
             android:clickable="true"
             android:focusable="true">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_files"
-                app:tint="@color/white" />
+                app:cardCornerRadius="24dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Photos"
+                    android:src="@drawable/ic_gallery" />
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Files"
+                android:text="@string/attachment_files"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

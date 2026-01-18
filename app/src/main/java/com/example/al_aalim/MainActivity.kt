@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -106,17 +105,16 @@ class MainActivity : AppCompatActivity() {
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             val imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime())
             
-            // Hide bottom navigation when keyboard is visible, show when hidden
-            if (imeInsets.bottom > 0) {
-                // Keyboard is visible - hide bottom navigation
-                binding.bottomNavigation.visibility = android.view.View.GONE
-                view.setPadding(0, 0, 0, imeInsets.bottom)
-            } else {
-                // Keyboard is hidden - show bottom navigation
-                binding.bottomNavigation.visibility = android.view.View.VISIBLE
-                view.setPadding(0, 0, 0, 0)
-            }
-            WindowInsetsCompat.CONSUMED
+        // Hide bottom navigation when keyboard is visible, show when hidden
+        val isKeyboardVisible = windowInsets.isVisible(WindowInsetsCompat.Type.ime())
+        if (isKeyboardVisible) {
+            // Keyboard is visible - hide bottom navigation
+            binding.bottomNavigation.visibility = android.view.View.GONE
+        } else {
+            // Keyboard is hidden - show bottom navigation
+            binding.bottomNavigation.visibility = android.view.View.VISIBLE
+        }
+        windowInsets
         }
         
         // Hide system bars initially
@@ -136,12 +134,8 @@ class MainActivity : AppCompatActivity() {
             showAttachmentOptions()
         }
         
-        // Request focus on chat input and show keyboard when app opens
-        binding.etChatInput.postDelayed({
-            binding.etChatInput.requestFocus()
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.etChatInput, InputMethodManager.SHOW_FORCED)
-        }, 500)
+        // Request focus on chat input (keyboard will show naturally when user taps)
+        binding.etChatInput.requestFocus()
     }
     
     private fun setupKeyboardHandling() {
@@ -149,8 +143,10 @@ class MainActivity : AppCompatActivity() {
             if (hasFocus) {
                 // Post with delay to ensure keyboard is shown
                 binding.chatScroll.postDelayed({
-                    // Scroll to bottom smoothly
-                    binding.chatScroll.smoothScrollTo(0, binding.chatScroll.getChildAt(0).height)
+                    // Scroll to bottom smoothly - with null safety check
+                    binding.chatScroll.getChildAt(0)?.let { child ->
+                        binding.chatScroll.smoothScrollTo(0, child.height)
+                    }
                 }, 300)
             }
         }
@@ -158,7 +154,10 @@ class MainActivity : AppCompatActivity() {
         // Also handle when user clicks on the input field
         binding.etChatInput.setOnClickListener {
             binding.chatScroll.postDelayed({
-                binding.chatScroll.smoothScrollTo(0, binding.chatScroll.getChildAt(0).height)
+                // Scroll to bottom smoothly - with null safety check
+                binding.chatScroll.getChildAt(0)?.let { child ->
+                    binding.chatScroll.smoothScrollTo(0, child.height)
+                }
             }, 300)
         }
     }
@@ -269,6 +268,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
     
+    
     private fun createImageFile(): File {
         // Create an image file name with timestamp
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
@@ -276,4 +276,7 @@ class MainActivity : AppCompatActivity() {
         val storageDir = getExternalFilesDir(android.os.Environment.DIRECTORY_PICTURES)
         return File.createTempFile(imageFileName, ".jpg", storageDir)
     }
+    
+    
+    
 }

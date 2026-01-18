@@ -5,6 +5,25 @@
     <!-- Camera Permission -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    
+    <!-- Gallery/Media Permissions -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    
+    <!-- Location Permissions for Qibla Direction -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    
+    <!-- Audio Permission for Speech Recognition -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    
+    <!-- Vibration Permission for Qibla Found -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    
+    <!-- Internet Permission for Firebase Authentication -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
 
     <application
@@ -16,6 +35,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AlAalim">
+        
+        <!-- Google Maps API Key -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC0baMnC5BFU85I-sbEIi69vYNSAmPU3DU" />
+        
+        <!-- Facebook App ID (TODO: Replace with your actual Facebook App ID) -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        
+        <!-- Facebook Client Token (TODO: Replace with your actual Facebook Client Token) -->
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
         <activity
             android:name=".WelcomeActivity"
             android:exported="true">
@@ -28,12 +62,44 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ContainerActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".QiblaActivity"
             android:exported="false" />
         <activity
             android:name=".QuranActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfilePhotoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AlAalim" />
+        <activity
+            android:name=".CropPhotoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AlAalim" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".LanguageSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LocationPermissionActivity"
             android:exported="false" />
         
         <!-- FileProvider for camera photos -->

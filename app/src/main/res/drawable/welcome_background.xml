@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient
-        android:angle="135"
-        android:startColor="#1B8A8E"
-        android:centerColor="#2A9D9F"
-        android:endColor="#4DB8BA"
-        android:type="linear" />
-</shape>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Islamic themed background image -->
+    <item>
+        <bitmap
+            android:src="@drawable/welcome_bg_islamic"
+            android:gravity="fill" />
+    </item>
+</layer-list>

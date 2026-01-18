@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Islamic 8-point Star Pattern -->
+    <group
+        android:pivotX="100"
+        android:pivotY="100">
+        <!-- Main 8-point star -->
+        <path
+            android:pathData="M100,20L112,80L160,68L120,100L160,132L112,120L100,180L88,120L40,132L80,100L40,68L88,80Z"
+            android:fillColor="#FFFFFF"
+            android:fillAlpha="0.08"/>
+        <!-- Inner circle -->
+        <path
+            android:pathData="M100,60A40,40 0,1 1,100.01,60"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.1"
+            android:fillColor="@android:color/transparent"/>
+        <!-- Outer decorative ring -->
+        <path
+            android:pathData="M100,10A90,90 0,1 1,100.01,10"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="0.5"
+            android:strokeAlpha="0.06"
+            android:fillColor="@android:color/transparent"/>
+    </group>
+</vector>

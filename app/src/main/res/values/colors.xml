@@ -8,6 +8,7 @@
     <color name="secondary_teal">#2A9D9F</color>
     <color name="light_teal">#4DB8BA</color>
     <color name="gradient_teal">#86BEC1</color>
+    <color name="gold">#FFD700</color>
     
     <!-- Background Colors -->
     <color name="background_white">#FFFFFF</color>
@@ -19,6 +20,7 @@
     <color name="text_medium">#4A5568</color>
     <color name="text_light">#486589</color>
     <color name="text_very_light">#A0AEC0</color>
+    <color name="text_secondary">#718096</color>
     
     <!-- Accent Colors -->
     <color name="accent_red">#E53E3E</color>
@@ -29,4 +31,9 @@
     <color name="dark_surface">#2F2F2F</color>
     <color name="dark_text_primary">#FFFFFF</color>
     <color name="dark_text_secondary">#B0B0B0</color>
+    
+    <!-- Pro Card Colors -->
+    <color name="pro_gradient_start">#1E3A5F</color>
+    <color name="pro_gradient_end">#2563EB</color>
+    
 </resources>

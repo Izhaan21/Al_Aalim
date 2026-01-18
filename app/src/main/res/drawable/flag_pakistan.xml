@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- White background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="4dp" />
+        </shape>
+    </item>
+    <!-- Green stripe on right -->
+    <item android:left="16dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#01411C" />
+            <corners android:topRightRadius="4dp" android:bottomRightRadius="4dp" />
+        </shape>
+    </item>
+    <!-- White crescent and star area -->
+    <item android:right="8dp" android:left="4dp" android:top="6dp" android:bottom="6dp">
+        <shape android:shape="oval">
+            <solid android:color="#FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

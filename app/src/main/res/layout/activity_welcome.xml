@@ -5,95 +5,168 @@
     android:id="@+id/welcome_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/welcome_background"
+    android:background="@drawable/login_background_gradient"
     android:fitsSystemWindows="false"
     tools:context=".WelcomeActivity">
 
-    <!-- Overlay for better text readability -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000" />
+    <!-- Top Left Arabesque Corner -->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.7"
+        android:contentDescription="Decoration"
+        android:src="@drawable/ic_arabesque_corner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp" />
+
+    <!-- Top Right Arabesque Corner (flipped) -->
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.7"
+        android:contentDescription="Decoration"
+        android:rotationY="180"
+        android:src="@drawable/ic_arabesque_corner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp" />
+
+    <!-- Sparkles Left -->
+    <ImageView
+        android:id="@+id/iv_sparkles_left"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:alpha="0.6"
+        android:contentDescription="Sparkles"
+        android:src="@drawable/ic_sparkles"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="150dp" />
+
+    <!-- Sparkles Right -->
+    <ImageView
+        android:id="@+id/iv_sparkles_right"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:alpha="0.5"
+        android:contentDescription="Sparkles"
+        android:rotation="45"
+        android:src="@drawable/ic_sparkles"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="-10dp"
+        android:layout_marginTop="200dp" />
 
     <!-- Content Container -->
     <LinearLayout
+        android:id="@+id/content_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:paddingHorizontal="@dimen/spacing_xlarge"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/iv_mosque_silhouette"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4">
 
-        <!-- App Logo/Icon -->
+        <!-- Decorative Header Frame -->
 
         <!-- Main Title -->
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginBottom="@dimen/spacing_xlarge"
-            android:contentDescription="@string/app_name"
-            android:src="@mipmap/ic_launcher"
-            app:tint="@color/white" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="52sp" />
 
+        <!-- Arabic Name -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome_title"
+            android:layout_marginBottom="8dp"
+            android:text="@string/app_subtitle"
+            android:textColor="#FFD700"
+            android:textSize="32sp"
+            android:fontFamily="serif" />
+
+        <!-- Tagline -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.7"
+            android:letterSpacing="0.15"
+            android:text="Your Islamic Companion"
+            android:textAllCaps="true"
             android:textColor="@color/white"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:lineSpacingExtra="8dp"
-            android:layout_marginBottom="@dimen/spacing_medium" />
+            android:textSize="12sp" />
+
+        <!-- Islamic Divider -->
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="28dp"
+            android:layout_marginBottom="20dp"
+            android:contentDescription="Divider"
+            android:src="@drawable/ic_islamic_divider" />
 
         <!-- Subtitle -->
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/tv_subtitle"
+            android:layout_width="280dp"
             android:layout_height="wrap_content"
+            android:alpha="0.85"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp"
             android:text="@string/welcome_subtitle"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_medium"
-            android:alpha="0.9"
-            android:gravity="center"
-            android:layout_marginBottom="@dimen/spacing_xxlarge" />
-
-        <!-- Get Started Button -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/btn_get_started"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/spacing_xlarge"
-            android:layout_marginTop="@dimen/spacing_xlarge"
-            app:cardCornerRadius="@dimen/card_corner_radius"
-            app:cardElevation="4dp"
-            app:cardBackgroundColor="@color/primary_teal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/get_started"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_large"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:paddingVertical="@dimen/spacing_normal" />
-        </androidx.cardview.widget.CardView>
-
-        <!-- Skip Button -->
-        <TextView
-            android:id="@+id/btn_skip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/skip"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_medium"
-            android:alpha="0.8"
-            android:paddingVertical="@dimen/spacing_normal"
-            android:layout_marginTop="@dimen/spacing_medium" />
+            android:textSize="16sp" />
 
     </LinearLayout>
+
+    <!-- Mosque Silhouette at Bottom -->
+    <ImageView
+        android:id="@+id/iv_mosque_silhouette"
+        android:layout_width="714dp"
+        android:layout_height="360dp"
+        android:layout_marginBottom="4dp"
+        android:adjustViewBounds="true"
+        android:alpha="0.5"
+        android:contentDescription="Mosque silhouette"
+        android:scaleType="fitXY"
+        android:src="@drawable/mosque_skyline_new"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tint="#FFFFFF" />
+
+    <!-- Get Started Button - Bottom -->
+    <TextView
+        android:id="@+id/btn_get_started"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginHorizontal="40dp"
+        android:layout_marginBottom="56dp"
+        android:background="@drawable/btn_gold_gradient"
+        android:elevation="12dp"
+        android:gravity="center"
+        android:text="@string/get_started"
+        android:textAllCaps="false"
+        android:textColor="#1A3D3F"
+        android:textSize="@dimen/text_large"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="300dp"
+    android:height="60dp"
+    android:viewportWidth="300"
+    android:viewportHeight="60">
+    <!-- Decorative Islamic Header Frame -->
+    <group>
+        <!-- Left ornament -->
+        <path
+            android:pathData="M30,30 Q10,30 10,15 Q10,30 30,30"
+            android:strokeColor="#FFD700"
+            android:strokeWidth="1.5"
+            android:strokeAlpha="0.7"
+            android:fillColor="@android:color/transparent"/>
+        <path
+            android:pathData="M35,30 Q20,30 20,20"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.5"
+            android:fillColor="@android:color/transparent"/>
+        <!-- Left line to center -->
+        <path
+            android:pathData="M40,30 L120,30"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="0.8"
+            android:strokeAlpha="0.3"/>
+        <!-- Center star decoration -->
+        <path
+            android:pathData="M150,15 L155,25 L165,25 L157,32 L160,42 L150,36 L140,42 L143,32 L135,25 L145,25 Z"
+            android:fillColor="#FFD700"
+            android:fillAlpha="0.5"/>
+        <!-- Outer ring -->
+        <path
+            android:pathData="M150,10 A20,20 0,1 1,150.01,10"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="0.8"
+            android:strokeAlpha="0.3"
+            android:fillColor="@android:color/transparent"/>
+        <!-- Right line from center -->
+        <path
+            android:pathData="M180,30 L260,30"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="0.8"
+            android:strokeAlpha="0.3"/>
+        <!-- Right ornament -->
+        <path
+            android:pathData="M270,30 Q290,30 290,15 Q290,30 270,30"
+            android:strokeColor="#FFD700"
+            android:strokeWidth="1.5"
+            android:strokeAlpha="0.7"
+            android:fillColor="@android:color/transparent"/>
+        <path
+            android:pathData="M265,30 Q280,30 280,20"
+            android:strokeColor="#FFFFFF"
+            android:strokeWidth="1"
+            android:strokeAlpha="0.5"
+            android:fillColor="@android:color/transparent"/>
+    </group>
+</vector>
