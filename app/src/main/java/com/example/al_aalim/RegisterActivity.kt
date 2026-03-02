@@ -94,6 +94,40 @@ class RegisterActivity : AppCompatActivity() {
         binding.tvLogin.setOnClickListener {
             navigateToLogin()
         }
+        
+        // Password visibility toggle
+        var isPasswordVisible = false
+        binding.ivTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                // Show password
+                binding.etPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.ivTogglePassword.setImageResource(R.drawable.ic_eye)
+            } else {
+                // Hide password
+                binding.etPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.ivTogglePassword.setImageResource(R.drawable.ic_eye_off)
+            }
+            // Move cursor to end
+            binding.etPassword.setSelection(binding.etPassword.text.length)
+        }
+        
+        // Confirm password visibility toggle
+        var isConfirmPasswordVisible = false
+        binding.ivToggleConfirmPassword.setOnClickListener {
+            isConfirmPasswordVisible = !isConfirmPasswordVisible
+            if (isConfirmPasswordVisible) {
+                // Show password
+                binding.etConfirmPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.ivToggleConfirmPassword.setImageResource(R.drawable.ic_eye)
+            } else {
+                // Hide password
+                binding.etConfirmPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.ivToggleConfirmPassword.setImageResource(R.drawable.ic_eye_off)
+            }
+            // Move cursor to end
+            binding.etConfirmPassword.setSelection(binding.etConfirmPassword.text.length)
+        }
     }
     
     private fun performRegistration() {
@@ -230,7 +264,7 @@ class RegisterActivity : AppCompatActivity() {
     }
     
     private fun navigateToMain() {
-        val intent = Intent(this, LanguageSelectionActivity::class.java)
+        val intent = Intent(this, LocationPermissionActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)

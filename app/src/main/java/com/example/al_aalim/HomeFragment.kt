@@ -21,9 +21,14 @@ import androidx.fragment.app.Fragment
 import com.example.al_aalim.databinding.FragmentHomeBinding
 import com.example.al_aalim.repository.ChatRepository
 import com.example.al_aalim.utils.AnimationUtils.setOnClickWithAnimation
-import com.example.al_aalim.utils.GeminiService
+import com.example.al_aalim.utils.HapticUtils
+import com.example.al_aalim.utils.HapticUtils.haptic
+import com.example.al_aalim.api.ApiRepository
+import com.example.al_aalim.api.models.ApiResult
+import com.example.al_aalim.utils.LanguageManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -39,7 +44,8 @@ class HomeFragment : Fragment() {
     
     // Firebase repository for chat messages and file uploads
     private lateinit var chatRepository: ChatRepository
-    private val fragmentScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var apiRepository: ApiRepository
+    private val fragmentScope = CoroutineScope(Dispatchers.Main + kotlinx.coroutines.SupervisorJob())
     private var activeConversationId: String? = null
     
     // Camera permission launcher
@@ -176,12 +182,12 @@ class HomeFragment : Fragment() {
         // Initialize Firebase repository
         chatRepository = ChatRepository(requireContext())
         
-        // Initialize Gemini AI service
-        // TODO: Replace with your API key from https://makersuite.google.com/app/apikey
-        GeminiService.initialize()
+        // Initialize API repository
+        apiRepository = ApiRepository()
         
-        // Setup attachment button click handler
+        // Setup attachment button click handler with haptic feedback
         binding.ivAddAttachment.setOnClickWithAnimation {
+            binding.ivAddAttachment.haptic(HapticUtils.HapticType.LIGHT_TAP)
             showAttachmentOptions()
         }
         
@@ -206,19 +212,24 @@ class HomeFragment : Fragment() {
         // Setup send button click listener
         setupSendButton()
         
-        // Setup menu icon click to open drawer
+        // Send button is now a FrameLayout container (no need to set icon here)
+        
+        // Setup menu icon click to open drawer with haptic feedback
         binding.ivMenu.setOnClickWithAnimation {
+            binding.ivMenu.haptic(HapticUtils.HapticType.MEDIUM_CLICK)
             (activity as? ContainerActivity)?.openDrawer()
         }
         
-        // Setup account icon click to open AccountActivity
+        // Setup account icon click to open AccountActivity with haptic feedback
         binding.ivAccount.setOnClickWithAnimation {
+            binding.ivAccount.haptic(HapticUtils.HapticType.MEDIUM_CLICK)
             val intent = android.content.Intent(requireContext(), AccountActivity::class.java)
             startActivity(intent)
         }
         
-        // Setup voice input button click listener
+        // Setup voice input button click listener with haptic feedback
         binding.ivVoiceInput.setOnClickWithAnimation {
+            binding.ivVoiceInput.haptic(HapticUtils.HapticType.MEDIUM_CLICK)
             launchSpeechRecognition()
         }
         
@@ -279,12 +290,14 @@ class HomeFragment : Fragment() {
     }
     
     private fun setupSendButton() {
-        binding.ivSendMessage.setOnClickWithAnimation {
+        binding.btnSendMessage.setOnClickWithAnimation {
             val message = binding.etChatInput.text.toString().trim()
             val hasAttachments = binding.imagePreviewContainer.childCount > 0
             
             // Send if there's text OR attachments
             if (message.isNotEmpty() || hasAttachments) {
+                // Haptic feedback for sending message
+                binding.btnSendMessage.haptic(HapticUtils.HapticType.MEDIUM_CLICK)
                 sendMessage(message)
             }
         }
@@ -292,14 +305,8 @@ class HomeFragment : Fragment() {
     
     // Helper function to update send button icon based on text or attachments
     private fun updateSendButtonIcon() {
-        val hasText = binding.etChatInput.text.isNotEmpty()
-        val hasAttachments = binding.imagePreviewContainer.childCount > 0
-        
-        if (hasText || hasAttachments) {
-            binding.ivSendMessage.setImageResource(R.drawable.uparrow)
-        } else {
-            binding.ivSendMessage.setImageResource(R.drawable.voice_lines)
-        }
+        // Always show up arrow - removed voice line icon for cleaner UI
+        // Icon is now static in XML, no need to update programmatically
     }
     
     private fun sendMessage(message: String) {
@@ -390,6 +397,7 @@ class HomeFragment : Fragment() {
         // Upload to Firebase in background
         fragmentScope.launch {
             try {
+                android.util.Log.d("HomeFragment", "Sending message to conversation: $conversationId")
                 val result = withContext(Dispatchers.IO) {
                     chatRepository.sendMessage(
                         conversationId = conversationId,
@@ -401,23 +409,29 @@ class HomeFragment : Fragment() {
                     )
                 }
                 
-                // Update media bubbles to show upload complete
-                if (result.isSuccess && hasFiles) {
-                    mediaViews.forEach { view ->
-                        updateMediaBubbleStatus(view, isUploading = false, success = true)
+                if (result.isSuccess) {
+                    android.util.Log.d("HomeFragment", "Message sent successfully")
+                    // Update media bubbles to show upload complete
+                    if (hasFiles) {
+                        mediaViews.forEach { view ->
+                            updateMediaBubbleStatus(view, isUploading = false, success = true)
+                        }
                     }
-                } else if (result.isFailure) {
+                    
+                    // Refresh conversation list in drawer
+                    (activity as? ContainerActivity)?.loadConversations()
+                    
+                    // Get AI response if there's a text message
+                    if (message.isNotEmpty()) {
+                        getAIResponse(message, conversationId)
+                    }
+                } else {
+                    val error = result.exceptionOrNull()
+                    android.util.Log.e("HomeFragment", "Failed to send message", error)
                     mediaViews.forEach { view ->
                         updateMediaBubbleStatus(view, isUploading = false, success = false)
                     }
-                }
-                
-                // Refresh conversation list in drawer
-                (activity as? ContainerActivity)?.loadConversations()
-                
-                // Get AI response if there's a text message
-                if (message.isNotEmpty()) {
-                    getAIResponse(message, conversationId)
+                    android.widget.Toast.makeText(requireContext(), "Failed to save message: ${error?.message}", android.widget.Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 mediaViews.forEach { view ->
@@ -436,34 +450,69 @@ class HomeFragment : Fragment() {
         
         fragmentScope.launch {
             try {
-                val result = GeminiService.sendMessage(userMessage)
-                
-                // Remove typing indicator
-                binding.messagesContainer.removeView(typingBubble)
-                
-                if (result.isSuccess) {
-                    val aiResponse = result.getOrNull() ?: "I couldn't respond. Please try again."
-                    
-                    // Display AI response in chat
-                    addMessageBubble(aiResponse, isUser = false)
-                    
-                    // Scroll to bottom
-                    binding.chatScroll.post {
-                        binding.chatScroll.fullScroll(View.FOCUS_DOWN)
+                // Call ngrok REST API
+                when (val result = apiRepository.askQuestion(userMessage, conversationId)) {
+                    is ApiResult.Success -> {
+                        // Remove typing indicator
+                        binding.messagesContainer.removeView(typingBubble)
+                        
+                        val aiResponse = result.data.answer
+                        
+                        // Haptic feedback for message received
+                        binding.root.haptic(HapticUtils.HapticType.MESSAGE_RECEIVED)
+                        
+                        // Display AI response in chat
+                        addMessageBubble(aiResponse, isUser = false)
+                        
+                        // Scroll to bottom
+                        binding.chatScroll.post {
+                            binding.chatScroll.fullScroll(View.FOCUS_DOWN)
+                        }
+                        
+                        // Save AI response to Firebase history
+                        fragmentScope.launch {
+                            try {
+                                android.util.Log.d("HomeFragment", "Saving AI response to Firebase: $conversationId")
+                                val saveResult = withContext(Dispatchers.IO) {
+                                    chatRepository.saveAIMessage(conversationId, aiResponse)
+                                }
+                                if (saveResult.isSuccess) {
+                                    android.util.Log.d("HomeFragment", "AI response saved successfully")
+                                    // Refresh conversation list to update timestamp
+                                    (activity as? ContainerActivity)?.loadConversations()
+                                } else {
+                                    android.util.Log.e("HomeFragment", "Failed to save AI response: ${saveResult.exceptionOrNull()?.message}")
+                                }
+                            } catch (e: Exception) {
+                                android.util.Log.e("HomeFragment", "Error saving AI response", e)
+                            }
+                        }
                     }
-                    
-                    // Save AI response to Firebase history
-                    fragmentScope.launch {
-                        chatRepository.saveAIMessage(conversationId, aiResponse)
+                    is ApiResult.Error -> {
+                        // Remove typing indicator on error
+                        binding.messagesContainer.removeView(typingBubble)
+                        
+                        val errorMessage = "Sorry, I'm having trouble connecting to my knowledge base: ${result.message}"
+                        addMessageBubble(errorMessage, isUser = false)
+                        
+                        binding.chatScroll.post {
+                            binding.chatScroll.fullScroll(View.FOCUS_DOWN)
+                        }
                     }
-                } else {
-                    val errorMessage = result.exceptionOrNull()?.message ?: "Unknown error"
-                    addMessageBubble("Sorry, I encountered an error: $errorMessage", isUser = false)
+                    is ApiResult.Loading -> {
+                        // Keep typing indicator
+                    }
                 }
             } catch (e: Exception) {
                 // Remove typing indicator on error
                 binding.messagesContainer.removeView(typingBubble)
-                addMessageBubble("Sorry, I couldn't connect to the AI service.", isUser = false)
+                
+                val errorMessage = "An unexpected error occurred: ${e.message}"
+                addMessageBubble(errorMessage, isUser = false)
+                
+                binding.chatScroll.post {
+                    binding.chatScroll.fullScroll(View.FOCUS_DOWN)
+                }
             }
         }
     }
@@ -489,7 +538,8 @@ class HomeFragment : Fragment() {
             }
             radius = 20f * density
             cardElevation = 4f * density
-            setCardBackgroundColor(android.graphics.Color.WHITE)
+            // Use golden gradient for typing indicator (AI message style)
+            background = ContextCompat.getDrawable(requireContext(), R.drawable.ai_message_gradient)
         }
         
         val textView = android.widget.TextView(requireContext()).apply {
@@ -499,7 +549,7 @@ class HomeFragment : Fragment() {
             )
             text = "Al-Aalim is typing..."
             textSize = 14f
-            setTextColor(ContextCompat.getColor(requireContext(), R.color.text_medium))
+            setTextColor(android.graphics.Color.WHITE)  // White text on golden gradient
             setTypeface(null, android.graphics.Typeface.ITALIC)
             setPadding(
                 (16 * density).toInt(),
@@ -560,9 +610,6 @@ class HomeFragment : Fragment() {
                     }
                 }
                 
-                // Update Gemini AI context with these messages
-                GeminiService.setChatHistory(messages)
-                
                 // Scroll to bottom after loading
                 binding.chatScroll.post {
                     binding.chatScroll.fullScroll(View.FOCUS_DOWN)
@@ -596,10 +643,12 @@ class HomeFragment : Fragment() {
             }
             radius = 20f * resources.displayMetrics.density
             cardElevation = 4f * resources.displayMetrics.density
-            setCardBackgroundColor(
-                if (isUser) ContextCompat.getColor(requireContext(), R.color.primary_teal)
-                else android.graphics.Color.WHITE
-            )
+            if (isUser) {
+                setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary_teal))
+            } else {
+                // AI message: use enriched gold gradient background for premium look and high contrast
+                background = ContextCompat.getDrawable(requireContext(), R.drawable.ai_message_gradient)
+            }
         }
         
         val textView = android.widget.TextView(requireContext()).apply {
@@ -609,10 +658,8 @@ class HomeFragment : Fragment() {
             )
             text = message
             textSize = 15f
-            setTextColor(
-                if (isUser) android.graphics.Color.WHITE
-                else ContextCompat.getColor(requireContext(), R.color.text_dark)
-            )
+            // Set text color to white for maximum visibility on both teal and gold backgrounds
+            setTextColor(android.graphics.Color.WHITE)
             setPadding(
                 (16 * resources.displayMetrics.density).toInt(),
                 (12 * resources.displayMetrics.density).toInt(),
@@ -620,6 +667,15 @@ class HomeFragment : Fragment() {
                 (12 * resources.displayMetrics.density).toInt()
             )
             maxWidth = (250 * resources.displayMetrics.density).toInt()
+            
+            //Add long-press to copy text
+            setOnLongClickListener {
+                val clipboard = requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                val clip = android.content.ClipData.newPlainText("Chat message", message)
+                clipboard.setPrimaryClip(clip)
+                // Removed toast for cleaner UX - clipboard copy is standard behavior
+                true
+            }
         }
         
         cardView.addView(textView)
@@ -847,10 +903,12 @@ class HomeFragment : Fragment() {
             }
             radius = 16f * density
             cardElevation = 4f * density
-            setCardBackgroundColor(
-                if (isUser) ContextCompat.getColor(requireContext(), R.color.primary_teal)
-                else android.graphics.Color.WHITE
-            )
+            if (isUser) {
+                setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.primary_teal))
+            } else {
+                // AI media message: use golden gradient background
+                background = ContextCompat.getDrawable(requireContext(), R.drawable.ai_message_gradient)
+            }
         }
         
         // Create frame layout to hold media

@@ -9,6 +9,10 @@
     <color name="light_teal">#4DB8BA</color>
     <color name="gradient_teal">#86BEC1</color>
     <color name="gold">#FFD700</color>
+    <color name="gold_rich">#D4AF37</color>
+    <color name="gold_dark">#8A6E2F</color>
+    <color name="gold_deep">#A67C00</color>
+    <color name="brand_yellow">#F9D923</color>
     
     <!-- Background Colors -->
     <color name="background_white">#FFFFFF</color>

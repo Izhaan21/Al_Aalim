@@ -2,7 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.AlAalim" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Gold color for Material input fields only -->
+        <item name="colorPrimary">@color/gold_rich</item>
+        
         <!-- Enable edge-to-edge display -->
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>

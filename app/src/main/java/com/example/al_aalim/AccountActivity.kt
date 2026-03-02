@@ -27,6 +27,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.example.al_aalim.auth.FirebaseAuthManager
 import com.example.al_aalim.databinding.ActivityAccountBinding
 import com.example.al_aalim.utils.AnimationUtils.setOnClickWithAnimation
+import com.example.al_aalim.utils.CustomDialog
 import com.example.al_aalim.utils.ProfileManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.File
@@ -110,6 +111,52 @@ class AccountActivity : AppCompatActivity() {
             performLogout()
         }
         
+        // Setup change password button
+        binding.btnChangePassword.setOnClickWithAnimation {
+            showChangePasswordDialog()
+        }
+        
+        // Setup change email button
+        binding.btnChangeEmail.setOnClickWithAnimation {
+            showChangeEmailDialog()
+        }
+        
+        // Setup change name button
+        binding.btnChangeName.setOnClickWithAnimation {
+            showEditProfileBottomSheet()
+        }
+        
+        // Setup gender button
+        binding.btnGender.setOnClickWithAnimation {
+            showGenderSelectionDialog()
+        }
+        
+        // Setup new User Data section listeners
+        binding.btnFavorites.setOnClickWithAnimation {
+            Toast.makeText(this, "Favorites - Coming Soon", Toast.LENGTH_SHORT).show()
+        }
+        
+        binding.btnReadingHistory.setOnClickWithAnimation {
+            Toast.makeText(this, "Reading History - Coming Soon", Toast.LENGTH_SHORT).show()
+        }
+        
+        binding.btnPrayerStreak.setOnClickWithAnimation {
+            Toast.makeText(this, "Prayer Streak - Coming Soon", Toast.LENGTH_SHORT).show()
+        }
+        
+        binding.btnAchievements.setOnClickWithAnimation {
+            Toast.makeText(this, "Achievements - Coming Soon", Toast.LENGTH_SHORT).show()
+        }
+        
+        // Setup Account Management section listeners
+        binding.btnPrivacy.setOnClickWithAnimation {
+            Toast.makeText(this, "Privacy Settings - Coming Soon", Toast.LENGTH_SHORT).show()
+        }
+        
+        binding.btnDeleteAccount.setOnClickWithAnimation {
+            showDeleteAccountDialog()
+        }
+        
         // Load and display profile image on activity start
         loadProfileImage()
     }
@@ -118,6 +165,20 @@ class AccountActivity : AppCompatActivity() {
         super.onResume()
         loadProfileImage()
         loadUserGreeting()
+    }
+    
+    private fun showDeleteAccountDialog() {
+        CustomDialog.showConfirmation(
+            context = this,
+            title = "Delete Account",
+            message = "Are you sure you want to permanently delete your account? This action cannot be undone.",
+            confirmText = "Delete",
+            cancelText = "Cancel",
+            onConfirm = {
+                // TODO: Implement account deletion
+                Toast.makeText(this, "Account deletion - Coming Soon", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
     
     private fun setupActivityResultLaunchers() {
@@ -252,31 +313,21 @@ class AccountActivity : AppCompatActivity() {
     }
     
     private fun showPhotoPickerOptions() {
-        val photoPickerDialog = BottomSheetDialog(this, R.style.BottomSheetDialogTheme)
-        val photoPickerView = layoutInflater.inflate(R.layout.bottom_sheet_attachment, null)
+        val options = arrayOf("Take Photo", "Choose from Gallery")
         
-        // Get option views
-        val optionCamera = photoPickerView.findViewById<View>(R.id.option_camera)
-        val optionPhotos = photoPickerView.findViewById<View>(R.id.option_photos)
-        val optionFiles = photoPickerView.findViewById<View>(R.id.option_files)
-        
-        // Hide files option - not needed for profile photo
-        optionFiles.visibility = View.GONE
-        
-        // Camera option
-        optionCamera.setOnClickListener {
-            photoPickerDialog.dismiss()
-            checkCameraPermissionAndOpen()
-        }
-        
-        // Gallery option
-        optionPhotos.setOnClickListener {
-            photoPickerDialog.dismiss()
-            checkGalleryPermissionAndOpen()
-        }
-        
-        photoPickerDialog.setContentView(photoPickerView)
-        photoPickerDialog.show()
+        com.example.al_aalim.utils.CustomDialog.showSelectionList(
+            context = this,
+            title = "Profile Photo",
+            subtitle = "Choose how to update your profile picture",
+            options = options.toList(),
+            selectedIndex = -1,
+            onSelect = { which, _ ->
+                when (which) {
+                    0 -> checkCameraPermissionAndOpen()
+                    1 -> checkGalleryPermissionAndOpen()
+                }
+            }
+        )
     }
     
     private fun checkCameraPermissionAndOpen() {
@@ -374,6 +425,139 @@ class AccountActivity : AppCompatActivity() {
         
         Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
         finish()
+    }
+    
+    private fun showGenderSelectionDialog() {
+        val genders = arrayOf("Male", "Female", "Prefer not to say")
+        
+        com.example.al_aalim.utils.CustomDialog.showSelectionList(
+            context = this,
+            title = "Select Gender",
+            options = genders.toList(),
+            selectedIndex = -1,
+            onSelect = { which, selectedGender ->
+                val userId = authManager.currentUser?.uid ?: return@showSelectionList
+                // Save gender preference
+                val sharedPreferences = getSharedPreferences("UserProfile", MODE_PRIVATE)
+                sharedPreferences.edit().putString("${userId}_gender", selectedGender).apply()
+                Toast.makeText(this, "Gender updated to $selectedGender", Toast.LENGTH_SHORT).show()
+            }
+        )
+    }
+    
+    private fun showChangePasswordDialog() {
+        val dialog = android.app.Dialog(this)
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_change_password)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        
+        val currentPasswordInput = dialog.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_current_password)
+        val newPasswordInput = dialog.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_new_password)
+        val confirmPasswordInput = dialog.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_confirm_password)
+        val btnCancel = dialog.findViewById<android.widget.TextView>(R.id.dialog_btn_cancel)
+        val btnChange = dialog.findViewById<android.widget.TextView>(R.id.dialog_btn_change)
+        
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        
+        btnChange.setOnClickListener {
+            val currentPassword = currentPasswordInput.text.toString()
+            val newPassword = newPasswordInput.text.toString()
+            val confirmPassword = confirmPasswordInput.text.toString()
+            
+            if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            if (newPassword != confirmPassword) {
+                Toast.makeText(this, "Passwords don't match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            if (newPassword.length < 6) {
+                Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            // Re-authenticate and change password
+            val user = authManager.currentUser
+            val email = user?.email
+            if (email != null) {
+                val credential = com.google.firebase.auth.EmailAuthProvider.getCredential(email, currentPassword)
+                user.reauthenticate(credential).addOnCompleteListener { reauth ->
+                    if (reauth.isSuccessful) {
+                        user.updatePassword(newPassword).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                dialog.dismiss()
+                                Toast.makeText(this, "Password changed successfully", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(this, "Failed to change password: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this, "Current password is incorrect", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        
+        dialog.show()
+    }
+    
+    private fun showChangeEmailDialog() {
+        val dialog = android.app.Dialog(this)
+        dialog.requestWindowFeature(android.view.Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.dialog_change_email)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        
+        val passwordInput = dialog.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_password)
+        val newEmailInput = dialog.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.input_new_email)
+        val btnCancel = dialog.findViewById<android.widget.TextView>(R.id.dialog_btn_cancel)
+        val btnChange = dialog.findViewById<android.widget.TextView>(R.id.dialog_btn_change)
+        
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        
+        btnChange.setOnClickListener {
+            val password = passwordInput.text.toString()
+            val newEmail = newEmailInput.text.toString()
+            
+            if (password.isEmpty() || newEmail.isEmpty()) {
+                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(newEmail).matches()) {
+                Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            
+            // Re-authenticate and change email
+            val user = authManager.currentUser
+            val currentEmail = user?.email
+            if (currentEmail != null) {
+                val credential = com.google.firebase.auth.EmailAuthProvider.getCredential(currentEmail, password)
+                user.reauthenticate(credential).addOnCompleteListener { reauth ->
+                    if (reauth.isSuccessful) {
+                        user.updateEmail(newEmail).addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                dialog.dismiss()
+                                Toast.makeText(this, "Email changed successfully", Toast.LENGTH_SHORT).show()
+                            } else {
+                                Toast.makeText(this, "Failed to change email: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(this, "Password is incorrect", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+        
+        dialog.show()
     }
 }
 

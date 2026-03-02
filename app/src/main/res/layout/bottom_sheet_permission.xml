@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Handle Bar (optional visual cue) -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="#33000000"
+        android:backgroundTint="#DDD" />
+
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_location" 
+        app:tint="@color/brand_yellow"
+        xmlns:app="http://schemas.android.com/apk/res-auto"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Location Access Required"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="Message goes here..."
+        android:textColor="#55000000"
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2"/>
+
+    <TextView
+        android:id="@+id/btn_positive"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/btn_gold_gradient"
+        android:gravity="center"
+        android:text="Try Again"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/btn_negative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Skip"
+        android:textColor="#77000000"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

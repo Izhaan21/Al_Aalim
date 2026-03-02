@@ -85,6 +85,7 @@
             android:layout_marginBottom="4dp"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
+            android:textAlignment="center"
             android:letterSpacing="0.08"
             android:text="@string/app_name"
             android:textColor="@color/white"
@@ -97,22 +98,24 @@
             android:layout_marginBottom="8dp"
             android:text="@string/app_subtitle"
             android:textColor="#FFD700"
-            android:textSize="32sp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textSize="30sp"
             android:fontFamily="serif" />
 
         <!-- Tagline -->
+
+        <!-- Islamic Divider -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:alpha="0.7"
-            android:letterSpacing="0.15"
-            android:text="Your Islamic Companion"
-            android:textAllCaps="true"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="@string/app_tagline"
+            android:textColor="#AAFFFFFF"
+            android:textSize="16sp" />
 
-        <!-- Islamic Divider -->
         <ImageView
             android:layout_width="220dp"
             android:layout_height="28dp"
@@ -121,16 +124,6 @@
             android:src="@drawable/ic_islamic_divider" />
 
         <!-- Subtitle -->
-        <TextView
-            android:id="@+id/tv_subtitle"
-            android:layout_width="280dp"
-            android:layout_height="wrap_content"
-            android:alpha="0.85"
-            android:gravity="center"
-            android:lineSpacingExtra="4dp"
-            android:text="@string/welcome_subtitle"
-            android:textColor="@color/white"
-            android:textSize="16sp" />
 
     </LinearLayout>
 
@@ -162,7 +155,7 @@
         android:gravity="center"
         android:text="@string/get_started"
         android:textAllCaps="false"
-        android:textColor="#1A3D3F"
+        android:textColor="@color/white"
         android:textSize="@dimen/text_large"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="340dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_background"
+    android:padding="24dp">
+
+    <!-- Icon (Optional) -->
+    <ImageView
+        android:id="@+id/dialog_icon"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:contentDescription="Dialog icon" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Option"
+        android:textColor="#1A1A1A"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Subtitle (Optional) -->
+    <TextView
+        android:id="@+id/dialog_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Choose from the options below"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone" />
+
+    <!-- List Container with ScrollView -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxHeight="300dp"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dialog_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+    </ScrollView>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E0E0E0"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Action Buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <!-- Cancel Button -->
+        <TextView
+            android:id="@+id/dialog_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:minWidth="100dp"
+            android:background="@drawable/dialog_button_secondary"
+            android:text="Cancel"
+            android:textColor="#E8D4A0"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            android:layout_marginEnd="12dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Apply Button -->
+        <TextView
+            android:id="@+id/dialog_btn_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:minWidth="100dp"
+            android:background="@drawable/dialog_button_primary"
+            android:text="Apply"
+            android:textColor="#1A1A1A"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </LinearLayout>
+
+</LinearLayout>

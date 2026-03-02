@@ -13,7 +13,7 @@
     <LinearLayout
         android:id="@+id/title_container"
         android:layout_width="wrap_content"
-        android:layout_height="44dp"
+        android:layout_height="40dp"
         android:layout_marginTop="56dp"
         android:background="@drawable/input_field_glass"
         android:gravity="center"
@@ -37,8 +37,8 @@
     <!-- Back Button Floating Box -->
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="56dp"
         android:background="@drawable/input_field_glass"
@@ -52,8 +52,8 @@
     <!-- Placeholder Floating Box for symmetry -->
     <View
         android:id="@+id/top_bar_container"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="@dimen/spacing_large"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -66,7 +66,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:fillViewport="true"
-        app:layout_constraintBottom_toTopOf="@+id/logout_card"
+        app:layout_constraintBottom_toTopOf="@+id/logout_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title_container">
@@ -159,14 +159,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_edit_profile"
+                            app:tint="@color/gold"
                             android:contentDescription="Edit profile icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/account_edit_profile"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/account_edit_profile"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -181,7 +196,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="4dp"
                 android:text="@string/account_settings"
-                android:textColor="@color/white"
+                android:textColor="@color/gold"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -192,7 +207,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="12dp"
                 android:text="Manage your account details and preferences"
-                android:textColor="@color/text_medium"
+                android:textColor="@color/white"
                 android:textSize="13sp" />
 
             <!-- Account Settings Options Card -->
@@ -226,14 +241,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_key"
+                            app:tint="@color/gold"
                             android:contentDescription="Password icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_change_password"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_change_password"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -252,14 +282,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_email"
+                            app:tint="@color/gold"
                             android:contentDescription="Email icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_change_email"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_change_email"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -278,14 +323,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_edit"
+                            app:tint="@color/gold"
                             android:contentDescription="Edit icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_change_name"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_change_name"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -299,13 +359,310 @@
                         android:paddingHorizontal="16dp"
                         android:paddingVertical="16dp">
 
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_edit"
+                            app:tint="@color/gold"
+                            android:contentDescription="Gender icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_gender"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- USER DATA SECTION -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
+                android:text="User Data"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_glass"
+                    android:orientation="vertical"
+                    android:divider="@drawable/list_divider"
+                    android:showDividers="middle">
+
+                    <!-- FAVORITES -->
+                    <LinearLayout
+                        android:id="@+id/btn_favorites"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+                        
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_bookmark"
+                            app:tint="@color/white" />
+                        
                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="Favorites"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                        
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:alpha="0.5" />
+                    </LinearLayout>
+
+                    <!-- READING HISTORY -->
+                    <LinearLayout
+                        android:id="@+id/btn_reading_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+                        
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_history"
+                            app:tint="@color/white" />
+                        
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="Reading History"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                        
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:alpha="0.5" />
+                    </LinearLayout>
+
+                    <!-- PRAYER STREAK -->
+                    <LinearLayout
+                        android:id="@+id/btn_prayer_streak"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+                        
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_streak"
+                            app:tint="@color/gold" />
+                        
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="Prayer Streak"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                        
+                        <TextView
+                            android:id="@+id/tv_streak_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_gender"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:text="0 days"
+                            android:textColor="@color/gold"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
 
+                    <!-- ACHIEVEMENTS -->
+                    <LinearLayout
+                        android:id="@+id/btn_achievements"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+                        
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_trophy"
+                            app:tint="@color/gold" />
+                        
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="Achievements"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                        
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:alpha="0.5" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- ACCOUNT MANAGEMENT SECTION -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="24dp"
+                android:text="Account Management"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_glass"
+                    android:orientation="vertical"
+                    android:divider="@drawable/list_divider"
+                    android:showDividers="middle">
+
+                    <!-- PRIVACY SETTINGS -->
+                    <LinearLayout
+                        android:id="@+id/btn_privacy"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+                        
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_privacy"
+                            app:tint="@color/white" />
+                        
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="Privacy Settings"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+                        
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:alpha="0.5" />
+                    </LinearLayout>
+
+                    <!-- DELETE ACCOUNT -->
+                    <LinearLayout
+                        android:id="@+id/btn_delete_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true">
+                        
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_delete"
+                            app:tint="#FF5252" />
+                        
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginStart="16dp"
+                            android:text="Delete Account"
+                            android:textColor="#FF5252"
+                            android:textSize="16sp" />
+                        
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="#FF5252"
+                            android:alpha="0.5" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -316,15 +673,14 @@
 
     </ScrollView>
 
-    <!-- Fixed Logout Button at Bottom -->
+    <!-- Fixed Logout Button -->
     <androidx.cardview.widget.CardView
-        android:id="@+id/logout_card"
+        android:id="@+id/logout_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="24dp"
-        app:cardCornerRadius="16dp"
+        android:layout_marginHorizontal="@dimen/spacing_large"
+        android:layout_marginBottom="@dimen/spacing_large"
+        app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
         app:cardBackgroundColor="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -332,25 +688,33 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/input_field_glass"
-            android:orientation="vertical">
+            android:background="@drawable/btn_gold_gradient"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <!-- Logout -->
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_logout"
+                app:tint="#F44336"
+                android:contentDescription="Logout icon" />
+
             <TextView
-                android:id="@+id/btn_logout"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="16dp"
-                android:gravity="center"
-                android:text="Logout"
-                android:textColor="#FF5252"
-                android:textSize="15sp" />
+                android:text="@string/account_logout"
+                android:textColor="#F44336"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

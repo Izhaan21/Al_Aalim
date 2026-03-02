@@ -1,187 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Name -->
     <string name="app_name">Al-Aalim</string>
     
-    <!-- Screen Titles -->
-    <string name="home">Al-Aalim</string>
-    <string name="app_subtitle">العالم</string>
+    <!-- Welcome Screen -->
+    <string name="welcome_title">Welcome to Al-Aalim</string>
+    <string name="welcome_subtitle">Your Islamic Companion</string>
+    <string name="get_started">Get Started</string>
     
-    <!-- Prayer Times -->
-    <string name="jadwal_solat">Jadwal solat</string>
-    <string name="prayer_date">17 Safar 1443H</string>
-    <string name="subuh">Subuh</string>
-    <string name="dzuhur">Dzuhur</string>
-    <string name="ashar">Ashar</string>
-    <string name="maghrib">Maghrib</string>
-    <string name="isya">Isya</string>
+    <!-- Language Selection -->
+    <string name="select_your_language">Select Your Language</string>
+    <string name="choose_preferred_language">Choose your preferred language for Al-Aalim</string>
+    <string name="select_language">Select Language</string>
+    <string name="filter_languages">Filter languages...</string>
+    <string name="languages_found">%d languages found</string>
+    <string name="one_language_found">1 language found</string>
+    <string name="no_languages_found">No languages found</string>
+    <string name="continue_button">Continue</string>
     
-    <!-- Prayer Times Values -->
-    <string name="time_subuh">04:25</string>
-    <string name="time_dzuhur">11:46</string>
-    <string name="time_ashar">14:56</string>
-    <string name="time_maghrib">17:51</string>
-    <string name="time_isya">18:59</string>
+    <!-- Location Permission -->
+    <string name="enable_location_services">Enable Location Services</string>
+    <string name="allow_location">Allow Location</string>
+    <string name="location_required_title">Location Access Required</string>
+    <string name="location_description">We need your location for accurate Qibla direction and prayer times</string>
+    <string name="getting_location">Getting your location...</string>
+    <string name="location_found">Location found!</string>
+    <string name="continuing">Continuing…</string>
     
-    <!-- Tabs -->
+    <!-- Navigation -->
+    <string name="home">Home</string>
     <string name="qibla">Qibla</string>
-    <string name="masjid">Masjid</string>
-    <string name="kajian">Kajian</string>
+    <string name="quran">Quran</string>
+    <string name="more">More</string>
     
-    <!-- Mosque Section -->
-    <string name="masjid_terdekat">Masjid terdekat</string>
-    <string name="jakarta_indonesia">Jakarta, Indonesia</string>
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="general_settings">General</string>
+    <string name="app_settings">App Settings</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
+    <string name="notifications">Notifications</string>
+    <string name="account">Account</string>
+    <string name="privacy">Privacy</string>
+    <string name="about">About</string>
     
-    <!-- Content Descriptions -->
-    <string name="cd_cloud_icon">Cloud icon</string>
-    <string name="cd_notification_icon">Notification icon</string>
-    <string name="cd_profile_icon">Profile icon</string>
-    <string name="cd_home_icon">Home icon</string>
-    <string name="cd_compass_icon">Compass icon</string>
-    <string name="cd_book_icon">Book icon</string>
-    <string name="cd_weather_icon">Weather icon</string>
+    <!-- Chat / Home -->
+    <string name="new_chat">New Chat</string>
+    <string name="chat_history">Chat History</string>
+    <string name="type_message">Type a message...</string>
+    <string name="send">Send</string>
+    <string name="attach">Attach</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="files">Files</string>
     
-    <!-- Chat Interface -->
-    <string name="app_title">Al-Aalim AI</string>
-    <string name="chat_message">Chat</string>
-    <string name="chat_input_hint">Ask Al-Aalim</string>
-    <string name="cd_send_icon">Send message</string>
-    <string name="cd_menu_icon">Menu</string>
-    <string name="cd_account_icon">Account</string>
-    <string name="cd_more_options">More options</string>
+    <!-- Login & Auth -->
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create Account</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="or_continue_with">Or continue with</string>
     
-    <!-- Sample Messages -->
-    <string name="sample_ai_greeting">Assalamu Alaikum! I\'m Al-Aalim, your Islamic knowledge assistant. How can I help you today?</string>
-    <string name="sample_user_question">What are the 5 pillars of Islam?</string>
-    <string name="sample_ai_response">The 5 pillars of Islam are:\n\n1. Shahada (Faith) - Declaration of faith\n2. Salah (Prayer) - Five daily prayers\n3. Zakat (Charity) - Giving to those in need\n4. Sawm (Fasting) - Fasting during Ramadan\n5. Hajj (Pilgrimage) - Pilgrimage to Mecca\n\nThese form the foundation of Muslim life.</string>
+    <!-- Common Actions -->
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="share">Share</string>
+    <string name="close">Close</string>
+    <string name="search">Search</string>
+    <string name="try_again">Try Again</string>
+    <string name="open_settings">Open Settings</string>
     
-    <!-- Chat UI -->
-    <string name="chat_prompt">Your daily guide to faith and peace</string>
-    <string name="cd_add_icon">Add attachment</string>
-    <string name="cd_mic_icon">Voice input</string>
-    <string name="cd_send_button">Send message</string>
-    <string name="cd_image_preview">Image preview</string>
-    <string name="cd_remove_image">Remove image</string>
+    <!-- Dialogs -->
+    <string name="delete_conversation">Delete Conversation</string>
+    <string name="delete_conversation_message">Are you sure you want to delete \"%s\"? This will delete all messages and attachments.</string>
+    <string name="conversation_deleted">Conversation deleted</string>
+    <string name="failed_to_delete">Failed to delete conversation</string>
     
-    <!-- Bottom Navigation Labels -->
-    <string name="nav_home">Home</string>
+    <!-- Restart Dialog -->
+    <string name="restart_required">Restart Required</string>
+    <string name="restart_for_language_change">Please restart the app to apply the language change.</string>
+    <string name="restart_now">Restart Now</string>
+    <string name="restart_later">Later</string>
+    
+    <!-- Qibla & Prayer Times -->
+    <string name="qibla_direction">Qibla Direction</string>
+    <string name="distance_to_mecca">Distance to Mecca</string>
+    <string name="choose_location">Choose Location</string>
+    <string name="use_my_location">Use My Location</string>
+    <string name="prayer_times">Prayer Times</string>
+    <string name="fajr">Fajr</string>
+    <string name="dhuhr">Dhuhr</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
+    
+    <!-- Ramadan Calendar -->
+    <string name="ramadan_calendar">Ramadan Calendar</string>
+    <string name="suhoor">Suhoor</string>
+    <string name="iftar">Iftar</string>
+    <string name="ramadan_2026">Ramadan 2026</string>
+    <string name="next_suhoor">Next Suhoor</string>
+    <string name="next_iftar">Next Iftar</string>
+    <string name="day">Day</string>
+    <string name="change_location">Change Location</string>
+
+    
+    <!-- Navigation Labels -->
+    <string name="nav_home">Al-Aalim</string>
     <string name="nav_qibla">Qibla</string>
     <string name="nav_book">Quran</string>
     
-    <!-- Qibla Screen -->
-    <string name="cd_back_button">Back button</string>
-    <string name="cd_location_icon">Location icon</string>
-    <string name="default_coordinates">34.0454388, 74.8052044</string>
-    <string name="salah_message">May your Salah be accepted!</string>
-    <string name="qibla_locked_message">Qibla direction locked, you can\nbegin your prayer now.</string>
-    <string name="cd_compass_background">Compass background</string>
-    <string name="cd_compass_middle">Compass middle circle</string>
-    <string name="cd_compass_inner">Compass inner circle</string>
-    <string name="cd_compass_needle">Compass needle</string>
-    <string name="cd_lock_icon">Lock icon</string>
-    <string name="cd_kaaba_icon">Kaaba icon</string>
-    <string name="cd_qibla_arrow">Qibla direction arrow</string>
-    
-    <!-- Quran Screen -->
-    <string name="quran_placeholder">Quran content will be displayed here</string>
-    
-    <!-- Welcome Screen -->
-    <string name="welcome_title">The best\napp for\nyour faith</string>
-    <string name="welcome_subtitle">Your daily guide to Islamic knowledge and spirituality</string>
-    <string name="get_started">Get Started</string>
-    <string name="skip">Skip</string>
-    
-    <!-- Drawer Navigation -->
-    <string name="drawer_user_name">Izhaan Saifi</string>
-    <string name="drawer_greeting">السلام عليكم</string>
-    <string name="drawer_search_hint">Search</string>
-    <string name="drawer_new_chat">New chat</string>
-    <string name="drawer_pro_title">Become Pro Access</string>
-    <string name="drawer_pro_subtitle">Try your experience for using more features.</string>
-    <string name="drawer_upgrade_button">Upgrade Pro</string>
-    <string name="cd_search_icon">Search icon</string>
-    <string name="cd_new_chat_icon">New chat icon</string>
-    <string name="cd_settings_icon">Settings icon</string>
-    <string name="drawer_settings">Settings</string>
-    <string name="cd_sparkle_icon">Sparkle icon</string>
-    
-    <!-- Account Screen -->
+    <!-- Account Activity -->
     <string name="account_title">Account</string>
-    <string name="account_salam">Salam</string>
-    <string name="account_greeting">Salaam!</string>
-    <string name="account_greeting_format">Salaam, %1$s</string>
+    <string name="account_greeting">Salam</string>
+    <string name="account_greeting_format">Salam, %s</string>
     <string name="account_edit_profile">Edit Profile</string>
     <string name="account_settings">Account Settings</string>
+    <string name="account_logout">Logout</string>
     <string name="setting_change_password">Change Password</string>
-    <string name="setting_change_email">Change Email Address</string>
+    <string name="setting_change_email">Change Email</string>
     <string name="setting_change_name">Change Name</string>
     <string name="setting_gender">Gender</string>
-    <string name="setting_notifications">Notifications</string>
-    <string name="setting_reciter">Reciter</string>
-    <string name="setting_quran_script">Quran Script</string>
+    
+    <!-- Crop Photo -->
+    <string name="crop_instructions">Drag to adjust photo</string>
+    <string name="crop_cancel">Cancel</string>
+    <string name="crop_done">Done</string>
+    
+    <!-- Login -->
+    <string name="login_welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Sign in to continue to Al-Aalim</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_back_button">Back</string>
+    <string name="cd_home_icon">Home</string>
+    <string name="cd_compass_icon">Compass</string>
+    <string name="cd_book_icon">Book</string>
+    <string name="cd_menu_icon">Menu</string>
+    <string name="cd_add_icon">Add</string>
+    <string name="cd_mic_icon">Microphone</string>
+    <string name="cd_mosque_silhouette">Mosque silhouette</string>
+    <string name="cd_kaaba_icon">Kaaba</string>
+    <string name="cd_compass_middle">Compass middle</string>
+    <string name="cd_compass_inner">Compass inner</string>
+    <string name="cd_compass_needle">Compass needle</string>
+    
+    <!-- Login Screen -->
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_button">Login</string>
+    <string name="dont_have_account">Don\'t have an account?</string>
+    <string name="create_account_link">Create Account</string>
+    
+    <!-- Chat / Main Activity -->
+    <string name="chat_input_hint">Type a message...</string>
+    
+    <!-- Profile Photo -->
+    <string name="profile_photo_camera">Take Photo</string>
+    <string name="profile_photo_album">Choose from Album</string>
+    
+    <!-- Qibla -->
+    <string name="salah_message">May Allah accept your prayers</string>
+    <string name="cd_location_icon">Location</string>
+    <string name="default_coordinates">0.0000° N, 0.0000° E</string>
+    
+    <!-- Register Screen -->
+    <string name="register_join_us">Join Us</string>
+    <string name="register_title">Create Account</string>
+    <string name="register_subtitle">Sign up to continue to Al-Aalim</string>
+    <string name="register_name_hint">Full Name</string>
+    <string name="register_confirm_password_hint">Confirm Password</string>
+    <string name="register_button">Register</string>
+    <string name="have_account_text">Already have an account?</string>
+    <string name="login_link">Login</string>
+    <string name="register_terms">By registering, you agree to our Terms and Privacy Policy</string>
     
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
     <string name="settings_general">General</string>
     <string name="settings_language">Language</string>
     <string name="settings_theme">Theme</string>
+    <string name="setting_notifications">Notifications</string>
+    <string name="setting_reciter">Quran Reciter</string>
+    <string name="setting_quran_script">Quran Script</string>
     <string name="settings_about">About</string>
     <string name="settings_privacy">Privacy Policy</string>
     <string name="settings_terms">Terms of Service</string>
-    <string name="settings_version">App Version</string>
+    <string name="settings_version">Version 1.0.0</string>
     
-    <!-- Edit Profile Bottom Sheet -->
-    <string name="edit_profile_name_label">Name</string>
-    <string name="edit_profile_name_hint">Enter your name</string>
-    <string name="edit_profile_username_label">Username</string>
-    <string name="edit_profile_username_hint">Enter your username</string>
-    <string name="edit_profile_info">Your profile helps people recognize you. Your name and username are also used in the Sora app.</string>
-    <string name="edit_profile_save">Save profile</string>
-    <string name="edit_profile_cancel">Cancel</string>
+    <!-- Welcome Screen -->
+    <string name="app_subtitle">Your Islamic Companion</string>
+    <string name="app_tagline">Your Islamic Companion</string>
     
-    <!-- Profile Photo Screen -->
-    <string name="profile_photo_camera">Camera</string>
-    <string name="profile_photo_album">Album</string>
+    <!-- Drawer Content -->
+    <string name="drawer_user_name">User</string>
+    <string name="drawer_greeting">Welcome back</string>
+    <string name="drawer_search_hint">Search conversations...</string>
+    <string name="drawer_new_chat">New Chat</string>
+    <string name="cd_search_icon">Search</string>
+    <string name="cd_new_chat_icon">New Chat</string>
+    <string name="cd_settings_icon">Settings</string>
     
-    <!-- Crop Photo Screen -->
-    <string name="crop_instructions">Drag and pinch to adjust</string>
-    <string name="crop_cancel">Cancel</string>
-    <string name="crop_done">Done</string>
-    
-    <!-- Attachment Bottom Sheet -->
+    <!-- Bottom Sheet Attachment -->
     <string name="attachment_title">Add Attachment</string>
     <string name="attachment_camera">Camera</string>
     <string name="attachment_photos">Photos</string>
     <string name="attachment_files">Files</string>
     
-    <!-- Login Screen -->
-    <string name="login_welcome_back">Welcome Back</string>
-    <string name="login_bismillah">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ</string>
-    <string name="login_subtitle">Sign in to continue your journey</string>
-    <string name="login_email_hint">Email Address</string>
-    <string name="login_password_hint">Password</string>
-    <string name="login_button">Sign In</string>
-    <string name="login_forgot_password">Forgot Password?</string>
-    <string name="login_or">or</string>
-    <string name="or_continue_with">Or continue with</string>
-    <string name="login_terms">By continuing, you agree to our\nTerms of Service and Privacy Policy</string>
-    <string name="no_account_text">New to Al-Aalim?</string>
-    <string name="dont_have_account">Don\'t have an account?</string>
-    <string name="create_account_link">Create Account</string>
+    <!-- Bottom Sheet Edit Profile -->
+    <string name="edit_profile_name_label">Full Name</string>
+    <string name="edit_profile_name_hint">Enter your name</string>
+    <string name="edit_profile_username_label">Username</string>
+    <string name="edit_profile_username_hint">Enter username</string>
+    <string name="edit_profile_save">Save</string>
+    <string name="edit_profile_cancel">Cancel</string>
     
-    <!-- Register Screen -->
-    <string name="register_join_us">Join Us Today</string>
-    <string name="register_title">Create Account</string>
-    <string name="register_subtitle">Start your spiritual journey with us</string>
-    <string name="register_name_hint">Full Name</string>
-    <string name="register_confirm_password_hint">Confirm Password</string>
-    <string name="register_button">Create Account</string>
-    <string name="register_terms">By creating an account, you agree to our\nTerms of Service and Privacy Policy</string>
-    <string name="have_account_text">Already have an account?</string>
-    <string name="login_link">Sign In</string>
+    <!-- Drawer Pro Card -->
+    <string name="drawer_pro_title">Upgrade to Pro</string>
+    <string name="drawer_pro_subtitle">Get unlimited features</string>
+    <string name="drawer_upgrade_button">Upgrade</string>
+    <string name="cd_sparkle_icon">Sparkle</string>
     
-    <!-- Content Descriptions -->
-    <string name="cd_mosque_silhouette">Mosque silhouette decoration</string>
+    <!-- Home Fragment Icons -->
+    <string name="cd_account_icon">Account</string>
+    <string name="cd_send_button">Send</string>
     
-    <!-- Facebook Configuration (TODO: Replace with actual values from Facebook Developer Console) -->
+    <!-- Facebook (Placeholder) -->
     <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
+    <string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_APP_ID</string>
     <string name="facebook_client_token">YOUR_FACEBOOK_CLIENT_TOKEN</string>
+    <string name="al_aalim">Al-Aalim</string>
+    <string name="skip_for_now">Skip for now</string>
 </resources>

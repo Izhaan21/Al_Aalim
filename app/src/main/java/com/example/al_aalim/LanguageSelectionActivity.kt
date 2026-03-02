@@ -34,13 +34,15 @@ class LanguageSelectionActivity : AppCompatActivity() {
     // Views
     private lateinit var centeredContainer: LinearLayout
     private lateinit var listContainer: LinearLayout
-    private lateinit var searchInput: EditText
-    private lateinit var clearSearch: ImageView
     private lateinit var compactSearchInput: EditText
     private lateinit var compactClearSearch: ImageView
     private lateinit var languageList: RecyclerView
     private lateinit var btnContinue: TextView
+    private lateinit var btnSelectLanguage: TextView
     private lateinit var resultsCount: TextView
+    private lateinit var globeContainer: View
+    private lateinit var titleText: TextView
+    private lateinit var subtitleText: TextView
 
     private lateinit var languageAdapter: LanguageAdapter
     private lateinit var allLanguages: List<Language>
@@ -65,32 +67,82 @@ class LanguageSelectionActivity : AppCompatActivity() {
         initViews()
         setupRecyclerView()
         setupSearchListeners()
+        
+        // Automatically show language list when coming from Settings
+        if (intent.getBooleanExtra("from_settings", false) || true) {
+            // Hide centered container and show list immediately
+            centeredContainer.visibility = View.GONE
+            listContainer.visibility = View.VISIBLE
+            isListVisible = true
+            
+            // Focus on search input
+            compactSearchInput.requestFocus()
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(compactSearchInput, InputMethodManager.SHOW_IMPLICIT)
+        }
     }
 
     private fun initLanguages() {
         allLanguages = listOf(
-            Language("ar", "العربية", "Arabic", R.drawable.flag_saudi_arabia),
-            Language("en", "English", "English", R.drawable.flag_usa),
-            Language("ur", "اردو", "Urdu", R.drawable.flag_pakistan),
-            Language("fr", "Français", "French", R.drawable.flag_france)
+            // Primary Islamic languages
+            Language("ar", "العربية", "Arabic", "🇸🇦"),
+            Language("en", "English", "English", "🇺🇸"),
+            Language("ur", "اردو", "Urdu", "🇵🇰"),
+            
+            // South Asian languages
+            Language("bn", "বাংলা", "Bengali", "🇧🇩"),
+            Language("hi", "हिन्दी", "Hindi", "🇮🇳"),
+            
+            // Southeast Asian languages
+            Language("id", "Bahasa Indonesia", "Indonesian", "🇮🇩"),
+            Language("ms", "Bahasa Melayu", "Malay", "🇲🇾"),
+            
+            // African languages
+            Language("ha", "Hausa", "Hausa", "🇳🇬"),
+            Language("sw", "Kiswahili", "Swahili", "🇰🇪"),
+            
+            // Middle Eastern languages
+            Language("fa", "فارسی", "Persian", "🇮🇷"),
+            Language("tr", "Türkçe", "Turkish", "🇹🇷"),
+            
+            // European languages
+            Language("fr", "Français", "French", "🇫🇷"),
+            Language("de", "Deutsch", "German", "🇩🇪"),
+            Language("es", "Español", "Spanish", "🇪🇸"),
+            
+            // Central Asian languages
+            Language("uz", "O'zbek", "Uzbek", "🇺🇿"),
+            
+            // Other significant languages
+            Language("zh", "中文", "Chinese", "🇨🇳"),
+            Language("ru", "Русский", "Russian", "🇷🇺")
         )
     }
 
     private fun initViews() {
         centeredContainer = findViewById(R.id.centered_container)
         listContainer = findViewById(R.id.list_container)
-        searchInput = findViewById(R.id.search_input)
-        clearSearch = findViewById(R.id.clear_search)
         compactSearchInput = findViewById(R.id.compact_search_input)
         compactClearSearch = findViewById(R.id.compact_clear_search)
         languageList = findViewById(R.id.language_list)
         btnContinue = findViewById(R.id.btn_continue)
+        btnSelectLanguage = findViewById(R.id.btn_select_language)
         resultsCount = findViewById(R.id.results_count)
+        globeContainer = findViewById(R.id.globe_container)
+        titleText = findViewById(R.id.title_text)
+        subtitleText = findViewById(R.id.subtitle_text)
+        
+        // Set up select language button click
+        btnSelectLanguage.setOnClickListener {
+            showLanguageList()
+        }
     }
 
     private fun setupRecyclerView() {
         languageAdapter = LanguageAdapter(allLanguages) { language ->
             selectedLanguage = language
+            // Show continue button when language is selected
+            showContinueButton()
         }
         
         languageList.layoutManager = LinearLayoutManager(this)
@@ -98,38 +150,7 @@ class LanguageSelectionActivity : AppCompatActivity() {
     }
 
     private fun setupSearchListeners() {
-        // Main search input (centered view)
-        searchInput.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus && !isListVisible) {
-                showLanguageList()
-            }
-        }
-
-        searchInput.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                val query = s.toString()
-                if (!isListVisible && query.isNotEmpty()) {
-                    showLanguageList()
-                }
-                filterLanguages(query)
-                clearSearch.visibility = if (query.isNotEmpty()) View.VISIBLE else View.GONE
-                
-                // Sync with compact search
-                if (compactSearchInput.text.toString() != query) {
-                    compactSearchInput.setText(query)
-                    compactSearchInput.setSelection(query.length)
-                }
-            }
-        })
-
-        clearSearch.setOnClickListener {
-            searchInput.text.clear()
-            compactSearchInput.text.clear()
-        }
-
-        // Compact search input (list view)
+        // Compact search input (list view only)
         compactSearchInput.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -137,25 +158,18 @@ class LanguageSelectionActivity : AppCompatActivity() {
                 val query = s.toString()
                 filterLanguages(query)
                 compactClearSearch.visibility = if (query.isNotEmpty()) View.VISIBLE else View.GONE
-                
-                // Sync with main search
-                if (searchInput.text.toString() != query) {
-                    searchInput.setText(query)
-                    searchInput.setSelection(query.length)
-                }
             }
         })
 
         compactClearSearch.setOnClickListener {
             compactSearchInput.text.clear()
-            searchInput.text.clear()
         }
 
         // Continue button
         btnContinue.setOnClickListener {
             if (selectedLanguage != null) {
                 saveLanguagePreference()
-                navigateToMain()
+                applyLanguageAndProceed()
             }
         }
     }
@@ -187,33 +201,33 @@ class LanguageSelectionActivity : AppCompatActivity() {
         if (isListVisible) return
         isListVisible = true
 
-        // Hide keyboard from main search
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(searchInput.windowToken, 0)
-
-        // Show list container
+        // Show list container (continue button stays hidden until language selected)
         listContainer.visibility = View.VISIBLE
-        btnContinue.visibility = View.VISIBLE
+
+        // Animate globe, title, subtitle out (fade out)
+        val globeFade = ObjectAnimator.ofFloat(globeContainer, "alpha", 1f, 0f)
+        val titleFade = ObjectAnimator.ofFloat(titleText, "alpha", 1f, 0f)
+        val subtitleFade = ObjectAnimator.ofFloat(subtitleText, "alpha", 1f, 0f)
 
         // Animate centered container out (move up and fade)
         val centeredMoveUp = ObjectAnimator.ofFloat(centeredContainer, "translationY", 0f, -200f)
         val centeredFade = ObjectAnimator.ofFloat(centeredContainer, "alpha", 1f, 0f)
+        
+        // Animate select language button out
+        val btnSelectFade = ObjectAnimator.ofFloat(btnSelectLanguage, "alpha", 1f, 0f)
+        val btnSelectMoveDown = ObjectAnimator.ofFloat(btnSelectLanguage, "translationY", 0f, 50f)
 
         // Animate list container in (slide up and fade in)
         listContainer.translationY = 100f
         val listMoveUp = ObjectAnimator.ofFloat(listContainer, "translationY", 100f, 0f)
         val listFade = ObjectAnimator.ofFloat(listContainer, "alpha", 0f, 1f)
 
-        // Animate continue button in
-        btnContinue.translationY = 50f
-        val btnMoveUp = ObjectAnimator.ofFloat(btnContinue, "translationY", 50f, 0f)
-        val btnFade = ObjectAnimator.ofFloat(btnContinue, "alpha", 0f, 1f)
-
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(
+            globeFade, titleFade, subtitleFade,
             centeredMoveUp, centeredFade,
-            listMoveUp, listFade,
-            btnMoveUp, btnFade
+            btnSelectFade, btnSelectMoveDown,
+            listMoveUp, listFade
         )
         animatorSet.duration = 400
         animatorSet.interpolator = DecelerateInterpolator()
@@ -222,11 +236,15 @@ class LanguageSelectionActivity : AppCompatActivity() {
         animatorSet.addListener(object : android.animation.AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: android.animation.Animator) {
                 centeredContainer.visibility = View.GONE
+                globeContainer.visibility = View.GONE
+                titleText.visibility = View.GONE
+                subtitleText.visibility = View.GONE
+                btnSelectLanguage.visibility = View.GONE
                 
                 // Focus compact search input
                 compactSearchInput.requestFocus()
-                compactSearchInput.setText(searchInput.text)
-                compactSearchInput.setSelection(compactSearchInput.text.length)
+                // Start with empty search
+                compactSearchInput.setText("")
             }
         })
 
@@ -238,12 +256,24 @@ class LanguageSelectionActivity : AppCompatActivity() {
         selectedLanguage?.let { language ->
             val prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
             prefs.edit().putString("selected_language", language.code).apply()
+            
+            // Also save using LanguageManager
+            com.example.al_aalim.utils.LanguageManager.setLanguage(this, language.code)
+        }
+    }
+    
+    private fun applyLanguageAndProceed() {
+        selectedLanguage?.let { language ->
+            // Apply language using LanguageManager
+            com.example.al_aalim.utils.LanguageManager.applyLanguage(this, language.code)
+            navigateToMain()
         }
     }
 
     private fun navigateToMain() {
-        // Navigate to Location Permission screen after language selection
-        val intent = Intent(this, LocationPermissionActivity::class.java)
+        // Navigate to the main screen after language selection
+        val intent = Intent(this, NotificationPermissionActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         finish()
@@ -285,6 +315,21 @@ class LanguageSelectionActivity : AppCompatActivity() {
         }
     }
 
+    private fun showContinueButton() {
+        if (btnContinue.visibility == View.VISIBLE) return
+        
+        btnContinue.visibility = View.VISIBLE
+        btnContinue.alpha = 0f
+        btnContinue.translationY = 50f
+        
+        btnContinue.animate()
+            .alpha(1f)
+            .translationY(0f)
+            .setDuration(300)
+            .setInterpolator(DecelerateInterpolator())
+            .start()
+    }
+
     private fun hideLanguageList() {
         isListVisible = false
 
@@ -292,14 +337,34 @@ class LanguageSelectionActivity : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(compactSearchInput.windowToken, 0)
 
-        // Show centered container
+        // Show centered container and globe/title/subtitle
         centeredContainer.visibility = View.VISIBLE
         centeredContainer.alpha = 0f
         centeredContainer.translationY = -200f
+        
+        globeContainer.visibility = View.VISIBLE
+        globeContainer.alpha = 0f
+        titleText.visibility = View.VISIBLE
+        titleText.alpha = 0f
+        subtitleText.visibility = View.VISIBLE
+        subtitleText.alpha = 0f
+        
+        btnSelectLanguage.visibility = View.VISIBLE
+        btnSelectLanguage.alpha = 0f
+        btnSelectLanguage.translationY = 50f
+
+        // Animate globe, title, subtitle back in
+        val globeFade = ObjectAnimator.ofFloat(globeContainer, "alpha", 0f, 1f)
+        val titleFade = ObjectAnimator.ofFloat(titleText, "alpha", 0f, 1f)
+        val subtitleFade = ObjectAnimator.ofFloat(subtitleText, "alpha", 0f, 1f)
 
         // Animate centered container back in
         val centeredMoveDown = ObjectAnimator.ofFloat(centeredContainer, "translationY", -200f, 0f)
         val centeredFade = ObjectAnimator.ofFloat(centeredContainer, "alpha", 0f, 1f)
+        
+        // Animate select button back in
+        val btnSelectFade = ObjectAnimator.ofFloat(btnSelectLanguage, "alpha", 0f, 1f)
+        val btnSelectMoveUp = ObjectAnimator.ofFloat(btnSelectLanguage, "translationY", 50f, 0f)
 
         // Animate list out
         val listMoveDown = ObjectAnimator.ofFloat(listContainer, "translationY", 0f, 100f)
@@ -311,7 +376,9 @@ class LanguageSelectionActivity : AppCompatActivity() {
 
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(
+            globeFade, titleFade, subtitleFade,
             centeredMoveDown, centeredFade,
+            btnSelectFade, btnSelectMoveUp,
             listMoveDown, listFade,
             btnMoveDown, btnFade
         )
@@ -325,7 +392,6 @@ class LanguageSelectionActivity : AppCompatActivity() {
                 btnContinue.visibility = View.GONE
                 
                 // Clear search
-                searchInput.text.clear()
                 compactSearchInput.text.clear()
             }
         })

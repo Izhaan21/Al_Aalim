@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/drawer_user_name"
-            android:textColor="@color/white"
+            android:textColor="@color/gold"
             android:textSize="20sp"
             android:textStyle="bold"/>
 
@@ -180,18 +180,40 @@
 
     <!-- Divider -->
 
-    <!-- Chat History Header -->
-    <TextView
+    <!-- Chat History Header with Delete All -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:text="Chat History"
-        android:textColor="@color/text_dark"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        android:alpha="0.6"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Chat History"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:alpha="0.8"/>
+
+        <TextView
+            android:id="@+id/btn_delete_all_chats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete All"
+            android:textColor="@color/accent_red"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:padding="8dp"
+            android:background="@drawable/input_field_glass"
+            android:clickable="true"
+            android:focusable="true"/>
+
+    </LinearLayout>
 
     <!-- Chat History List -->
     <androidx.recyclerview.widget.RecyclerView

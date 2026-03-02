@@ -6,165 +6,273 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background_gradient"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     tools:context=".LocationPermissionActivity">
 
-    <!-- Centered Content -->
-    <LinearLayout
-        android:id="@+id/centered_container"
+    <!-- Person with Quran Illustration at Top -->
+    <ImageView
+        android:id="@+id/iv_illustration"
+        android:layout_width="384dp"
+        android:layout_height="147dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="Muslim reading Quran illustration"
+        android:scaleType="fitCenter"
+        android:src="@drawable/illustration_muslim_reading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Glass Card Container (matching login screen) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/glass_card"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="0dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/glass_card_background"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_illustration"
+        app:layout_constraintVertical_bias="0.0">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="32dp">
+
+                <!-- Location Icon at Top Inside Glass Card -->
+                <FrameLayout
+                    android:id="@+id/icon_container"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/language_globe_background"
+                    android:elevation="6dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="Location icon"
+                        android:src="@drawable/ic_location"
+                        app:tint="#1E293B" />
+
+                </FrameLayout>
+
+                <!-- Title -->
+                <TextView
+                    android:id="@+id/title_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Location Access"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/icon_container" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:id="@+id/subtitle_text"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center"
+                    android:text="We need your location to find the Qibla direction accurately"
+                    android:textColor="#88FFFFFF"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title_text" />
+
+                <!-- Spacer to push content down -->
+                <View
+                    android:id="@+id/spacer"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@id/centered_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/subtitle_text"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <!-- Centered Content Container -->
+                <LinearLayout
+                    android:id="@+id/centered_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toTopOf="@id/btn_allow_location"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Allow Location Button (at bottom) -->
+                <TextView
+                    android:id="@+id/btn_allow_location"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_gold_gradient"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:text="Allow Location Access"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/btn_skip"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Skip for now -->
+                <TextView
+                    android:id="@+id/btn_skip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:padding="4dp"
+                    android:text="@string/skip_for_now"
+                    android:textColor="#AAFFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="13sp"
+                    app:layout_constraintBottom_toTopOf="@id/settings_note"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Settings note (at very bottom) -->
+                <TextView
+                    android:id="@+id/settings_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:gravity="center"
+                    android:text="You can change this later in Settings"
+                    android:textColor="#77FFFFFF"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Mosque Silhouette at Bottom (behind card) -->
+    <ImageView
+        android:id="@+id/iv_mosque_silhouette"
+        android:layout_width="714dp"
+        android:layout_height="300dp"
+        android:alpha="0.3"
+        android:contentDescription="Mosque silhouette"
+        android:scaleType="fitXY"
+        android:src="@drawable/mosque_skyline_new"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:tint="#FFFFFF" />
 
-        <!-- Location Icon Container (Gold like Language Screen) -->
-        <FrameLayout
-            android:id="@+id/icon_container"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/language_globe_background"
-            android:elevation="6dp">
-
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_location"
-                android:contentDescription="Location icon"
-                app:tint="#1E293B" />
-
-        </FrameLayout>
-
-        <!-- Title -->
-        <TextView
-            android:id="@+id/title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Location Access"
-            android:textColor="@color/white"
-            android:textSize="26sp"
-            android:textStyle="bold" />
-
-        <!-- Subtitle -->
-        <TextView
-            android:id="@+id/subtitle_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:gravity="center"
-            android:text="We need your location to find the Qibla direction accurately"
-            android:textColor="#B0FFFFFF"
-            android:textSize="14sp" />
-
-        <!-- Glass Card Container -->
-
-    </LinearLayout>
-
-    <!-- Allow Location Button (Gold like Language Screen) -->
-    <TextView
-        android:id="@+id/btn_allow_location"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/btn_continue_gold"
-        android:gravity="center"
-        android:text="Allow Location Access"
-        android:textColor="#1E293B"
-        android:textSize="17sp"
-        android:textStyle="bold"
-        android:elevation="4dp"
-        app:layout_constraintBottom_toTopOf="@id/btn_skip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Skip for now -->
-    <TextView
-        android:id="@+id/btn_skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:padding="8dp"
-        android:text="Skip for now"
-        android:textColor="#B0FFFFFF"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/settings_note"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Settings note -->
-    <TextView
-        android:id="@+id/settings_note"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:gravity="center"
-        android:text="You can change this later in Settings"
-        android:textColor="#80FFFFFF"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <!-- Loading Overlay -->
-    <FrameLayout
-        android:id="@+id/loading_overlay"
+    <!-- Blur Overlay (more translucent to hide background) -->
+    <View
+        android:id="@+id/blur_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#CC0D1F2D"
+        android:background="#CC000000"
         android:clickable="true"
         android:focusable="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Loading Card (premium design with better styling) -->
+    <!-- Loading Overlay Container (Dimmed Background) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="30dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <!-- Centered Dialog Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="32dp">
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Progress Circle -->
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:indeterminate="true"
-                android:indeterminateTint="#D4AF37" />
-
-            <!-- Loading Text -->
-            <TextView
-                android:id="@+id/tv_loading_status"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="Getting your location..."
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_loading_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="This will help find the Qibla direction"
-                android:textColor="#B0FFFFFF"
-                android:textSize="13sp" />
+                android:orientation="vertical"
+                android:paddingHorizontal="48dp"
+                android:paddingVertical="32dp">
 
-        </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/prayer_beads_container"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/brand_yellow" />
 
-    </FrameLayout>
+                <TextView
+                    android:id="@+id/tv_loading_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Please Wait, getting your location"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:gravity="center" />
+
+                <!-- Hidden Cancel Button (kept for ID reference) -->
+                <TextView
+                    android:id="@+id/btn_back_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Cancel"
+                    android:textColor="#55000000"
+                    android:textSize="14sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

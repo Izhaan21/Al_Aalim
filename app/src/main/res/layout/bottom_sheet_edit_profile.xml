@@ -31,7 +31,7 @@
             android:layout_height="100dp"
             app:cardCornerRadius="50dp"
             app:cardElevation="4dp"
-            app:cardBackgroundColor="@android:color/transparent">
+            app:cardBackgroundColor="@color/primary_teal">
 
             <TextView
                 android:id="@+id/tv_avatar_initials"
@@ -139,7 +139,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/input_field_glass"
+            android:background="@drawable/btn_gold_gradient"
             android:paddingHorizontal="32dp"
             android:paddingVertical="14dp"
             android:text="@string/edit_profile_save"

@@ -28,6 +28,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.al_aalim.databinding.ActivityQiblaBinding
+import com.example.al_aalim.utils.AnimationUtils.setOnClickWithAnimation
 import com.example.al_aalim.utils.LocationManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -77,7 +78,6 @@ class QiblaActivity : AppCompatActivity(), SensorEventListener {
 
         if (fineLocationGranted || coarseLocationGranted) {
             Log.d(TAG, "Location permission granted")
-            Toast.makeText(this, "Location permission granted!", Toast.LENGTH_SHORT).show()
             startLocationTracking()
         } else {
             Log.d(TAG, "Location permission denied")
@@ -280,7 +280,6 @@ class QiblaActivity : AppCompatActivity(), SensorEventListener {
 
     private fun startLocationTracking() {
         Log.d(TAG, "Starting location tracking")
-        Toast.makeText(this, "Getting location...", Toast.LENGTH_SHORT).show()
         
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED
@@ -416,22 +415,33 @@ class QiblaActivity : AppCompatActivity(), SensorEventListener {
         binding.navBook.isSelected = false
         binding.ivNavBook.isSelected = false
         binding.tvNavBook.isSelected = false
+
+        binding.navMore.isSelected = false
+        binding.ivNavMore.isSelected = false
+        binding.tvNavMore.isSelected = false
     }
 
     private fun setupNavigation() {
         // Home navigation using View Binding
-        binding.navHome.setOnClickListener {
+        binding.navHome.setOnClickWithAnimation {
             finish() // Go back to MainActivity
         }
 
         // Qibla navigation (current screen, do nothing)
-        binding.navQibla.setOnClickListener {
+        binding.navQibla.setOnClickWithAnimation {
             // Already on Qibla screen
         }
 
         // Book navigation
-        binding.navBook.setOnClickListener {
+        binding.navBook.setOnClickWithAnimation {
             val intent = Intent(this, QuranActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        // More navigation
+        binding.navMore.setOnClickWithAnimation {
+            val intent = Intent(this, MoreActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -518,7 +528,6 @@ class QiblaActivity : AppCompatActivity(), SensorEventListener {
                 binding.tvCoordinates.text = String.format("%.6f, %.6f", userLatitude, userLongitude)
                 calculateQibla()
                 
-                Toast.makeText(this, "Location set to ${selectedLocation.name}", Toast.LENGTH_SHORT).show()
                 bottomSheetDialog.dismiss()
             } else {
                 Toast.makeText(this, "Please select a location", Toast.LENGTH_SHORT).show()

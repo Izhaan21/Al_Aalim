@@ -1,6 +1,7 @@
 package com.example.al_aalim
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -133,6 +134,23 @@ class LoginActivity : AppCompatActivity() {
         binding.tvForgotPassword.setOnClickListener {
             showForgotPasswordDialog()
         }
+        
+        // Password visibility toggle
+        var isPasswordVisible = false
+        binding.ivTogglePassword.setOnClickListener {
+            isPasswordVisible = !isPasswordVisible
+            if (isPasswordVisible) {
+                // Show password
+                binding.etPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                binding.ivTogglePassword.setImageResource(R.drawable.ic_eye)
+            } else {
+                // Hide password
+                binding.etPassword.inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+                binding.ivTogglePassword.setImageResource(R.drawable.ic_eye_off)
+            }
+            // Move cursor to end
+            binding.etPassword.setSelection(binding.etPassword.text.length)
+        }
     }
     
     private fun performEmailLogin() {
@@ -194,11 +212,9 @@ class LoginActivity : AppCompatActivity() {
                 
                 try {
                     ProfileManager.saveUserName(this, userId, userName)
-                    Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 } catch (e: Exception) {
                     android.util.Log.e("LoginActivity", "Error saving user name: ${e.message}", e)
-                    Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show()
                     navigateToMain()
                 }
             }
@@ -343,7 +359,7 @@ class LoginActivity : AppCompatActivity() {
     }
     
     private fun navigateToMain() {
-        val intent = Intent(this, ContainerActivity::class.java)
+        val intent = Intent(this, LocationPermissionActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -371,5 +387,9 @@ class LoginActivity : AppCompatActivity() {
     
     private fun hideSystemBars() {
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+    
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(com.example.al_aalim.utils.LanguageManager.applyLanguage(newBase))
     }
 }

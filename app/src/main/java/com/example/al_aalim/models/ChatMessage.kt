@@ -8,12 +8,12 @@ import com.google.firebase.database.IgnoreExtraProperties
  */
 @IgnoreExtraProperties
 data class ChatMessage(
-    val id: String = "",
-    val userId: String = "",
-    val message: String = "",
-    val timestamp: Long = System.currentTimeMillis(),
-    val attachments: List<Attachment> = emptyList(),
-    val isUser: Boolean = true
+    var id: String = "",
+    var userId: String = "",
+    var message: String = "",
+    var timestamp: Long = System.currentTimeMillis(),
+    var attachments: List<Attachment> = emptyList(),
+    var isUser: Boolean = true
 ) {
     /**
      * Convert to HashMap for Firebase

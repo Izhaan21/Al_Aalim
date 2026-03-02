@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
+
+    <RelativeLayout
+        android:id="@+id/row_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/input_field_glass"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp">
+
+        <ImageView
+            android:id="@+id/iv_favourite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="2dp"
+            android:contentDescription="Favourite"
+            android:src="@drawable/ic_heart_outline"
+            android:padding="2dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/iv_favourite"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:background="@drawable/surah_badge_background"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_surah_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SURAH"
+                    android:textColor="@color/gold"
+                    android:textSize="7.5sp"
+                    android:letterSpacing="0.12"
+                    android:textStyle="bold"
+                    android:alpha="0.9" />
+
+                <TextView
+                    android:id="@+id/tv_surah_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textColor="@color/gold"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="14dp">
+
+                <TextView
+                    android:id="@+id/tv_surah_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Surah Al-Fatihah"
+                    android:textColor="#FFFFFF"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_surah_meaning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="The Opening"
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="12.5sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_surah_arabic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="الفاتحة"
+                android:textColor="@color/gold"
+                android:textSize="17sp"
+                android:fontFamily="serif" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

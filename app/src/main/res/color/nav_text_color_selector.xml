@@ -2,6 +2,6 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Gold color when selected -->
     <item android:color="@color/gold" android:state_selected="true" />
-    <!-- Default gray color when not selected -->
-    <item android:color="#7A8A8C" />
+    <!-- White color when not selected -->
+    <item android:color="@color/white" />
 </selector>

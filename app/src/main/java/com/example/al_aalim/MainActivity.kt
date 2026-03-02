@@ -17,6 +17,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.al_aalim.databinding.ActivityMainBinding
+import com.example.al_aalim.utils.AnimationUtils.setOnClickWithAnimation
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -176,18 +177,28 @@ class MainActivity : AppCompatActivity() {
         binding.navBook.isSelected = false
         binding.ivNavBook.isSelected = false
         binding.tvNavBook.isSelected = false
+
+        binding.navMore.isSelected = false
+        binding.ivNavMore.isSelected = false
+        binding.tvNavMore.isSelected = false
     }
     
     private fun setupNavigation() {
         // Qibla navigation - using View Binding
-        binding.navQibla.setOnClickListener {
+        binding.navQibla.setOnClickWithAnimation {
             val intent = Intent(this, QiblaActivity::class.java)
             startActivity(intent)
         }
         
         // Book/Quran navigation
-        binding.navBook.setOnClickListener {
+        binding.navBook.setOnClickWithAnimation {
             val intent = Intent(this, QuranActivity::class.java)
+            startActivity(intent)
+        }
+
+        // More navigation
+        binding.navMore.setOnClickWithAnimation {
+            val intent = Intent(this, MoreActivity::class.java)
             startActivity(intent)
         }
     }

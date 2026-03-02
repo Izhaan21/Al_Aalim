@@ -1,5 +1,6 @@
 package com.example.al_aalim
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -174,6 +175,75 @@ class ContainerActivity : AppCompatActivity() {
         }
         override fun afterTextChanged(s: android.text.Editable?) {}
     })
+    
+    // Delete All button
+    val deleteAllButton = binding.drawerLayout.findViewById<android.widget.TextView>(R.id.btn_delete_all_chats)
+    deleteAllButton?.setOnClickListener {
+        showDeleteAllConversationsDialog()
+    }
+    
+    // Update delete button visibility
+    updateDeleteButtonVisibility()
+}
+
+private fun updateDeleteButtonVisibility() {
+    val deleteAllButton = binding.drawerLayout.findViewById<android.widget.TextView>(R.id.btn_delete_all_chats)
+    // Show delete button only if there are conversations
+    deleteAllButton?.visibility = if (allConversations.isNotEmpty()) android.view.View.VISIBLE else android.view.View.GONE
+}
+
+private fun showDeleteAllConversationsDialog() {
+    if (allConversations.isEmpty()) {
+        return
+    }
+    
+    com.google.android.material.dialog.MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Rounded)
+        .setTitle("Delete All Chats")
+        .setMessage("Are you sure you want to delete all ${allConversations.size} conversations? This action cannot be undone.")
+        .setPositiveButton("Delete All") { dialog, _ ->
+            deleteAllConversations()
+            dialog.dismiss()
+        }
+        .setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+}
+
+private fun deleteAllConversations() {
+    activityScope.launch {
+        try {
+            android.util.Log.d("ContainerActivity", "Attempting to delete all conversations")
+            val result = withContext(Dispatchers.IO) {
+                chatRepository.deleteAllConversations()
+            }
+            
+            if (result.isSuccess) {
+                android.util.Log.d("ContainerActivity", "Successfully deleted all conversations")
+                // Clear active conversation
+                activeConversationId = null
+                val homeFragment = supportFragmentManager.findFragmentByTag("f0") as? HomeFragment
+                homeFragment?.clearCurrentChat()
+                homeFragment?.setActiveConversation(null)
+                
+                // Clear the list
+                allConversations = emptyList()
+                conversationAdapter.submitList(emptyList())
+                
+                // Update delete button visibility
+                updateDeleteButtonVisibility()
+                
+                android.widget.Toast.makeText(this@ContainerActivity, "All chats deleted", android.widget.Toast.LENGTH_SHORT).show()
+            } else {
+                val error = result.exceptionOrNull()?.message ?: "Unknown error"
+                android.util.Log.e("ContainerActivity", "Failed to delete all conversations: $error")
+                android.widget.Toast.makeText(this@ContainerActivity, "Failed to delete all chats: $error", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        } catch (e: Exception) {
+            android.util.Log.e("ContainerActivity", "Exception during delete all: ${e.message}")
+            android.widget.Toast.makeText(this@ContainerActivity, "Error: ${e.message}", android.widget.Toast.LENGTH_SHORT).show()
+        }
+    }
 }
 
 private fun setupChatHistoryRecyclerView() {
@@ -184,7 +254,11 @@ private fun setupChatHistoryRecyclerView() {
             // Load selected conversation
             loadConversation(conversation)
         },
-        onConversationLongClick = { conversation ->
+        onEditClick = { conversation ->
+            // Show rename dialog
+            showRenameConversationDialog(conversation)
+        },
+        onDeleteClick = { conversation ->
             // Show delete confirmation dialog
             showDeleteConversationDialog(conversation)
         }
@@ -193,6 +267,58 @@ private fun setupChatHistoryRecyclerView() {
     recyclerView?.apply {
         layoutManager = LinearLayoutManager(this@ContainerActivity)
         adapter = conversationAdapter
+    }
+}
+
+private fun showRenameConversationDialog(conversation: ChatConversation) {
+    val input = android.widget.EditText(this)
+    input.setText(conversation.title)
+    input.setSelection(conversation.title.length)
+    
+    val padding = (24 * resources.displayMetrics.density).toInt()
+    val container = android.widget.FrameLayout(this)
+    val params = android.widget.FrameLayout.LayoutParams(
+        android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+        android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+    )
+    params.setMargins(padding, padding / 2, padding, 0)
+    input.layoutParams = params
+    container.addView(input)
+
+    com.google.android.material.dialog.MaterialAlertDialogBuilder(this, R.style.MaterialAlertDialog_Rounded)
+        .setTitle("Rename Chat")
+        .setView(container)
+        .setPositiveButton("Rename") { dialog, _ ->
+            val newTitle = input.text.toString().trim()
+            if (newTitle.isNotEmpty() && newTitle != conversation.title) {
+                renameConversation(conversation.id, newTitle)
+            }
+            dialog.dismiss()
+        }
+        .setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+        .show()
+}
+
+private fun renameConversation(conversationId: String, newTitle: String) {
+    activityScope.launch {
+        val result = withContext(Dispatchers.IO) {
+            chatRepository.updateConversationTitle(conversationId, newTitle)
+        }
+        
+        if (result.isSuccess) {
+            val path = result.getOrNull() ?: ""
+            loadConversations() // Reload to update UI
+            android.widget.Toast.makeText(this@ContainerActivity, "Renamed in Firebase at: $path", android.widget.Toast.LENGTH_LONG).show()
+        } else {
+            val error = result.exceptionOrNull()?.message ?: "Unknown error"
+            android.widget.Toast.makeText(
+                this@ContainerActivity,
+                "Failed to rename: $error",
+                android.widget.Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 
@@ -227,12 +353,6 @@ private fun deleteConversation(conversation: ChatConversation) {
             
             // Reload conversations to update the list
             loadConversations()
-            
-            android.widget.Toast.makeText(
-                this@ContainerActivity,
-                "Conversation deleted",
-                android.widget.Toast.LENGTH_SHORT
-            ).show()
         } else {
             android.widget.Toast.makeText(
                 this@ContainerActivity,
@@ -281,6 +401,9 @@ fun loadConversations() {
             allConversations = result.getOrNull() ?: emptyList()
             android.util.Log.d("ContainerActivity", "Loaded ${allConversations.size} conversations")
             conversationAdapter.submitList(allConversations)
+            
+            // Update delete button visibility based on conversation count
+            updateDeleteButtonVisibility()
             
             // If no active conversation and we have conversations, set the first one
             if (activeConversationId == null && allConversations.isNotEmpty()) {
@@ -489,42 +612,79 @@ fun loadConversations() {
         binding.navBook.setOnClickWithAnimation {
             binding.viewPager.currentItem = 2
         }
+
+        // More navigation
+        binding.navMore.setOnClickWithAnimation {
+            binding.viewPager.currentItem = 3
+        }
     }
 
     private fun setActiveNavigation(position: Int) {
-        // Reset all
+        // Reset all - scale down to normal
+        animateNavItem(binding.navHome, false)
         binding.navHome.isSelected = false
         binding.ivNavHome.isSelected = false
         binding.tvNavHome.isSelected = false
 
+        animateNavItem(binding.navQibla, false)
         binding.navQibla.isSelected = false
         binding.ivNavQibla.isSelected = false
         binding.tvNavQibla.isSelected = false
 
+        animateNavItem(binding.navBook, false)
         binding.navBook.isSelected = false
         binding.ivNavBook.isSelected = false
         binding.tvNavBook.isSelected = false
 
-        // Set active based on position
+        // Reset More selection
+        animateNavItem(binding.navMore, false)
+        binding.navMore.isSelected = false
+        binding.ivNavMore.isSelected = false
+        binding.tvNavMore.isSelected = false
+
+        // Set active based on position - scale up selected
         when (position) {
             0 -> {
+                animateNavItem(binding.navHome, true)
                 binding.navHome.isSelected = true
                 binding.ivNavHome.isSelected = true
                 binding.tvNavHome.isSelected = true
             }
 
             1 -> {
+                animateNavItem(binding.navQibla, true)
                 binding.navQibla.isSelected = true
                 binding.ivNavQibla.isSelected = true
                 binding.tvNavQibla.isSelected = true
             }
 
             2 -> {
+                animateNavItem(binding.navBook, true)
                 binding.navBook.isSelected = true
                 binding.ivNavBook.isSelected = true
                 binding.tvNavBook.isSelected = true
             }
+
+            3 -> {
+                animateNavItem(binding.navMore, true)
+                binding.navMore.isSelected = true
+                binding.ivNavMore.isSelected = true
+                binding.tvNavMore.isSelected = true
+            }
         }
+    }
+    
+    private fun animateNavItem(view: View, selected: Boolean) {
+        val scale = if (selected) 1.25f else 1.0f
+        val translationY = if (selected) -8 * resources.displayMetrics.density else 0f
+        
+        view.animate()
+            .scaleX(scale)
+            .scaleY(scale)
+            .translationY(translationY)
+            .setDuration(200)
+            .setInterpolator(android.view.animation.OvershootInterpolator())
+            .start()
     }
 
     fun navigateToPage(position: Int) {
@@ -582,5 +742,9 @@ fun loadConversations() {
         } else {
             super.onBackPressed()
         }
+    }
+    
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(com.example.al_aalim.utils.LanguageManager.applyLanguage(newBase))
     }
 }

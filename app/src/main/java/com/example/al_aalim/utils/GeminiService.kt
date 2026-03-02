@@ -37,7 +37,7 @@ object GeminiService {
         
         Example: "Assalamu Alaikum. Prayer is mandatory. Quran 2:43 says: 'And establish prayer and give zakah...'"
     """
-    
+
     private var generativeModel: GenerativeModel? = null
     private val chatHistory = mutableListOf<Content>()
     

@@ -55,6 +55,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
     implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
     
     // Image loading from URLs
     implementation("io.coil-kt:coil:2.5.0")
@@ -72,6 +73,16 @@ dependencies {
     // Google Generative AI (Gemini)
     implementation("com.google.ai.client.generativeai:generativeai:0.9.0")
     
+    // Retrofit for REST API
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+    
+    // Animation libraries
+    implementation("com.airbnb.android:lottie:6.3.0")  // Lottie animations
+    implementation("com.facebook.shimmer:shimmer:0.5.0")  // Shimmer loading effect
+    implementation("androidx.dynamicanimation:dynamicanimation:1.0.0")  // Spring animations
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

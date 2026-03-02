@@ -16,6 +16,7 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +25,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,6 +52,8 @@ import com.google.android.gms.maps.model.Polyline
 import com.google.android.gms.maps.model.PolylineOptions
 import com.example.al_aalim.utils.LocationManager
 import com.example.al_aalim.utils.AnimationUtils.setOnClickWithAnimation
+import com.example.al_aalim.utils.HapticUtils
+import com.example.al_aalim.utils.HapticUtils.haptic
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlin.math.*
 
@@ -102,6 +106,12 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
     // Location selection
     private var selectedLocationIndex = -1
     
+    // Track if user went to location settings
+    private var wentToLocationSettings = false
+    
+    // Loading dialog
+    private var loadingDialog: AlertDialog? = null
+    
     // Permission launcher
     private val locationPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -111,14 +121,11 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
 
         if (fineLocationGranted || coarseLocationGranted) {
             Log.d(TAG, "Location permission granted")
+            showLoadingDialog()
             startLocationTracking()
         } else {
             Log.d(TAG, "Location permission denied")
-            Toast.makeText(
-                requireContext(),
-                "Location permission is required for Qibla direction",
-                Toast.LENGTH_LONG
-            ).show()
+            // Removed toast - permission dialog already provides feedback
         }
     }
     
@@ -165,6 +172,9 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
             userLongitude = LocationManager.userLongitude
             hasLocation = true
             
+            // Hide the "Use My Location" button since we already have location
+            binding.btnUseMyLocation.visibility = View.GONE
+            
             // Update coordinates display
             binding.tvCoordinates.text = String.format(
                 "%.7f, %.7f",
@@ -184,9 +194,9 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
             Log.d(TAG, "No cached location available")
         }
         
-        // Setup Choose Location button with animation
-        binding.btnChooseLocation.setOnClickWithAnimation {
-            showLocationBottomSheet()
+        // Setup Use My Location button with animation
+        binding.btnUseMyLocation.setOnClickWithAnimation {
+            checkLocationPermission()
         }
         
         Log.d(TAG, "onViewCreated completed")
@@ -195,6 +205,13 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume - registering sensors")
+        
+        // Check if user went to location settings and location is now enabled
+        if (wentToLocationSettings && isLocationEnabled()) {
+            wentToLocationSettings = false
+            // Location services are now enabled, check permission and start tracking
+            checkLocationPermission()
+        }
         
         // Resume map
         mapView?.onResume()
@@ -220,6 +237,8 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
         super.onDestroyView()
         mapView?.onDestroy()
         stopLocationUpdates()
+        hideLoadingDialog()
+        loadingDialog = null
         _binding = null
     }
     
@@ -453,8 +472,9 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
                 binding.ivOuterRing.setColorFilter(android.graphics.Color.parseColor("#FFD700"))
                 binding.ivTriangle.setColorFilter(android.graphics.Color.parseColor("#FFD700"))
                 
-                // Vibrate once when Qibla is found
+                // Unique haptic pattern when Qibla is found
                 if (!hasVibrated) {
+                    // binding.root.haptic(HapticUtils.HapticType.QIBLA_FOUND)
                     vibrateDevice()
                     hasVibrated = true
                 }
@@ -496,6 +516,12 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
     private fun checkLocationPermission() {
         Log.d(TAG, "Checking location permission")
         
+        // First check if location services are enabled
+        if (!isLocationEnabled()) {
+            showLocationServicesDisabledDialog()
+            return
+        }
+        
         val fineLocation =
             ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION)
         val coarseLocation =
@@ -503,6 +529,7 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
 
         if (fineLocation == PackageManager.PERMISSION_GRANTED || coarseLocation == PackageManager.PERMISSION_GRANTED) {
             Log.d(TAG, "Permission already granted")
+            showLoadingDialog()
             startLocationTracking()
         } else {
             Log.d(TAG, "Requesting permission")
@@ -559,6 +586,12 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
         userLatitude = location.latitude
         userLongitude = location.longitude
         hasLocation = true
+        
+        // Hide loading dialog
+        hideLoadingDialog()
+        
+        // Hide the "Use My Location" button since we now have location
+        binding.btnUseMyLocation.visibility = View.GONE
         
         // Update coordinates display continuously
         binding.tvCoordinates.text = String.format(
@@ -639,6 +672,108 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
         val c = 2 * atan2(sqrt(a), sqrt(1 - a))
         
         return earthRadius * c
+    }
+    
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = requireContext().getSystemService(Context.LOCATION_SERVICE) as android.location.LocationManager
+        return locationManager.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER)
+    }
+    
+    private fun showLocationServicesDisabledDialog() {
+        val dialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_Rounded)
+            .setTitle("📍 Enable Location Services")
+            .setMessage(
+                "Location services are currently turned off.\n\n" +
+                "To use Qibla direction, please:\n\n" +
+                "1. Tap 'Open Settings'\n" +
+                "2. Turn on 'Location' or 'GPS'\n" +
+                "3. Return to Al-Aalim"
+            )
+            .setPositiveButton("Open Settings") { dialog, _ ->
+                dialog.dismiss()
+                openLocationSettings()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
+        
+        dialog.show()
+        
+        // Style the buttons
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE)?.setTextColor(
+            ContextCompat.getColor(requireContext(), R.color.gold)
+        )
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE)?.setTextColor(
+            ContextCompat.getColor(requireContext(), R.color.text_secondary)
+        )
+    }
+    
+    private fun openLocationSettings() {
+        wentToLocationSettings = true
+        val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+        startActivity(intent)
+    }
+    
+    private fun showLoadingDialog() {
+        if (loadingDialog == null) {
+            // Create main container (CardView-like appearance)
+            val dialogView = android.widget.LinearLayout(requireContext()).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+                gravity = android.view.Gravity.CENTER
+                setBackgroundColor(android.graphics.Color.WHITE) // Clean white background
+                setPadding(
+                    (48 * resources.displayMetrics.density).toInt(),
+                    (32 * resources.displayMetrics.density).toInt(),
+                    (48 * resources.displayMetrics.density).toInt(),
+                    (32 * resources.displayMetrics.density).toInt()
+                )
+            }
+            
+            // Progress Bar
+            val progressBar = android.widget.ProgressBar(requireContext()).apply {
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    (48 * resources.displayMetrics.density).toInt(),
+                    (48 * resources.displayMetrics.density).toInt()
+                )
+                isIndeterminate = true
+                indeterminateTintList = android.content.res.ColorStateList.valueOf(
+                    android.graphics.Color.parseColor("#E1AD01") // Dull gold color
+                )
+            }
+            dialogView.addView(progressBar)
+            
+            // Loading status text
+            val loadingText = android.widget.TextView(requireContext()).apply {
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+                    android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, (24 * resources.displayMetrics.density).toInt(), 0, 0)
+                }
+                text = "Please Wait, getting your location"
+                textAlignment = android.view.View.TEXT_ALIGNMENT_CENTER
+                textSize = 16f
+                setTextColor(android.graphics.Color.BLACK) // Black text
+                setTypeface(null, android.graphics.Typeface.NORMAL)
+            }
+            dialogView.addView(loadingText)
+            
+            loadingDialog = com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext(), R.style.MaterialAlertDialog_Rounded)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create()
+                
+            // Round corners for the dialog window itself
+            loadingDialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_background_white_rounded)
+        }
+        loadingDialog?.show()
+    }
+    
+    private fun hideLoadingDialog() {
+        loadingDialog?.dismiss()
     }
     
     private fun showLocationBottomSheet() {
@@ -726,7 +861,6 @@ class QiblaFragment : Fragment(), SensorEventListener, OnMapReadyCallback {
                 calculateQibla()
                 updateMapMarkers()
                 
-                Toast.makeText(requireContext(), "Location set to ${selectedLocation.name}", Toast.LENGTH_SHORT).show()
                 bottomSheetDialog.dismiss()
             } else {
                 Toast.makeText(requireContext(), "Please select a location", Toast.LENGTH_SHORT).show()

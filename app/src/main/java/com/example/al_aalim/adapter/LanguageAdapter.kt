@@ -22,7 +22,7 @@ class LanguageAdapter(
         val checkIcon: ImageView = itemView.findViewById(R.id.check_icon)
         val nativeName: TextView = itemView.findViewById(R.id.native_name)
         val englishName: TextView = itemView.findViewById(R.id.english_name)
-        val flagIcon: ImageView = itemView.findViewById(R.id.flag_icon)
+        val flagIcon: TextView = itemView.findViewById(R.id.flag_icon)  // Changed to TextView
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LanguageViewHolder {
@@ -36,7 +36,8 @@ class LanguageAdapter(
         
         holder.nativeName.text = language.nativeName
         holder.englishName.text = language.englishName
-        holder.flagIcon.setImageResource(language.flagResId)
+        // Display emoji flag as text instead of setting image resource
+        holder.flagIcon.text = language.flagEmoji
 
         val isSelected = language.code == selectedLanguageCode
         if (isSelected) {

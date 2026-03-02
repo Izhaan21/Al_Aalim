@@ -1,5 +1,6 @@
 package com.example.al_aalim
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -161,6 +162,7 @@ class WelcomeActivity : AppCompatActivity() {
     }
     
     private fun navigateToMain() {
+        // Navigate to Login Activity
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
@@ -176,5 +178,9 @@ class WelcomeActivity : AppCompatActivity() {
     
     private fun hideSystemBars() {
         windowInsetsController.hide(WindowInsetsCompat.Type.systemBars())
+    }
+    
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(com.example.al_aalim.utils.LanguageManager.applyLanguage(newBase))
     }
 }

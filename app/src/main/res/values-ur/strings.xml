@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Name -->
+    <string name="app_name">العلیم</string>
+    
+    <!-- Welcome Screen -->
+    <string name="welcome_title">العلیم میں خوش آمدید</string>
+    <string name="welcome_subtitle">آپ کا اسلامی ساتھی</string>
+    <string name="get_started">شروع کریں</string>
+    
+    <!-- Language Selection -->
+    <string name="select_your_language">اپنی زبان منتخب کریں</string>
+    <string name="choose_preferred_language">العلیم کے لیے اپنی پسندیدہ زبان منتخب کریں</string>
+    <string name="select_language">زبان منتخب کریں</string>
+    <string name="filter_languages">زبانیں فلٹر کریں...</string>
+    <string name="languages_found">%d زبانیں ملیں</string>
+    <string name="one_language_found">1 زبان ملی</string>
+    <string name="no_languages_found">کوئی زبان نہیں ملی</string>
+    <string name="continue_button">جاری رکھیں</string>
+    
+    <!-- Location Permission -->
+    <string name="enable_location_services">مقام کی خدمات فعال کریں</string>
+    <string name="allow_location">مقام کی اجازت دیں</string>
+    <string name="location_required_title">مقام تک رسائی درکار ہے</string>
+    <string name="location_description">ہمیں قبلہ کی درست سمت اور نماز کے اوقات کے لیے آپ کے مقام کی ضرورت ہے</string>
+    <string name="getting_location">آپ کا مقام حاصل کیا جا رہا ہے...</string>
+    <string name="location_found">مقام مل گیا!</string>
+    <string name="continuing">جاری ہے...</string>
+    
+    <!-- Navigation -->
+    <string name="home">ہوم</string>
+    <string name="qibla">قبلہ</string>
+    <string name="quran">قرآن</string>
+    <string name="more">مزید</string>
+    
+    <!-- Settings -->
+    <string name="settings">ترتیبات</string>
+    <string name="general_settings">عمومی</string>
+    <string name="app_settings">ایپ کی ترتیبات</string>
+    <string name="language">زبان</string>
+    <string name="theme">تھیم</string>
+    <string name="notifications">اطلاعات</string>
+    <string name="account">اکاؤنٹ</string>
+    <string name="privacy">رازداری</string>
+    <string name="about">کے بارے میں</string>
+    
+    <!-- Chat / Home -->
+    <string name="new_chat">نئی چیٹ</string>
+    <string name="chat_history">چیٹ کی تاریخ</string>
+    <string name="type_message">پیغام لکھیں...</string>
+    <string name="send">بھیجیں</string>
+    <string name="attach">منسلک کریں</string>
+    <string name="camera">کیمرہ</string>
+    <string name="gallery">گیلری</string>
+    <string name="files">فائلیں</string>
+    
+    <!-- Login & Auth -->
+    <string name="welcome_back">خوش آمدید</string>
+    <string name="sign_in_subtitle">جاری رکھنے کے لیے سائن ان کریں</string>
+    <string name="email">ای میل</string>
+    <string name="password">پاس ورڈ</string>
+    <string name="login">لاگ ان</string>
+    <string name="create_account">اکاؤنٹ بنائیں</string>
+    <string name="forgot_password">پاس ورڈ بھول گئے؟</string>
+    <string name="or_continue_with">یا جاری رکھیں</string>
+    
+    <!-- Common Actions -->
+    <string name="ok">ٹھیک ہے</string>
+    <string name="cancel">منسوخ کریں</string>
+    <string name="skip">چھوڑیں</string>
+    <string name="next">اگلا</string>
+    <string name="back">واپس</string>
+    <string name="save">محفوظ کریں</string>
+    <string name="delete">حذف کریں</string>
+    <string name="edit">ترمیم کریں</string>
+    <string name="share">شیئر کریں</string>
+    <string name="close">بند کریں</string>
+    <string name="search">تلاش کریں</string>
+    <string name="try_again">دوبارہ کوشش کریں</string>
+    <string name="open_settings">ترتیبات کھولیں</string>
+    
+    <!-- Dialogs -->
+    <string name="delete_conversation">گفتگو حذف کریں</string>
+    <string name="delete_conversation_message">کیا آپ واقعی \"%s\" کو حذف کرنا چاہتے ہیں؟ اس سے تمام پیغامات اور منسلکات حذف ہو جائیں گے۔</string>
+    <string name="conversation_deleted">گفتگو حذف کر دی گئی</string>
+    <string name="failed_to_delete">حذف کرنے میں ناکام</string>
+    
+    <!-- Restart Dialog -->
+    <string name="restart_required">دوبارہ شروع کرنا ضروری ہے</string>
+    <string name="restart_for_language_change">زبان کی تبدیلی کو لاگو کرنے کے لیے براہ کرم ایپ کو دوبارہ شروع کریں۔</string>
+    <string name="restart_now">ابھی دوبارہ شروع کریں</string>
+    <string name="restart_later">بعد میں</string>
+    
+    <!-- Qibla & Prayer Times -->
+    <string name="qibla_direction">قبلہ کی سمت</string>
+    <string name="distance_to_mecca">مکہ سے فاصلہ</string>
+    <string name="choose_location">مقام منتخب کریں</string>
+    <string name="use_my_location">میرا مقام استعمال کریں</string>
+    <string name="prayer_times">نماز کے اوقات</string>
+    <string name="fajr">فجر</string>
+    <string name="dhuhr">ظہر</string>
+    <string name="asr">عصر</string>
+    <string name="maghrib">مغرب</string>
+    <string name="isha">عشاء</string>
+    
+    <!-- Navigation Labels -->
+    <string name="nav_home">العلیم</string>
+    <string name="nav_qibla">قبلہ</string>
+    <string name="nav_book">قرآن</string>
+    
+    <!-- Account Activity -->
+    <string name="account_title">اکاؤنٹ</string>
+    <string name="account_greeting">السلام علیکم</string>
+    <string name="account_greeting_format">السلام علیکم، %s</string>
+    <string name="account_edit_profile">پروفائل میں ترمیم کریں</string>
+    <string name="account_settings">اکاؤنٹ کی ترتیبات</string>
+    <string name="setting_change_password">پاس ورڈ تبدیل کریں</string>
+    <string name="setting_change_email">ای میل تبدیل کریں</string>
+    <string name="setting_change_name">نام تبدیل کریں</string>
+    <string name="setting_gender">جنس</string>
+    
+    <!-- Crop Photo -->
+    <string name="crop_instructions">تصویر کو ایڈجسٹ کرنے کے لیے گھسیٹیں</string>
+    <string name="crop_cancel">منسوخ کریں</string>
+    <string name="crop_done">ہو گیا</string>
+    
+    <!-- Login -->
+    <string name="login_welcome_back">خوش آمدید</string>
+    <string name="login_subtitle">العلیم میں جاری رکھنے کے لیے سائن ان کریں</string>
+    
+    <!-- Content Descriptions -->
+    <string name="cd_back_button">واپس</string>
+    <string name="cd_home_icon">ہوم</string>
+    <string name="cd_compass_icon">قطب نما</string>
+    <string name="cd_book_icon">کتاب</string>
+    <string name="cd_menu_icon">مینو</string>
+    <string name="cd_add_icon">شامل کریں</string>
+    <string name="cd_mic_icon">مائیکروفون</string>
+    <string name="cd_mosque_silhouette">مسجد کا خاکہ</string>
+    <string name="cd_kaaba_icon">کعبہ</string>
+    <string name="cd_compass_middle">قطب نما کا درمیان</string>
+    <string name="cd_compass_inner">قطب نما کا اندرونی حصہ</string>
+    <string name="cd_compass_needle">قطب نما کی سوئی</string>
+    
+    <!-- Login Screen -->
+    <string name="login_email_hint">ای میل</string>
+    <string name="login_password_hint">پاس ورڈ</string>
+    <string name="login_forgot_password">پاس ورڈ بھول گئے؟</string>
+    <string name="login_button">لاگ ان</string>
+    <string name="dont_have_account">اکاؤنٹ نہیں ہے؟</string>
+    <string name="create_account_link">اکاؤنٹ بنائیں</string>
+    
+    <!-- Chat / Main Activity -->
+    <string name="chat_input_hint">پیغام لکھیں...</string>
+    
+    <!-- Profile Photo -->
+    <string name="profile_photo_camera">تصویر لیں</string>
+    <string name="profile_photo_album">البم سے منتخب کریں</string>
+    
+    <!-- Qibla -->
+    <string name="salah_message">اللہ آپ کی نماز قبول فرمائے</string>
+    <string name="cd_location_icon">مقام</string>
+    <string name="default_coordinates">0.0000° شمال، 0.0000° مشرق</string>
+    
+    <!-- Register Screen -->
+    <string name="register_join_us">ہم سے جڑیں</string>
+    <string name="register_title">اکاؤنٹ بنائیں</string>
+    <string name="register_subtitle">العلیم میں جاری رکھنے کے لیے سائن اپ کریں</string>
+    <string name="register_name_hint">پورا نام</string>
+    <string name="register_confirm_password_hint">پاس ورڈ کی تصدیق کریں</string>
+    <string name="register_button">رجسٹر کریں</string>
+    <string name="have_account_text">پہلے سے اکاؤنٹ ہے؟</string>
+    <string name="login_link">لاگ ان</string>
+    <string name="register_terms">رجسٹر کر کے، آپ ہماری شرائط اور رازداری کی پالیسی سے اتفاق کرتے ہیں</string>
+    
+    <!-- Settings Screen -->
+    <string name="settings_title">ترتیبات</string>
+    <string name="settings_general">عمومی</string>
+    <string name="settings_language">زبان</string>
+    <string name="settings_theme">تھیم</string>
+    <string name="setting_notifications">اطلاعات</string>
+    <string name="setting_reciter">قرآن کا قاری</string>
+    <string name="setting_quran_script">قرآن کا رسم الخط</string>
+    <string name="settings_about">کے بارے میں</string>
+    <string name="settings_privacy">رازداری کی پالیسی</string>
+    <string name="settings_terms">خدمات کی شرائط</string>
+    <string name="settings_version">ورژن 1.0.0</string>
+    
+    <!-- Welcome Screen -->
+    <string name="app_subtitle">آپ کا اسلامی ساتھی</string>
+    
+    <!-- Drawer Content -->
+    <string name="drawer_user_name">صارف</string>
+    <string name="drawer_greeting">خوش آمدید</string>
+    <string name="drawer_search_hint">گفتگو تلاش کریں...</string>
+    <string name="drawer_new_chat">نئی چیٹ</string>
+    <string name="cd_search_icon">تلاش کریں</string>
+    <string name="cd_new_chat_icon">نئی چیٹ</string>
+    <string name="cd_settings_icon">ترتیبات</string>
+    
+    <!-- Bottom Sheet Attachment -->
+    <string name="attachment_title">منسلکہ شامل کریں</string>
+    <string name="attachment_camera">کیمرہ</string>
+    <string name="attachment_photos">تصاویر</string>
+    <string name="attachment_files">فائلیں</string>
+    
+    <!-- Bottom Sheet Edit Profile -->
+    <string name="edit_profile_name_label">پورا نام</string>
+    <string name="edit_profile_name_hint">اپنا نام درج کریں</string>
+    <string name="edit_profile_username_label">صارف نام</string>
+    <string name="edit_profile_username_hint">صارف نام درج کریں</string>
+    <string name="edit_profile_save">محفوظ کریں</string>
+    <string name="edit_profile_cancel">منسوخ کریں</string>
+    
+    <!-- Drawer Pro Card -->
+    <string name="drawer_pro_title">پرو میں اپ گریڈ کریں</string>
+    <string name="drawer_pro_subtitle">لامحدود خصوصیات حاصل کریں</string>
+    <string name="drawer_upgrade_button">اپ گریڈ کریں</string>
+    <string name="cd_sparkle_icon">چمک</string>
+    
+    <!-- Home Fragment Icons -->
+    <string name="cd_account_icon">اکاؤنٹ</string>
+    <string name="cd_send_button">بھیجیں</string>
+</resources>

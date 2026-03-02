@@ -13,7 +13,7 @@
     <LinearLayout
         android:id="@+id/title_container"
         android:layout_width="wrap_content"
-        android:layout_height="44dp"
+        android:layout_height="40dp"
         android:layout_marginTop="56dp"
         android:background="@drawable/input_field_glass"
         android:gravity="center"
@@ -37,8 +37,8 @@
     <!-- Back Button Floating Box -->
     <ImageView
         android:id="@+id/iv_back"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="@dimen/spacing_large"
         android:layout_marginTop="56dp"
         android:background="@drawable/input_field_glass"
@@ -52,8 +52,8 @@
     <!-- Placeholder Floating Box for symmetry -->
     <View
         android:id="@+id/top_bar_placeholder"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="@dimen/spacing_large"
         android:layout_marginTop="56dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/settings_general"
-                android:textColor="@color/white"
+                android:textColor="@color/gold"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -95,7 +95,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="12dp"
                 android:text="Customize your app preferences"
-                android:textColor="@color/text_medium"
+                android:textColor="@color/white"
                 android:textSize="13sp" />
 
             <!-- General Settings Options Card -->
@@ -129,14 +129,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_language"
+                            app:tint="@color/gold"
                             android:contentDescription="Language icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/settings_language"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_language"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -155,14 +170,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_theme"
+                            app:tint="@color/gold"
                             android:contentDescription="Theme icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/settings_theme"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/settings_theme"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -177,7 +207,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="4dp"
                 android:text="App Settings"
-                android:textColor="@color/white"
+                android:textColor="@color/gold"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -188,7 +218,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="12dp"
                 android:text="Customize your app experience"
-                android:textColor="@color/text_medium"
+                android:textColor="@color/white"
                 android:textSize="13sp" />
 
             <!-- App Settings Options Card -->
@@ -208,8 +238,52 @@
                     android:showDividers="middle">
 
                     <!-- Notifications -->
+
+                    <!-- Font Size -->
                     <LinearLayout
                         android:id="@+id/btn_notifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:contentDescription="Notifications icon"
+                            android:src="@drawable/ic_notifications"
+                            app:tint="@color/gold" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_notifications"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switch_notifications"
+                            android:layout_width="48dp"
+                            android:layout_height="24dp"
+                            android:checked="true"
+                            app:thumbTint="@color/white"
+                            app:trackTint="@color/gold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/btn_font_size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -221,15 +295,26 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
-                            android:src="@drawable/ic_notifications"
-                            android:contentDescription="Notifications icon" />
+                            android:src="@drawable/ic_text_size"
+                            app:tint="@color/gold"
+                            android:contentDescription="Font size icon" />
 
                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Font Size"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_font_size"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_notifications"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:text="Medium"
+                            android:textColor="@color/gold"
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -248,14 +333,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_reciter"
+                            app:tint="@color/gold"
                             android:contentDescription="Reciter icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_reciter"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_reciter"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -274,14 +374,29 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_quran_script"
+                            app:tint="@color/gold"
                             android:contentDescription="Quran script icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/setting_quran_script"
-                            android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/setting_quran_script"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
 
                     </LinearLayout>
 
@@ -289,14 +404,14 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- About Section Header -->
+            <!-- Prayer & Location Section Header -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginStart="4dp"
-                android:text="@string/settings_about"
-                android:textColor="@color/white"
+                android:text="Prayer &amp; Location"
+                android:textColor="@color/gold"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -306,8 +421,286 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginBottom="12dp"
+                android:text="Configure prayer times and location settings"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <!-- Prayer & Location Options Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_glass"
+                    android:orientation="vertical"
+                    android:divider="@drawable/list_divider"
+                    android:showDividers="middle">
+
+                    <!-- Prayer Times Settings -->
+                    <LinearLayout
+                        android:id="@+id/btn_prayer_times"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_prayer"
+                            app:tint="@color/gold"
+                            android:contentDescription="Prayer times icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Prayer Times"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                    <!-- Qibla Settings -->
+                    <LinearLayout
+                        android:id="@+id/btn_qibla_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_compass"
+                            app:tint="@color/gold"
+                            android:contentDescription="Qibla icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Qibla Direction"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                    <!-- Location Settings -->
+                    <LinearLayout
+                        android:id="@+id/btn_location_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/gold"
+                            android:contentDescription="Location icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Location"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- Data & Privacy Section Header -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="4dp"
+                android:text="Data &amp; Privacy"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="12dp"
+                android:text="Manage your data and privacy settings"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <!-- Data & Privacy Options Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_glass"
+                    android:orientation="vertical"
+                    android:divider="@drawable/list_divider"
+                    android:showDividers="middle">
+
+                    <!-- Clear Chat History -->
+                    <LinearLayout
+                        android:id="@+id/btn_clear_history"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_delete"
+                            app:tint="@color/gold"
+                            android:contentDescription="Delete icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Clear Chat History"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                    <!-- Cache Management -->
+                    <LinearLayout
+                        android:id="@+id/btn_cache"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_storage"
+                            app:tint="@color/gold"
+                            android:contentDescription="Storage icon" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Clear Cache"
+                                android:textColor="@color/white"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- About Section Header -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="12dp"
                 android:text="Learn more about Al-Aalim"
-                android:textColor="@color/text_medium"
+                android:textColor="@color/white"
                 android:textSize="13sp" />
 
             <!-- About Options Card -->
@@ -324,11 +717,49 @@
                     android:background="@drawable/input_field_glass"
                     android:orientation="vertical"
                     android:divider="@drawable/list_divider"
+                    android:showDividers="middle"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- SUPPORT & COMMUNITY SECTION -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="4dp"
+                android:text="Support &amp; Community"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="12dp"
+                android:text="Help us grow and improve"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_glass"
+                    android:orientation="vertical"
+                    android:divider="@drawable/list_divider"
                     android:showDividers="middle">
 
-                    <!-- Privacy Policy -->
+                    <!-- RATE US -->
                     <LinearLayout
-                        android:id="@+id/btn_privacy"
+                        android:id="@+id/btn_rate_us"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -340,19 +771,286 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
-                            android:src="@drawable/ic_privacy"
-                            android:contentDescription="Privacy icon" />
+                            android:src="@drawable/ic_star"
+                            app:tint="@color/gold"
+                            android:contentDescription="Rate us icon" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/settings_privacy"
+                            android:layout_weight="1"
+                            android:text="Rate Us"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_external_link"
+                            app:tint="@color/white"
+                            android:contentDescription="External link" />
 
                     </LinearLayout>
 
-                    <!-- Terms of Service -->
+                    <!-- SHARE APP -->
+                    <LinearLayout
+                        android:id="@+id/btn_share_app"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_share"
+                            app:tint="@color/gold"
+                            android:contentDescription="Share icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Share App"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_external_link"
+                            app:tint="@color/white"
+                            android:contentDescription="External link" />
+
+                    </LinearLayout>
+
+                    <!-- SUPPORT US -->
+                    <LinearLayout
+                        android:id="@+id/btn_support_us"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_heart"
+                            app:tint="@color/gold"
+                            android:contentDescription="Support icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Support Us"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                    <!-- WHATSAPP SUPPORT -->
+                    <LinearLayout
+                        android:id="@+id/btn_whatsapp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_whatsapp"
+                            app:tint="@color/gold"
+                            android:contentDescription="WhatsApp icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="WhatsApp Support"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_external_link"
+                            app:tint="@color/white"
+                            android:contentDescription="External link" />
+
+                    </LinearLayout>
+
+                    <!-- FOLLOW US -->
+                    <LinearLayout
+                        android:id="@+id/btn_follow_us"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_social"
+                            app:tint="@color/gold"
+                            android:contentDescription="Social media icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Follow Us"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- APP INFORMATION SECTION -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="4dp"
+                android:text="App Information"
+                android:textColor="@color/gold"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="12dp"
+                android:text="Legal and app details"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_field_glass"
+                    android:orientation="vertical"
+                    android:divider="@drawable/list_divider"
+                    android:showDividers="middle">
+
+                    <!-- FAQ & FEEDBACK -->
+                    <LinearLayout
+                        android:id="@+id/btn_faq"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_help"
+                            app:tint="@color/gold"
+                            android:contentDescription="Help icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="FAQ &amp; Feedback"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_arrow_right"
+                            app:tint="@color/white"
+                            android:contentDescription="Arrow" />
+
+                    </LinearLayout>
+
+                    <!-- PRIVACY POLICY -->
+                    <LinearLayout
+                        android:id="@+id/btn_privacy_policy"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="16dp">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_document"
+                            app:tint="@color/gold"
+                            android:contentDescription="Document icon" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Privacy Policy"
+                            android:textColor="@color/white"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_external_link"
+                            app:tint="@color/white"
+                            android:contentDescription="External link" />
+
+                    </LinearLayout>
+
+                    <!-- TERMS OF SERVICE -->
                     <LinearLayout
                         android:id="@+id/btn_terms"
                         android:layout_width="match_parent"
@@ -366,21 +1064,31 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
-                            android:src="@drawable/ic_terms"
-                            android:contentDescription="Terms icon" />
+                            android:src="@drawable/ic_document"
+                            app:tint="@color/gold"
+                            android:contentDescription="Document icon" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/settings_terms"
+                            android:layout_weight="1"
+                            android:text="Terms of Service"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/ic_external_link"
+                            app:tint="@color/white"
+                            android:contentDescription="External link" />
 
                     </LinearLayout>
 
-                    <!-- App Version -->
+                    <!-- ABOUT -->
                     <LinearLayout
-                        android:id="@+id/btn_version"
+                        android:id="@+id/btn_about"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -393,22 +1101,26 @@
                             android:layout_height="20dp"
                             android:layout_marginEnd="12dp"
                             android:src="@drawable/ic_info"
-                            android:contentDescription="Version icon" />
+                            app:tint="@color/gold"
+                            android:contentDescription="Info icon" />
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="@string/settings_version"
+                            android:text="About"
                             android:textColor="@color/white"
-                            android:textSize="15sp" />
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tv_app_version"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1.0.0"
-                            android:textColor="@color/text_medium"
-                            android:textSize="14sp" />
+                            android:text="v1.0.0"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:alpha="0.7" />
 
                     </LinearLayout>
 
