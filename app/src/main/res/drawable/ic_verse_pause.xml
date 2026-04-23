@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gold pause icon — two rounded bars, shown when a verse is actively playing -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Left bar -->
+    <path
+        android:fillColor="#FFCA62"
+        android:pathData="M25,10 Q20,10 20,16 L20,84 Q20,90 25,90 L38,90 Q44,90 44,84 L44,16 Q44,10 38,10 Z" />
+
+    <!-- Right bar -->
+    <path
+        android:fillColor="#FFCA62"
+        android:pathData="M62,10 Q56,10 56,16 L56,84 Q56,90 62,90 L75,90 Q80,90 80,84 L80,16 Q80,10 75,10 Z" />
+</vector>

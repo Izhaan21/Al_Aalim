@@ -18,13 +18,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.UserProfileChangeRequest
+import android.content.Context
 import kotlinx.coroutines.tasks.await
 
 /**
  * Firebase Authentication Manager
  * Handles all authentication operations including email/password, Google, and Facebook sign-in
  */
-class FirebaseAuthManager(private val activity: Activity) {
+class FirebaseAuthManager(private val context: Context) {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
     private var googleSignInClient: GoogleSignInClient? = null
@@ -35,6 +36,7 @@ class FirebaseAuthManager(private val activity: Activity) {
      */
     sealed class AuthResult {
         data class Success(val user: FirebaseUser) : AuthResult()
+        data class UnverifiedEmail(val user: FirebaseUser, val message: String) : AuthResult()
         data class Error(val message: String) : AuthResult()
     }
 
@@ -53,7 +55,17 @@ class FirebaseAuthManager(private val activity: Activity) {
      * Check if user is logged in
      */
     val isUserLoggedIn: Boolean
-        get() = auth.currentUser != null
+        get() {
+            val user = auth.currentUser
+            return user != null && (user.isEmailVerified || isThirdPartySignIn(user))
+        }
+        
+    private fun isThirdPartySignIn(user: FirebaseUser): Boolean {
+        return user.providerData.any { profile -> 
+            profile.providerId == GoogleAuthProvider.PROVIDER_ID || 
+            profile.providerId == FacebookAuthProvider.PROVIDER_ID
+        }
+    }
 
     // ==================== Email/Password Authentication ====================
 
@@ -87,12 +99,25 @@ class FirebaseAuthManager(private val activity: Activity) {
                     .setDisplayName(displayName)
                     .build()
                 user.updateProfile(profileUpdates).await()
+                
+                // Send verification email
+                user.sendEmailVerification().await()
+                
+                // Sign out immediately so they must verify and log in
+                auth.signOut()
 
-                AuthResult.Success(user)
+                AuthResult.UnverifiedEmail(user, "Registration successful! Please check your email to verify your account.")
             } else {
                 AuthResult.Error("Registration failed. Please try again.")
             }
         } catch (e: Exception) {
+            // If the email is already registered, guide the user to verify/login
+            if (e.message?.contains("email-already-in-use") == true ||
+                e.message?.contains("already registered") == true) {
+                // Try to find if account exists but is unverified
+                // Return an UnverifiedEmail result so the UI can offer resend/login options
+                return AuthResult.Error("This email is already registered. If you haven't verified your email, please check your inbox or use 'Resend Verification Email' on the login screen.")
+            }
             AuthResult.Error(e.message ?: "Registration failed. Please try again.")
         }
     }
@@ -114,12 +139,39 @@ class FirebaseAuthManager(private val activity: Activity) {
             val user = result.user
 
             if (user != null) {
-                AuthResult.Success(user)
+                if (user.isEmailVerified || isThirdPartySignIn(user)) {
+                    AuthResult.Success(user)
+                } else {
+                    // Sign out the unverified user
+                    auth.signOut()
+                    AuthResult.UnverifiedEmail(user, "Please verify your email address to log in.")
+                }
             } else {
                 AuthResult.Error("Login failed. Please try again.")
             }
         } catch (e: Exception) {
             AuthResult.Error(getErrorMessage(e))
+        }
+    }
+    
+    /**
+     * Send email verification link
+     */
+    suspend fun sendEmailVerification(email: String, password: String): AuthResult {
+        return try {
+            // Need to sign in first to send verification email
+            val result = auth.signInWithEmailAndPassword(email, password).await()
+            val user = result.user
+            
+            if (user != null) {
+                user.sendEmailVerification().await()
+                auth.signOut() // Sign out again
+                AuthResult.Error("Verification email sent successfully! Please check your inbox.")
+            } else {
+                AuthResult.Error("Failed to send verification email.")
+            }
+        } catch (e: Exception) {
+            AuthResult.Error("Failed to send verification email: ${e.message}")
         }
     }
 
@@ -161,7 +213,7 @@ class FirebaseAuthManager(private val activity: Activity) {
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(activity, gso)
+        googleSignInClient = GoogleSignIn.getClient(context, gso)
     }
 
     /**
@@ -211,7 +263,7 @@ class FirebaseAuthManager(private val activity: Activity) {
     /**
      * Sign in with Facebook
      */
-    fun signInWithFacebook(callback: (AuthResult) -> Unit) {
+    fun signInWithFacebook(activity: android.app.Activity, callback: (AuthResult) -> Unit) {
         val loginManager = LoginManager.getInstance()
         
         loginManager.registerCallback(facebookCallbackManager, object : FacebookCallback<LoginResult> {

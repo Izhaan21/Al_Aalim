@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Support Us: Gold Headset with Teal Microphone -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Headband (Gold) -->
+    <path
+        android:strokeColor="#FFD700"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M12,2C6.48,2 2,6.48 2,12"
+        android:fillColor="#00000000" />
+    <path
+        android:strokeColor="#FFC107"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:pathData="M12,2C17.52,2 22,6.48 22,12"
+        android:fillColor="#00000000" />
+
+    <!-- Left Earpad (Gold) -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M2,12C0.9,12 0,12.9 0,14V18C0,19.1 0.9,20 2,20H4C5.1,20 6,19.1 6,18V12H2Z" />
+
+    <!-- Right Earpad (Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M22,12C23.1,12 24,12.9 24,14V18C24,19.1 23.1,20 22,20H20C18.9,20 18,19.1 18,18V12H22Z" />
+
+    <!-- Microphone Boom & Mic (White) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,18C18,20.21 16.21,22 14,22H11C9.9,22 9,21.1 9,20C9,18.9 9.9,18 11,18H18Z" />
+    
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,18V16C18,15.45 18.45,15 19,15H20C20.55,15 21,15.45 21,16V18" />
+
+</vector>

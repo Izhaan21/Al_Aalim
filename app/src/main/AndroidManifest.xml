@@ -54,17 +54,31 @@
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
+
+        <!--
+            Prevent Facebook SDK auto-init on app start.
+            This avoids startup crashes/misbehavior when placeholder IDs are present.
+            When you configure real Facebook IDs, you can re-enable these (or init manually).
+        -->
+        <meta-data
+            android:name="com.facebook.sdk.AutoInitEnabled"
+            android:value="false" />
+        <meta-data
+            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
+            android:value="false" />
+        <meta-data
+            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
+            android:value="false" />
         <activity
-            android:name=".WelcomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.WelcomeActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait" />
+
         <activity
-            android:name=".ContainerActivity"
+            android:name=".ui.main.ContainerActivity"
             android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -72,55 +86,78 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".QiblaActivity"
-            android:exported="false" />
-        <activity
-            android:name=".QuranActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SurahReaderActivity"
+            android:name=".ui.features.QiblaActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".AccountActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfilePhotoActivity"
+            android:name=".ui.features.QuranActivity"
             android:exported="false"
-            android:theme="@style/Theme.AlAalim" />
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".CropPhotoActivity"
+            android:name=".ui.features.SurahReaderActivity"
             android:exported="false"
-            android:theme="@style/Theme.AlAalim" />
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait" />
+
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.settings.ProfilePhotoActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:theme="@style/Theme.AlAalim"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".LanguageSelectionActivity"
-            android:exported="false" />
+            android:name=".ui.settings.CropPhotoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AlAalim"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".LocationPermissionActivity"
-            android:exported="false" />
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".NotificationPermissionActivity"
-            android:exported="false" />
+            android:name=".ui.auth.RegisterActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".ReciterSelectionActivity"
-            android:exported="false" />
+            android:name=".ui.auth.ForgotPasswordActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".MoreActivity"
-            android:exported="false" />
+            android:name=".ui.settings.LanguageSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".RamadanActivity"
-            android:exported="false" />
+            android:name=".ui.permissions.LocationPermissionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.permissions.NotificationPermissionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.features.ReciterSelectionActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.features.StoreActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.settings.FavoritesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.settings.ReadingHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+
         
         <!-- FileProvider for camera photos -->
         <provider

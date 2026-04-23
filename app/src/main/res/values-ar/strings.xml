@@ -30,7 +30,7 @@
     <string name="home">الرئيسية</string>
     <string name="qibla">القبلة</string>
     <string name="quran">القرآن</string>
-    <string name="more">المزيد</string>
+    <string name="more">المتجر</string>
     
     <!-- Settings -->
     <string name="settings">الإعدادات</string>
@@ -77,15 +77,7 @@
     <string name="maghrib">المغرب</string>
     <string name="isha">العشاء</string>
     
-    <!-- Ramadan Calendar -->
-    <string name="ramadan_calendar">تقويم رمضان</string>
-    <string name="suhoor">سحور</string>
-    <string name="iftar">إفطار</string>
-    <string name="ramadan_2026">رمضان 2026</string>
-    <string name="next_suhoor">السحور القادم</string>
-    <string name="next_iftar">الإفطار القادم</string>
-    <string name="day">يوم</string>
-    <string name="change_location">تغيير الموقع</string>
+
 
     
     <!-- Common Actions -->

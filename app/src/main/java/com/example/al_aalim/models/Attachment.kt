@@ -5,6 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 /**
  * Data class representing a file attachment (image, video, or document)
  */
+@androidx.annotation.Keep
 @IgnoreExtraProperties
 data class Attachment(
     val type: String = "", // "image", "video", "document"

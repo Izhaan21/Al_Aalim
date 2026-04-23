@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Quran icon: Minimalist dual-page outline without filling -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,21 C9,17 4,17 2,17 V5 C4,5 9,5 12,9 M12,21 C15,17 20,17 22,17 V5 C20,5 15,5 12,9 M12,9 V21" />
+</vector>

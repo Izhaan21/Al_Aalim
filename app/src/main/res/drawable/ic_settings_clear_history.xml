@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Clear Chat History: Premium Gold/Yellow Trash Bin -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Bin Handle (Top) -->
+    <path
+        android:fillColor="#F9B880"
+        android:pathData="M8,4 C8,3 9,2 10,2 H14 C15,2 16,3 16,4 V5 H8 V4Z" />
+
+    <!-- Bin Lid (Gold) -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M3,5 C3,4.5 3.5,4 4,4 H20 C20.5,4 21,4.5 21,5 V8 C21,8.5 20.5,9 20,9 H4 C3.5,9 3,8.5 3,8 V5Z" />
+
+    <!-- Lid Shadow Layer -->
+    <path
+        android:fillColor="#DAA520"
+        android:pathData="M3,8 H21 V9 H3 V8Z" />
+
+    <!-- Bin Body (Gold) -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M5,9 L6,20 C6.1,21.1 7,22 8.1,22 H15.9 C17,22 17.9,21.1 18,20 L19,9 H5Z" />
+
+    <!-- Decorative Stripes (Orange-ish) -->
+    <path
+        android:fillColor="#F0A36B"
+        android:pathData="M9,11 H11 V20 H9 V11Z" />
+    <path
+        android:fillColor="#F0A36B"
+        android:pathData="M13,11 H15 V20 H13 V11Z" />
+
+    <!-- Subtle Highlight -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:alpha="0.3"
+        android:pathData="M6,10 L6.5,19 H7 L6.5,10 H6Z" />
+
+</vector>

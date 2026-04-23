@@ -1,11 +1,13 @@
 package com.example.al_aalim.models
 
 import com.google.firebase.database.IgnoreExtraProperties
+import com.google.firebase.database.PropertyName
 
 /**
  * Data class representing a chat message
  * Designed for Firebase Realtime Database storage
  */
+@androidx.annotation.Keep
 @IgnoreExtraProperties
 data class ChatMessage(
     var id: String = "",
@@ -13,6 +15,8 @@ data class ChatMessage(
     var message: String = "",
     var timestamp: Long = System.currentTimeMillis(),
     var attachments: List<Attachment> = emptyList(),
+    @get:PropertyName("isUser")
+    @set:PropertyName("isUser")
     var isUser: Boolean = true
 ) {
     /**

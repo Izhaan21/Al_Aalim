@@ -34,21 +34,31 @@ class FirebaseStorageRepository(private val context: Context) {
         onProgress: ((Int) -> Unit)? = null
     ): Result<Attachment> = suspendCoroutine { continuation ->
         try {
+            val auth = com.google.firebase.auth.FirebaseAuth.getInstance()
+            val userId = auth.currentUser?.uid
+            
+            if (userId == null) {
+                continuation.resume(Result.failure(Exception("User not authenticated. Please log in to send photos.")))
+                return@suspendCoroutine
+            }
+
             val mimeType = FileUtils.getMimeType(context, uri)
             val fileType = FileUtils.getFileTypeCategory(mimeType)
             val fileName = FileUtils.getFileName(context, uri)
             val fileSize = FileUtils.getFileSize(context, uri)
             
-            // Determine storage path based on file type
+            // Determine storage path based on file type, scoped to user
             val storagePath = when (fileType) {
                 "image" -> FirebaseConfig.IMAGES_PATH
                 "video" -> FirebaseConfig.VIDEOS_PATH
                 else -> FirebaseConfig.DOCUMENTS_PATH
             }
             
-            // Generate unique file name
+            // Generate unique file name — include user UID in path for security rules
             val uniqueFileName = "${System.currentTimeMillis()}_$fileName"
             val storageRef: StorageReference = storage.reference
+                .child("users")
+                .child(userId)
                 .child(storagePath)
                 .child(uniqueFileName)
             
@@ -86,7 +96,8 @@ class FirebaseStorageRepository(private val context: Context) {
                     continuation.resumeWithException(e)
                 }
             }.addOnFailureListener { e ->
-                continuation.resumeWithException(e)
+                android.util.Log.e("StorageRepo", "Upload failed: ${e.message}", e)
+                continuation.resume(Result.failure(Exception("Upload failed: ${e.message}")))
             }
             
         } catch (e: Exception) {

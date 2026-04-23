@@ -3,5 +3,9 @@
     <style name="Base.Theme.AlAalim" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        
+        <!-- Global Cursor Color -->
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+        <item name="colorControlActivated">@color/primary_teal</item>
     </style>
 </resources>

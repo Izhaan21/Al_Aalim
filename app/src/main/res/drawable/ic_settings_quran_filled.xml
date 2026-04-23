@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Quran Script Icon: Premium FILLED Gold Open Book -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Left Page (Light Gold) -->
+    <path
+        android:fillColor="#FFE082"
+        android:pathData="M12,19.5 C10,18.5 6,18 2,19.5 V4.5 C6,3 10,3.5 12,4.5 L12,19.5 Z" />
+
+    <!-- Right Page (Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M12,19.5 C14,18.5 18,18 22,19.5 V4.5 C18,3 14,3.5 12,4.5 L12,19.5 Z" />
+
+    <!-- Details on left page -->
+    <path
+        android:fillColor="#DAA520"
+        android:pathData="M4,7H10V8H4z M4,10H10V11H4z M4,13H8V14H4z" />
+
+    <!-- Details on right page -->
+    <path
+        android:fillColor="#DAA520"
+        android:pathData="M14,7H20V8H14z M14,10H20V11H14z M14,13H16V14H14z" />
+
+    <!-- Spine Divider -->
+    <path
+        android:fillColor="#DAA520"
+        android:pathData="M11.5,4.5H12.5V19.5H11.5z" />
+
+</vector>

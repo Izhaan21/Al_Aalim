@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Follow Us Icon: Two Gold/Yellow Persons with Teal Add Badge -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Left Person (Yellow) -->
+    <path
+        android:fillColor="#FFEB3B"
+        android:pathData="M7.5,2C9.43,2 11,3.57 11,5.5C11,7.43 9.43,9 7.5,9C5.57,9 4,7.43 4,5.5C4,3.57 5.57,2 7.5,2Z" />
+    <path
+        android:fillColor="#FFEB3B"
+        android:pathData="M1,19C1,14 4,12 7.5,12C11,12 14,14 14,19V20H1V19Z" />
+
+    <!-- Right Person (Orange/Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M16.5,2C18.43,2 20,3.57 20,5.5C20,7.43 18.43,9 16.5,9C14.57,9 13,7.43 13,5.5C13,3.57 14.57,2 16.5,2Z" />
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M10,19C10,14 13,12 16.5,12C20,12 23,14 23,19V20H10V19Z" />
+
+    <!-- Smiles (Orange/Dark Yellow) -->
+    <path
+        android:fillColor="#F44336"
+        android:alpha="0.2"
+        android:pathData="M6,6.5A1.5,1.5 0,0,0 9,6.5H6Z" />
+    <path
+        android:fillColor="#F44336"
+        android:alpha="0.2"
+        android:pathData="M15,6.5A1.5,1.5 0,0,0 18,6.5H15Z" />
+
+    <!-- Follower Badge (Teal) -->
+    <path
+        android:fillColor="#008080"
+        android:pathData="M18.5,15.5 M23.5,20.5 a5,5 0,1,1 -10,0 a5,5 0,1,1 10,0" />
+
+    <!-- Plus Sign (White) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17.5,18.5H19.5V20.5H21.5V22.5H19.5V24.5H17.5V22.5H15.5V20.5H17.5V18.5Z" />
+
+</vector>

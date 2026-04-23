@@ -5,6 +5,10 @@
         <!-- Gold color for Material input fields only -->
         <item name="colorPrimary">@color/gold_rich</item>
         
+        <!-- Global Cursor Color -->
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+        <item name="colorControlActivated">@color/primary_teal</item>
+        
         <!-- Enable edge-to-edge display -->
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>

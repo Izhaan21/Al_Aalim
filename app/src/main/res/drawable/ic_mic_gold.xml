@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gold microphone icon matching the provided image -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Mic capsule body (gold) -->
+    <path android:fillColor="#FFCA62" android:pathData="M12,1A4,4 0,0,0 8,5V11A4,4 0,0,0 16,11V5A4,4 0,0,0 12,1Z" />
+
+    <!-- Horizontal grill lines on capsule (darker gold stripes) -->
+    <path android:fillColor="#F0A500" android:pathData="M8.5,6H15.5V7H8.5Z" />
+    <path android:fillColor="#F0A500" android:pathData="M8.5,8H15.5V9H8.5Z" />
+    <path android:fillColor="#F0A500" android:pathData="M8.5,10H15.5V11H8.5Z" />
+
+    <!-- Stand arc (gold, rounded, stroke only) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFCA62"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M6,11A6,6 0,0,0 18,11" />
+
+    <!-- Vertical stem -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFCA62"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M12,17V21" />
+
+    <!-- Base platform -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFCA62"
+        android:strokeWidth="1.6"
+        android:strokeLineCap="round"
+        android:pathData="M9,21H15" />
+
+</vector>

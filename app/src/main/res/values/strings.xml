@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App Name -->
-    <string name="app_name">Al-Aalim</string>
+    <string name="app_name">Al Aalim</string>
     
     <!-- Welcome Screen -->
-    <string name="welcome_title">Welcome to Al-Aalim</string>
+    <string name="welcome_title">Welcome to Al Aalim</string>
     <string name="welcome_subtitle">Your Islamic Companion</string>
     <string name="get_started">Get Started</string>
     
     <!-- Language Selection -->
     <string name="select_your_language">Select Your Language</string>
-    <string name="choose_preferred_language">Choose your preferred language for Al-Aalim</string>
+    <string name="choose_preferred_language">Choose your preferred language for Al Aalim</string>
     <string name="select_language">Select Language</string>
     <string name="filter_languages">Filter languages...</string>
     <string name="languages_found">%d languages found</string>
@@ -31,7 +31,7 @@
     <string name="home">Home</string>
     <string name="qibla">Qibla</string>
     <string name="quran">Quran</string>
-    <string name="more">More</string>
+    <string name="more">Store</string>
     
     <!-- Settings -->
     <string name="settings">Settings</string>
@@ -103,21 +103,14 @@
     <string name="maghrib">Maghrib</string>
     <string name="isha">Isha</string>
     
-    <!-- Ramadan Calendar -->
-    <string name="ramadan_calendar">Ramadan Calendar</string>
-    <string name="suhoor">Suhoor</string>
-    <string name="iftar">Iftar</string>
-    <string name="ramadan_2026">Ramadan 2026</string>
-    <string name="next_suhoor">Next Suhoor</string>
-    <string name="next_iftar">Next Iftar</string>
-    <string name="day">Day</string>
-    <string name="change_location">Change Location</string>
+
 
     
     <!-- Navigation Labels -->
-    <string name="nav_home">Al-Aalim</string>
+    <string name="nav_home">Al Aalim</string>
     <string name="nav_qibla">Qibla</string>
     <string name="nav_book">Quran</string>
+    <string name="nav_store">Store</string>
     
     <!-- Account Activity -->
     <string name="account_title">Account</string>
@@ -138,7 +131,7 @@
     
     <!-- Login -->
     <string name="login_welcome_back">Welcome Back</string>
-    <string name="login_subtitle">Sign in to continue to Al-Aalim</string>
+    <string name="login_subtitle">Sign in to continue to Al Aalim</string>
     
     <!-- Content Descriptions -->
     <string name="cd_back_button">Back</string>
@@ -177,7 +170,7 @@
     <!-- Register Screen -->
     <string name="register_join_us">Join Us</string>
     <string name="register_title">Create Account</string>
-    <string name="register_subtitle">Sign up to continue to Al-Aalim</string>
+    <string name="register_subtitle">Sign up to continue to Al Aalim</string>
     <string name="register_name_hint">Full Name</string>
     <string name="register_confirm_password_hint">Confirm Password</string>
     <string name="register_button">Register</string>
@@ -187,6 +180,7 @@
     
     <!-- Settings Screen -->
     <string name="settings_title">Settings</string>
+    <string name="settings_rate_us">Rate Us</string>
     <string name="settings_general">General</string>
     <string name="settings_language">Language</string>
     <string name="settings_theme">Theme</string>
@@ -201,6 +195,10 @@
     <!-- Welcome Screen -->
     <string name="app_subtitle">Your Islamic Companion</string>
     <string name="app_tagline">Your Islamic Companion</string>
+    
+    <!-- Privacy Policy Content -->
+    <string name="privacy_policy_content">Your Privacy is important to us.\n\nWe collect information to provide better services to all our users. We use the information we collect from all our services to provide, maintain, protect and improve them, to develop new ones, and to protect Al Aalim and our users. \n\nWe will ask for your consent before using information for a purpose other than those that are set out in this Privacy Policy. \n\nInformation sharing: We do not share personal information with companies, organizations and individuals outside of Al Aalim unless one of the following circumstances applies: With your consent, for external processing, or for legal reasons. \n\nInformation security: We work hard to protect Al Aalim and our users from unauthorized access to or unauthorized alteration, disclosure or destruction of information we hold. \n\nWhen this Privacy Policy applies: Our Privacy Policy applies to all of the services offered by Al Aalim and its affiliates, but excludes services that have separate privacy policies that do not incorporate this Privacy Policy. \n\nChanges: Our Privacy Policy may change from time to time. We will not reduce your rights under this Privacy Policy without your explicit consent. We will post any privacy policy changes on this page and, if the changes are significant, we will provide a more prominent notice.</string>
+    <string name="privacy_policy_website_link">https://yourwebsite.com/privacy-policy</string>
     
     <!-- Drawer Content -->
     <string name="drawer_user_name">User</string>
@@ -239,6 +237,6 @@
     <string name="facebook_app_id">YOUR_FACEBOOK_APP_ID</string>
     <string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_APP_ID</string>
     <string name="facebook_client_token">YOUR_FACEBOOK_CLIENT_TOKEN</string>
-    <string name="al_aalim">Al-Aalim</string>
+    <string name="al_aalim">Al Aalim</string>
     <string name="skip_for_now">Skip for now</string>
 </resources>

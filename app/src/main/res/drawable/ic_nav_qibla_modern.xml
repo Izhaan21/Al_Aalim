@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Qibla/Compass Icon: Minimalist Outline with Diagonal Diamond Needle -->
+    
+    <!-- Circular Frame (1.8dp stroke) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M12,12 m-9,0 a9,9 0,1,0 18,0 a9,9 0,1,0 -18,0" />
+
+    <!-- Sharp Diagonal Needle (Diamond shape, 1.8dp stroke) -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"
+        android:pathData="M16.5,7.5 L13.5,13.5 L7.5,16.5 L10.5,10.5 Z" />
+    
+    <!-- Center Pivot Point -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M12,11.2 a0.8,0.8 0,1,0 0.001,0 Z" />
+
+</vector>

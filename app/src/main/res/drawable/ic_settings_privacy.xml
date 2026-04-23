@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Privacy Policy Icon: Premium Gold Shield with White Checkmark -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Outward Shield Body (Light Gold) -->
+    <path
+        android:fillColor="#FFE082"
+        android:pathData="M12,2L4,5V11C4,16.55 7.41,21.63 12,23C16.59,21.63 20,16.55 20,11V5L12,2Z" />
+
+    <!-- Inner Shield (Full Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M12,4L6,6.25V11C6,15.19 8.56,19 12,20.5C15.44,19 18,15.19 18,11V6.25L12,4Z" />
+
+    <!-- White Checkmark -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M9,11L11,13L15,9L16.5,10.5L11,16L7.5,12.5L9,11Z" />
+
+</vector>

@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Build artefacts and logs
+*.log
+*.txt

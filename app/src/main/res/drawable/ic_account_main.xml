@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Account icon matching the provided image (gold/yellow person) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Head (left half - lighter) -->
+    <path
+        android:fillColor="#F9B880"
+        android:pathData="M12,1.5C9.24,1.5 7,3.74 7,6.5C7,9.26 9.24,11.5 12,11.5L12,1.5Z" />
+
+    <!-- Head (right half - darker) -->
+    <path
+        android:fillColor="#F0A36B"
+        android:pathData="M12,1.5 L12,11.5 C14.76,11.5 17,9.26 17,6.5 C17,3.74 14.76,1.5 12,1.5Z" />
+
+    <!-- Body (left half - lighter gold) -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M12,13C6.48,13 2,15.69 2,19C2,20.1 2.9,21 4,21L12,21L12,13Z" />
+
+    <!-- Body (right half - darker gold) -->
+    <path
+        android:fillColor="#DAA520"
+        android:pathData="M12,13L12,21L20,21C21.1,21 22,20.1 22,19C22,15.69 17.52,13 12,13Z" />
+
+</vector>

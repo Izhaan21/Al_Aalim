@@ -5,6 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties
 /**
  * Data class representing a chat conversation session
  */
+@androidx.annotation.Keep
 @IgnoreExtraProperties
 data class ChatConversation(
     val id: String = "",

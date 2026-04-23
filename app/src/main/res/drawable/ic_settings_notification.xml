@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Notification Icon: Premium Gold Bell with Red "1" Badge -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Bell Clapper (Dark Gold) -->
+    <path
+        android:fillColor="#DAA520"
+        android:pathData="M12,22 C13.1,22 14,21.1 14,20 H10 C10,21.1 10.9,22 12,22Z" />
+
+    <!-- Bell Body (Gold) -->
+    <path
+        android:fillColor="#FFC107"
+        android:pathData="M18,16 V11 C18,7.93 16.37,5.36 13.5,4.68 V4 C13.5,3.17 12.83,2.5 12,2.5 C11.17,2.5 10.5,3.17 10.5,4 V4.68 C7.64,5.36 6,7.92 6,11 V16 L4,18 V19 H20 V18 L18,16 Z" />
+
+    <!-- Red Badge Background -->
+    <path
+        android:fillColor="#F44336"
+        android:pathData="M18.5,3 M23.5,8 a5,5 0,1,1 -10,0 a5,5 0,1,1 10,0" />
+
+    <!-- Number "1" (White) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18,10.5 L18,5.5 L16.5,5.5 L16.5,6.5 L17.3,6.5 L17.3,10.5 Z" />
+
+</vector>

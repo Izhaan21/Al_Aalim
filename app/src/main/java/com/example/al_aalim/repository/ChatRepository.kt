@@ -10,16 +10,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import java.util.UUID
 
 /**
  * Repository for Firebase Realtime Database operations
  */
-class ChatRepository(context: Context) {
+class ChatRepository(private val context: Context) {
     
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance().apply {
         if (FirebaseConfig.USE_EMULATOR) {
@@ -31,6 +28,13 @@ class ChatRepository(context: Context) {
     private val conversationsRef: DatabaseReference = database.getReference(FirebaseConfig.CONVERSATIONS_PATH)
     private val storageRepository = FirebaseStorageRepository(context)
     private val auth = FirebaseAuth.getInstance()
+
+    /**
+     * Returns the current authenticated user's UID, or null if not signed in.
+     * All public functions MUST call this and return Result.failure() if null
+     * to prevent reads/writes under a shared "anonymous" Firebase node.
+     */
+    private fun requireUserId(): String? = auth.currentUser?.uid
     
     /**
      * Create a new conversation
@@ -38,7 +42,8 @@ class ChatRepository(context: Context) {
     suspend fun createConversation(title: String = "New Chat"): Result<String> {
         return withContext(Dispatchers.IO) {
             try {
-                val userId = auth.currentUser?.uid ?: "anonymous"
+                val userId = requireUserId()
+                    ?: return@withContext Result.failure(Exception("Not authenticated"))
                 val conversationId = UUID.randomUUID().toString()
                 
                 android.util.Log.d("ChatRepository", "Creating new conversation: $conversationId for user: $userId")
@@ -67,7 +72,8 @@ class ChatRepository(context: Context) {
      */
     suspend fun getConversations(limit: Int = 50): Result<List<ChatConversation>> {
         return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
+            val userId = requireUserId()
+                ?: return Result.failure(Exception("Not authenticated"))
             
             val snapshot = conversationsRef.child(userId)
                 .orderByChild("updatedAt")
@@ -116,14 +122,35 @@ class ChatRepository(context: Context) {
                 val userId = auth.currentUser?.uid ?: "anonymous"
                 val messageId = UUID.randomUUID().toString()
                 
-                android.util.Log.d("ChatRepository", "Uploading messageId: $messageId to conversationId: $conversationId")
+                android.util.Log.d("ChatRepository", "Saving messageId: $messageId to conversationId: $conversationId")
 
-                // Upload files if any
-                val attachments = if (fileUris.isNotEmpty()) {
-                    val uploadResult = storageRepository.uploadMultipleFiles(fileUris, onUploadProgress)
-                    uploadResult.getOrNull() ?: emptyList()
-                } else {
-                    emptyList()
+                // Copy images to internal storage so they persist across sessions
+                val attachments = fileUris.mapNotNull { uri ->
+                    try {
+                        val imagesDir = java.io.File(context.filesDir, "chat_images")
+                        if (!imagesDir.exists()) imagesDir.mkdirs()
+                        
+                        val fileName = "${System.currentTimeMillis()}_${messageId.take(8)}.jpg"
+                        val destFile = java.io.File(imagesDir, fileName)
+                        
+                        context.contentResolver.openInputStream(uri)?.use { input ->
+                            destFile.outputStream().use { output ->
+                                input.copyTo(output)
+                            }
+                        }
+                        
+                        Attachment(
+                            type = "image",
+                            url = destFile.absolutePath,  // Permanent local path
+                            fileName = fileName,
+                            fileSize = destFile.length(),
+                            mimeType = "image/jpeg",
+                            uploadedAt = System.currentTimeMillis()
+                        )
+                    } catch (e: Exception) {
+                        android.util.Log.e("ChatRepository", "Failed to copy image: ${e.message}")
+                        null
+                    }
                 }
                 
                 // Create message object
@@ -189,7 +216,7 @@ class ChatRepository(context: Context) {
      */
     private suspend fun updateConversationMetadata(conversationId: String, firstMessage: String? = null) {
         try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
+            val userId = requireUserId() ?: return
             val convRef = conversationsRef.child(userId).child(conversationId)
             
             // Get current conversation
@@ -204,36 +231,13 @@ class ChatRepository(context: Context) {
                 
                 // Auto-generate title from first message if title is "New Chat"
                 if (conversation.title == "New Chat" && !firstMessage.isNullOrEmpty()) {
-                    updates["title"] = generateConversationTitle(firstMessage)
+                    updates["title"] = com.example.al_aalim.utils.StringUtils.generateConversationTitle(firstMessage)
                 }
                 
                 convRef.updateChildren(updates).await()
             }
         } catch (e: Exception) {
             // Silently fail - metadata update is not critical
-        }
-    }
-    
-    /**
-     * Generate conversation title from first message
-     * Takes first 40 characters, truncates at word boundary
-     */
-    private fun generateConversationTitle(message: String): String {
-        // Remove emojis and extra whitespace
-        val cleaned = message.replace("[^\\p{L}\\p{N}\\p{P}\\p{Z}]".toRegex(), "")
-            .replace("\\s+".toRegex(), " ")
-            .trim()
-        
-        if (cleaned.length <= 40) return cleaned
-        
-        // Truncate at word boundary
-        val truncated = cleaned.substring(0, 40)
-        val lastSpace = truncated.lastIndexOf(' ')
-        
-        return if (lastSpace > 20) {
-            "${truncated.substring(0, lastSpace)}..."
-        } else {
-            "${truncated}..."
         }
     }
     
@@ -245,7 +249,8 @@ class ChatRepository(context: Context) {
         limit: Int = 100
     ): Result<List<ChatMessage>> {
         return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
+            val userId = requireUserId()
+                ?: return Result.failure(Exception("Not authenticated"))
             
             val snapshot = messagesRef.child(userId).child(conversationId)
                 .orderByChild("timestamp")
@@ -270,127 +275,17 @@ class ChatRepository(context: Context) {
             Result.failure(e)
         }
     }
-    
-    /**
-     * Send a message (backward compatible - creates default conversation)
-     * @param messageText The text message
-     * @param fileUris List of file URIs to attach
-     * @param onUploadProgress Progress callback for file uploads
-     * @return Result with message ID
-     */
-    suspend fun sendMessage(
-        messageText: String,
-        fileUris: List<Uri> = emptyList(),
-        onUploadProgress: ((Int, Int) -> Unit)? = null
-    ): Result<String> {
-        return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
-            val messageId = UUID.randomUUID().toString()
-            
-            // Upload files if any
-            val attachments = if (fileUris.isNotEmpty()) {
-                val uploadResult = storageRepository.uploadMultipleFiles(fileUris, onUploadProgress)
-                uploadResult.getOrNull() ?: emptyList()
-            } else {
-                emptyList()
-            }
-            
-            // Create message object
-            val message = ChatMessage(
-                id = messageId,
-                userId = userId,
-                message = messageText,
-                timestamp = System.currentTimeMillis(),
-                attachments = attachments,
-                isUser = true
-            )
-            
-            // Save to Firebase
-            messagesRef.child(userId).child(messageId).setValue(message.toMap()).await()
-            
-            Result.success(messageId)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-    
-    /**
-     * Get messages for current user as a Flow
-     */
-    fun getMessagesFlow(): Flow<List<ChatMessage>> = callbackFlow {
-        val userId = auth.currentUser?.uid ?: "anonymous"
-        
-        val listener = object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val messages = mutableListOf<ChatMessage>()
-                
-                snapshot.children.forEach { messageSnapshot ->
-                    try {
-                        val message = messageSnapshot.getValue(ChatMessage::class.java)
-                        message?.let { messages.add(it) }
-                    } catch (e: Exception) {
-                        // Skip malformed messages
-                    }
-                }
-                
-                // Sort by timestamp
-                messages.sortBy { it.timestamp }
-                trySend(messages)
-            }
-            
-            override fun onCancelled(error: DatabaseError) {
-                close(error.toException())
-            }
-        }
-        
-        val query = messagesRef.child(userId).orderByChild("timestamp")
-        query.addValueEventListener(listener)
-        
-        awaitClose {
-            query.removeEventListener(listener)
-        }
-    }
-    
-    /**
-     * Get messages for current user (one-time fetch)
-     */
-    suspend fun getMessages(limit: Int = 50): Result<List<ChatMessage>> {
-        return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
-            
-            val snapshot = messagesRef.child(userId)
-                .orderByChild("timestamp")
-                .limitToLast(limit)
-                .get()
-                .await()
-            
-            val messages = mutableListOf<ChatMessage>()
-            snapshot.children.forEach { messageSnapshot ->
-                try {
-                    val message = messageSnapshot.getValue(ChatMessage::class.java)
-                    message?.let { messages.add(it) }
-                } catch (e: Exception) {
-                    // Skip malformed messages
-                }
-            }
-            
-            // Sort by timestamp
-            messages.sortBy { it.timestamp }
-            Result.success(messages)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
-    }
-    
+
     /**
      * Delete a message
      */
-    suspend fun deleteMessage(messageId: String): Result<Unit> {
+    suspend fun deleteMessage(conversationId: String, messageId: String): Result<Unit> {
         return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
+            val userId = requireUserId()
+                ?: return Result.failure(Exception("Not authenticated"))
             
             // Get message to delete attachments
-            val snapshot = messagesRef.child(userId).child(messageId).get().await()
+            val snapshot = messagesRef.child(userId).child(conversationId).child(messageId).get().await()
             val message = snapshot.getValue(ChatMessage::class.java)
             
             // Delete attachments from storage
@@ -399,7 +294,15 @@ class ChatRepository(context: Context) {
             }
             
             // Delete message from database
-            messagesRef.child(userId).child(messageId).removeValue().await()
+            messagesRef.child(userId).child(conversationId).child(messageId).removeValue().await()
+            
+            // Update the conversation metadata (optional, decrement count)
+            val convRef = conversationsRef.child(userId).child(conversationId)
+            val convSnapshot = convRef.get().await()
+            val conv = convSnapshot.getValue(ChatConversation::class.java)
+            if (conv != null && conv.messageCount > 0) {
+                convRef.child("messageCount").setValue(conv.messageCount - 1).await()
+            }
             
             Result.success(Unit)
         } catch (e: Exception) {
@@ -412,7 +315,8 @@ class ChatRepository(context: Context) {
      */
     suspend fun deleteConversation(conversationId: String): Result<Unit> {
         return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
+            val userId = requireUserId()
+                ?: return Result.failure(Exception("Not authenticated"))
             
             // Delete all messages in the conversation
             val messagesSnapshot = messagesRef.child(userId).child(conversationId).get().await()
@@ -441,43 +345,14 @@ class ChatRepository(context: Context) {
      */
     suspend fun updateConversationTitle(conversationId: String, newTitle: String): Result<String> {
         return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
-            android.util.Log.d("ChatRepository", "Renaming $conversationId to '$newTitle' for user $userId (Using Transaction)")
+            val userId = requireUserId()
+                ?: return Result.failure(Exception("Not authenticated"))
+            android.util.Log.d("ChatRepository", "Renaming $conversationId to '$newTitle' for user $userId")
             
             val conversationRef = conversationsRef.child(userId).child(conversationId)
             
-            val result = withContext(Dispatchers.IO) {
-                val task = conversationRef.runTransaction(object : Transaction.Handler {
-                    override fun doTransaction(mutableData: MutableData): Transaction.Result {
-                        val currentData = mutableData.value as? Map<*, *>
-                        if (currentData == null) {
-                            android.util.Log.e("ChatRepository", "Transaction failed: Node $conversationId does not exist at path: ${conversationRef.path}")
-                            return Transaction.abort()
-                        }
-                        
-                        // We can't use a Map directly to update partial fields in a transaction easily
-                        // but we can update the MutableData fields
-                        mutableData.child("title").value = newTitle
-                        mutableData.child("updatedAt").value = System.currentTimeMillis()
-                        
-                        return Transaction.success(mutableData)
-                    }
-
-                    override fun onComplete(error: DatabaseError?, committed: Boolean, snapshot: DataSnapshot?) {
-                        if (error != null) {
-                            android.util.Log.e("ChatRepository", "Transaction error: ${error.message}")
-                        } else if (!committed) {
-                            android.util.Log.w("ChatRepository", "Transaction not committed (likely node doesn't exist)")
-                        } else {
-                            android.util.Log.d("ChatRepository", "Transaction successfully committed for $conversationId")
-                        }
-                    }
-                })
-                // Wait for transaction to complete (approximately, transactions are tricky with Task)
-                // For now, let's use a simpler approach that is still robust if transaction is overkill
-                // but usually setValue with await() is enough.
-                // Reverting to direct field update but with better error checking.
-                
+            withContext(Dispatchers.IO) {
+                // Direct field update is sufficient for renaming
                 conversationRef.updateChildren(mapOf(
                     "title" to newTitle,
                     "updatedAt" to System.currentTimeMillis()
@@ -498,7 +373,8 @@ class ChatRepository(context: Context) {
      */
     suspend fun clearAllMessages(): Result<Unit> {
         return try {
-            val userId = auth.currentUser?.uid ?: "anonymous"
+            val userId = requireUserId()
+                ?: return Result.failure(Exception("Not authenticated"))
             messagesRef.child(userId).removeValue().await()
             Result.success(Unit)
         } catch (e: Exception) {
@@ -510,12 +386,9 @@ class ChatRepository(context: Context) {
      * Delete all conversations and their messages for current user
      */
     suspend fun deleteAllConversations(): Result<Unit> {
-        val userId = auth.currentUser?.uid ?: "anonymous"
+        val userId = requireUserId()
+            ?: return Result.failure(Exception("Not authenticated"))
         android.util.Log.d("ChatRepository", "Starting deleteAllConversations for user: $userId")
-        
-        if (userId == "anonymous") {
-            android.util.Log.w("ChatRepository", "Warning: User is anonymous. This may cause permission issues if rules require auth.")
-        }
 
         return try {
             // Get all conversations

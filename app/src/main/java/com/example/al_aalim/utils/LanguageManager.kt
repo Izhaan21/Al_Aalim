@@ -27,12 +27,26 @@ object LanguageManager {
         prefs.edit().putString(KEY_LANGUAGE, languageCode).apply()
     }
     
+    private var lastLocale: Locale? = null
+
     /**
      * Apply language to context
      */
     fun applyLanguage(context: Context, languageCode: String = getSelectedLanguage(context)): Context {
+        val currentLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            context.resources.configuration.locales.get(0)
+        } else {
+            @Suppress("DEPRECATION")
+            context.resources.configuration.locale
+        }
+
+        if (lastLocale?.language == languageCode && currentLocale.language == languageCode) {
+            return context
+        }
+
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
+        lastLocale = locale
         
         val config = Configuration(context.resources.configuration)
         config.setLocale(locale)
