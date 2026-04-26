@@ -646,7 +646,7 @@ fun AccountScreen(onBack: () -> Unit) {
                 cancelText = "Cancel",
                 onConfirm = {
                     accountViewModel.logout()
-                    val intent = Intent(context, com.example.al_aalim.ui.auth.LoginActivity::class.java).apply {
+                    val intent = Intent(context, com.example.al_aalim.ui.auth.WelcomeActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                     context.startActivity(intent)
@@ -667,7 +667,7 @@ fun AccountScreen(onBack: () -> Unit) {
                     showDeleteAccount = false
                     if (accountViewModel.isGoogleUser) {
                         accountViewModel.deleteAccount("") {
-                            val intent = Intent(context, com.example.al_aalim.ui.auth.LoginActivity::class.java).apply {
+                            val intent = Intent(context, com.example.al_aalim.ui.auth.WelcomeActivity::class.java).apply {
                                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             }
                             context.startActivity(intent)
@@ -688,7 +688,7 @@ fun AccountScreen(onBack: () -> Unit) {
                 confirmText = "Delete Account",
                 onConfirm = { password ->
                     accountViewModel.deleteAccount(password) {
-                        val intent = Intent(context, com.example.al_aalim.ui.auth.LoginActivity::class.java).apply {
+                        val intent = Intent(context, com.example.al_aalim.ui.auth.WelcomeActivity::class.java).apply {
                             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         }
                         context.startActivity(intent)
