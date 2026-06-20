@@ -154,6 +154,84 @@ fun PrivacyPolicyScreen(onBack: () -> Unit) {
 }
 
 @Composable
+fun TermsOfUseScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(ComposeBrush.verticalGradient(listOf(BackgroundGradientStart, BackgroundGradientEnd)))
+    ) {
+        AdaptiveContainer {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 12.dp)
+                        .padding(top = 32.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    IconButton(onClick = onBack) {
+                        Box(
+                            modifier = Modifier.size(44.dp).clip(androidx.compose.foundation.shape.CircleShape).background(Color(0x33FFFFFF)).border(1.dp, Color(0x33FFFFFF), androidx.compose.foundation.shape.CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(painterResource(id = R.drawable.ic_back), "Back", tint = Color.White, modifier = Modifier.size(24.dp))
+                        }
+                    }
+
+                    Box(
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(16.dp))
+                            .border(1.dp, Gold, RoundedCornerShape(16.dp))
+                            .background(Color(0xFF233F40))
+                            .padding(horizontal = 24.dp, vertical = 6.dp)
+                    ) {
+                        Text("Terms of Use", color = Gold, fontWeight = FontWeight.Bold, fontSize = 16.sp)
+                    }
+
+                    Box(modifier = Modifier.size(44.dp))
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 16.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    Card(
+                        shape = RoundedCornerShape(16.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.15f)),
+                        modifier = Modifier.fillMaxWidth().padding(bottom = 40.dp)
+                    ) {
+                        Column(modifier = Modifier.padding(20.dp)) {
+                            Text(
+                                text = stringResource(R.string.terms_of_use_content),
+                                color = Color.White,
+                                fontSize = 14.sp,
+                                lineHeight = 22.sp
+                            )
+                            Spacer(modifier = Modifier.height(24.dp))
+                            Text("For more information, visit our website:", color = Gold, fontSize = 15.sp, fontWeight = FontWeight.Bold)
+                            Spacer(modifier = Modifier.height(8.dp))
+                            val link = stringResource(R.string.terms_of_use_website_link)
+                            Text(
+                                text = link,
+                                color = Color(0xFF80CBC4),
+                                fontSize = 14.sp,
+                                modifier = Modifier.clickable {
+                                    android.widget.Toast.makeText(context, "Website Coming Soon!", android.widget.Toast.LENGTH_SHORT).show()
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun FaqFeedbackScreen(onBack: () -> Unit) {
     val context = LocalContext.current
     var selectedCategory by remember { mutableStateOf("Bug") }

@@ -248,11 +248,10 @@ class SettingsActivity : ComponentActivity() {
     }
 
     private fun openTermsOfService() {
-        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW)
-        intent.data = android.net.Uri.parse("https://yourwebsite.com/terms-of-service")
-        try { startActivity(intent) } catch (e: Exception) {
-            android.widget.Toast.makeText(this, "Unable to open terms of service", android.widget.Toast.LENGTH_SHORT).show()
-        }
+        // Navigate internally to the Terms of Use screen
+        val intent = Intent(this, SettingsActivity::class.java)
+        intent.putExtra("start_destination", SettingsRoute.Terms.route)
+        startActivity(intent)
     }
 
     private fun openPlayStore() {

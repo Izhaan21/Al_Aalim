@@ -49,24 +49,27 @@ class MainViewModel(
     fun deleteConversation(id: String, onComplete: (Boolean) -> Unit) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) { chatRepository.deleteConversation(id) }
-            onComplete(result.isSuccess)
             if (result.isSuccess) {
+                // Remove from local list immediately — avoid re-fetching stale Firebase cache
+                val current = (_chatHistoryState.value as? ChatHistoryState.Success)?.conversations ?: emptyList()
+                _chatHistoryState.value = ChatHistoryState.Success(current.filter { it.id != id })
                 if (_activeConversationId.value == id) {
                     _activeConversationId.value = null
                 }
-                loadConversations()
             }
+            onComplete(result.isSuccess)
         }
     }
 
     fun deleteAllConversations(onComplete: (Boolean) -> Unit) {
         viewModelScope.launch {
             val result = withContext(Dispatchers.IO) { chatRepository.deleteAllConversations() }
-            onComplete(result.isSuccess)
             if (result.isSuccess) {
+                // Clear local list immediately — do NOT re-fetch; Firebase cache returns stale data
+                _chatHistoryState.value = ChatHistoryState.Success(emptyList())
                 _activeConversationId.value = null
-                loadConversations()
             }
+            onComplete(result.isSuccess)
         }
     }
 

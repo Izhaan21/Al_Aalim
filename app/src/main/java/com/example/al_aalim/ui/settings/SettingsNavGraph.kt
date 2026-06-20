@@ -58,6 +58,7 @@ sealed class SettingsRoute(val route: String) {
     object Account : SettingsRoute("settings_account")
     object Language : SettingsRoute("settings_language")
     object Privacy : SettingsRoute("settings_privacy")
+    object Terms : SettingsRoute("settings_terms")
     object Faq : SettingsRoute("settings_faq")
 }
 
@@ -95,6 +96,9 @@ fun SettingsNavGraph(
         }
         composable(SettingsRoute.Privacy.route) {
             PrivacyPolicyScreen(onBack = { navController.popBackStack() })
+        }
+        composable(SettingsRoute.Terms.route) {
+            TermsOfUseScreen(onBack = { navController.popBackStack() })
         }
         composable(SettingsRoute.Faq.route) {
             FaqFeedbackScreen(onBack = { navController.popBackStack() })
@@ -208,6 +212,8 @@ fun MainSettingsScreen(
                             SettingsRowItem(iconRes = R.drawable.ic_settings_faq, title = "FAQ & Feedback", onClick = { onNavigate(SettingsRoute.Faq.route) })
                             Divider(color = Color.White.copy(alpha = 0.1f))
                             SettingsRowItem(iconRes = R.drawable.ic_settings_privacy, title = "Privacy Policy", onClick = { onNavigate(SettingsRoute.Privacy.route) })
+                            Divider(color = Color.White.copy(alpha = 0.1f))
+                            SettingsRowItem(iconRes = R.drawable.ic_settings_privacy, title = "Terms of Use", onClick = { onNavigate(SettingsRoute.Terms.route) })
                             Divider(color = Color.White.copy(alpha = 0.1f))
                             SettingsRowItem(iconRes = R.drawable.ic_settings_about, title = "About", tint = Color.Unspecified, onClick = { onShowDialog("about") })
                         }

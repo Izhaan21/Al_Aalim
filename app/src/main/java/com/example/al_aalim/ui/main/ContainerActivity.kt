@@ -292,24 +292,52 @@ class ContainerActivity : ComponentActivity(), SensorEventListener {
     }
 
     private fun startLocationTracking() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            val locationRequest = com.google.android.gms.location.LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 2000).build()
-            val locationCallback = object : com.google.android.gms.location.LocationCallback() {
-                override fun onLocationResult(locationResult: com.google.android.gms.location.LocationResult) {
-                    locationResult.lastLocation?.let { location ->
-                        userLatitudeState.doubleValue = location.latitude
-                        userLongitudeState.doubleValue = location.longitude
-                        hasLocationState.value = true
-                        isLoadingLocationState.value = false
-                        calculateQibla()
-                        fusedLocationClient.removeLocationUpdates(this)
-                    }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            isLoadingLocationState.value = false
+            return
+        }
+        // Try cached last-known location first — returns instantly
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    userLatitudeState.doubleValue = location.latitude
+                    userLongitudeState.doubleValue = location.longitude
+                    hasLocationState.value = true
+                    isLoadingLocationState.value = false
+                    calculateQibla()
+                } else {
+                    // No cached fix — request a fresh one
+                    requestFreshLocation()
                 }
             }
-            fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, android.os.Looper.getMainLooper())
-        } else {
+            .addOnFailureListener {
+                requestFreshLocation()
+            }
+    }
+
+    private fun requestFreshLocation() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             isLoadingLocationState.value = false
+            return
         }
+        val cts = CancellationTokenSource()
+        fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, cts.token)
+            .addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    userLatitudeState.doubleValue = location.latitude
+                    userLongitudeState.doubleValue = location.longitude
+                    hasLocationState.value = true
+                    isLoadingLocationState.value = false
+                    calculateQibla()
+                } else {
+                    isLoadingLocationState.value = false
+                }
+            }
+            .addOnFailureListener {
+                isLoadingLocationState.value = false
+            }
     }
 
     private fun calculateQibla() {
@@ -361,6 +389,17 @@ fun ContainerScreen(
     val scope = rememberCoroutineScope()
     val pagerState = rememberPagerState(initialPage = 0) { 4 }
 
+    // Hoist HomeViewModel here so onNewChat can reset it instantly — no LaunchedEffect delay
+    val homeViewModel = androidx.lifecycle.viewmodel.compose.viewModel<com.example.al_aalim.viewmodel.HomeViewModel>(
+        factory = ViewModelFactory(LocalContext.current)
+    )
+
+    // Keep homeViewModel in sync whenever the active conversation changes
+    val activeId by mainViewModel.activeConversationId.collectAsStateWithLifecycle()
+    LaunchedEffect(activeId) {
+        homeViewModel.setActiveConversation(activeId)
+    }
+
     // Sync bottom nav with pager
     val currentPage by remember { derivedStateOf { pagerState.currentPage } }
 
@@ -377,8 +416,9 @@ fun ContainerScreen(
                     accountViewModel = accountViewModel,
                     onCloseDrawer = { scope.launch { drawerState.close() } },
                     onNewChat = {
-                        // Immediately reset chat state — no waiting for drawer animation
+                        // Reset both VMs immediately — UI responds before drawer even closes
                         mainViewModel.setActiveConversation(null)
+                        homeViewModel.setActiveConversation(null)
                         scope.launch {
                             pagerState.scrollToPage(0) // Snap to home page instantly
                             drawerState.close()
@@ -410,25 +450,18 @@ fun ContainerScreen(
                 state = pagerState,
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(bottom = paddingValues.calculateBottomPadding()),
+                    .padding(bottom = paddingValues.calculateBottomPadding())
+                    .consumeWindowInsets(PaddingValues(bottom = paddingValues.calculateBottomPadding())),
                 beyondViewportPageCount = 1, // Pre-compose adjacent pages
                 userScrollEnabled = true
             ) { page ->
                 when (page) {
                     0 -> {
-                        // Home / Chat
-                        val homeViewModel = androidx.lifecycle.viewmodel.compose.viewModel<com.example.al_aalim.viewmodel.HomeViewModel>(
-                            factory = ViewModelFactory(LocalContext.current)
-                        )
-                        val activeId by mainViewModel.activeConversationId.collectAsStateWithLifecycle()
-                        LaunchedEffect(activeId) {
-                            homeViewModel.setActiveConversation(activeId)
-                        }
+                        // Home / Chat — uses hoisted homeViewModel, no LaunchedEffect bridge needed
                         HomeRoute(
                             viewModel = homeViewModel,
                             onMenuClick = { scope.launch { drawerState.open() } },
                             onAccountClick = onOpenAccount,
-                            // Fix 6: Refresh drawer conversation list when a new chat is created
                             onRefreshDrawer = { mainViewModel.loadConversations() }
                         )
                     }

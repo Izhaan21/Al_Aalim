@@ -178,7 +178,29 @@ class ProfilePhotoActivity : ComponentActivity() {
                                 Text("Choose from Album", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                             }
                         }
-                        
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        // Show delete button only when a profile photo exists
+                        if (profileBitmapState.value != null) {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                                    .padding(horizontal = 40.dp)
+                                    .clip(RoundedCornerShape(16.dp))
+                                    .background(Brush.linearGradient(listOf(Gold, Color(0xFFC59A45))))
+                                    .clickable { deleteProfilePhoto() },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Icon(painterResource(R.drawable.ic_account_delete), contentDescription = null, tint = Color.White, modifier = Modifier.size(22.dp))
+                                    Spacer(Modifier.width(12.dp))
+                                    Text("Delete Profile Photo", color = Color.White, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                                }
+                            }
+                        }
+
                         Spacer(modifier = Modifier.height(80.dp))
                     }
                 }
@@ -259,6 +281,17 @@ class ProfilePhotoActivity : ComponentActivity() {
         return File.createTempFile("PROFILE_${timeStamp}_", ".jpg", storageDir)
     }
     
+    private fun deleteProfilePhoto() {
+        val userId = accountViewModel.currentUser?.uid ?: return
+        val deleted = ProfileManager.deleteProfileImage(this, userId)
+        if (deleted) {
+            profileBitmapState.value = null
+            Toast.makeText(this, "Profile photo removed", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Failed to remove photo", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun handleSelectedImage(uri: Uri) {
         val intent = Intent(this, CropPhotoActivity::class.java)
         intent.putExtra(CropPhotoActivity.EXTRA_IMAGE_URI, uri)

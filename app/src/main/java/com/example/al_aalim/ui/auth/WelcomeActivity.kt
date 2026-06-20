@@ -62,6 +62,8 @@ import com.example.al_aalim.viewmodel.AuthState
 import com.example.al_aalim.viewmodel.AuthViewModel
 import com.example.al_aalim.viewmodel.ViewModelFactory
 import com.example.al_aalim.ui.permissions.LocationPermissionActivity
+import com.example.al_aalim.ui.settings.SettingsActivity
+import com.example.al_aalim.ui.settings.SettingsRoute
 
 class WelcomeActivity : ComponentActivity() {
 
@@ -256,6 +258,47 @@ fun WelcomeScreen(
                             fontSize = 16.sp
                         )
                     }
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                // Terms & Privacy footer
+                Text(
+                    text = "By continuing, you agree to our",
+                    color = Color.White.copy(alpha = 0.6f),
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Center
+                )
+                Row(
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Text(
+                        text = "Terms of Use",
+                        color = Gold,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(context, SettingsActivity::class.java)
+                            intent.putExtra("start_destination", SettingsRoute.Terms.route)
+                            context.startActivity(intent)
+                        }
+                    )
+                    Text(
+                        text = "  &  ",
+                        color = Color.White.copy(alpha = 0.6f),
+                        fontSize = 12.sp
+                    )
+                    Text(
+                        text = "Privacy Policy",
+                        color = Gold,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            val intent = Intent(context, SettingsActivity::class.java)
+                            intent.putExtra("start_destination", SettingsRoute.Privacy.route)
+                            context.startActivity(intent)
+                        }
+                    )
                 }
             }
         }

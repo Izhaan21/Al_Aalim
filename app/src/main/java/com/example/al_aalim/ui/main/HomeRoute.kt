@@ -182,7 +182,7 @@ fun HomeRoute(
                             listOf(BackgroundGradientStart, BackgroundGradientEnd)
                         )
                     )
-                    .padding(paddingValues)
+                    .padding(top = paddingValues.calculateTopPadding())
                     .imePadding()
             ) {
             // Chat Content
