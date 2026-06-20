@@ -133,16 +133,18 @@ fun WelcomeScreen(
                 verticalArrangement = Arrangement.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    painter = painterResource(id = R.mipmap.ic_launcher_foreground),
                     contentDescription = "Logo",
-                    modifier = Modifier.size(180.dp),
+                    modifier = Modifier
+                        .size(120.dp)
+                        .clip(RoundedCornerShape(24.dp)),
                     contentScale = ContentScale.Fit
                 )
                 
                 Spacer(modifier = Modifier.height(32.dp))
                 
                 Text(
-                    text = "Al-Aalim",
+                    text = "Al Aalim",
                     color = Gold,
                     fontSize = 42.sp,
                     fontWeight = FontWeight.Bold,

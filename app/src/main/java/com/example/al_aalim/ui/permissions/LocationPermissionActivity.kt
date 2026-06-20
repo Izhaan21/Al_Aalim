@@ -361,17 +361,6 @@ private fun LocationPermissionScreen(
             )
     ) {
         // Mosque silhouette at bottom
-        Image(
-            painter = painterResource(R.drawable.mosque_skyline_new),
-            contentDescription = "Mosque silhouette",
-            contentScale = ContentScale.FillBounds,
-            colorFilter = ColorFilter.tint(Color.White),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(350.dp)
-                .align(Alignment.BottomCenter)
-                .graphicsLayer { alpha = mosqueAlpha }
-        )
 
         // Main Content
         Column(
